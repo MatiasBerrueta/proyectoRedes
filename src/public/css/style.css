@@ -5,18 +5,23 @@
     font-family: "Inter", sans-serif;
 }
 
+:where(textarea),
+:where(input[type="text"],input[type="search"],input[type="password"],input[type="url"]){
+  appearance: none;
+  border-style: solid;
+  outline: none;
+}
+
 body {
     display: grid;
     place-content: center;
     width: 100vw;
     height: 100vh;
-    background-color: #f0f0f0;
 }
 
 .form-container {
     padding: 3rem;
     background-color: white;
-    border: 1px solid #e5e5e5;
     border-radius: 10px;
 }
 
@@ -101,6 +106,7 @@ form .boton-toggle-contrasena:hover .icon {
 form input {
     width: 50ch;
     padding-left: 40px;
+    padding-right: 40px;
     height: 40px;
     border: 1px solid #e5e5e5;
     border-radius: 7px;
@@ -108,23 +114,33 @@ form input {
         drop-shadow(0px 1px 0.5px rgba(239, 239, 239, 0.5));
 }
 
+form input:hover, form input:focus {
+    border-color: #aaaaaa;
+}
+
 form input.campo-valido {
     background-color: rgba(163, 255, 163, 0.3);
-    border-color: rgb(53, 184, 53);
-    outline-color: rgb(54, 209, 54);
+    border-color: rgba(72, 153, 72, 0.31);
+}
+
+form input.campo-valido:hover, form input.campo-valido:focus {
+    border-color: rgba(72, 153, 72, 0.6);
 }
 
 form input.campo-no-valido {
     background-color: rgba(255, 163, 163, 0.3);
-    border-color: rgb(184, 53, 53);
-    outline-color: rgb(209, 54, 54);
+    border-color: rgba(153, 72, 72, 0.31);
+}
+
+form input.campo-no-valido:hover, form input.campo-no-valido:focus {
+    border-color: rgba(153, 72, 72, 0.6);
 }
 
 form div {
     position: relative;
     display: flex;
     flex-direction: column;
-    margin: 0.75rem 0;
+    margin: 1.5rem 0;
 }
 
 form div label {
