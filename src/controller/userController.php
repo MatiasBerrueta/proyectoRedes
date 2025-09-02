@@ -20,30 +20,25 @@ class userController {
         return $longitud && $contrasenasIguales;
     }
 
-    public function registrar($nombre, $email, $contrasena, $contrasenaRepetida) {
+    public function registrar($email, $contrasena, $contrasenaRepetida) {
         if (!$this->validarContrasena($contrasena, $contrasenaRepetida)) {
             return "La contraseña no cumple con los requisitos de seguridad.";
         }
 
-        $usuario = new usuario($this->db);
-        $usuario->nombre = $nombre;
-        $usuario->email = $email;
-        $usuario->contrasenaPlana = $contrasena;
+        $usuario = new usuario($email, $contrasena, $this->db);
 
         if($usuario->crearUsuario()) {
-            $this->iniciarSesion($usuario->email, $usuario->contrasenaPlana);
+            $this->iniciarSesion($usuario->getEmail(), $usuario->getContrasena());
             return "Cuenta creada.";
         } else {
             return "Error al registrar el usuario.";
         }
     }
 
-    public function iniciarSesion($email, $contrasena) {
-        $usuario = new usuario($this->db);
-        $usuario->email = $email;
-        $usuario->contrasenaPlana = $contrasena;
+    public function iniciarSesion($email, $contrasenaPlana) {
+        $usuario = new usuario($email, $contrasenaPlana, $this->db);
 
-        $datosUsuario = $usuario->autenticarUsuario();
+        $datosUsuario = $usuario->autenticarUsuario($contrasenaPlana);
 
         if($datosUsuario) {
             session_start();
