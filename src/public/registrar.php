@@ -5,10 +5,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'] ?? '';
     $email = $_POST['email'] ?? '';
     $contrasena = $_POST['contrasena'] ?? '';
-    $contrasenaRepetida = $_POST['contrasenaRepetida'] ?? '';
+    $confirmarContrasena = $_POST['confirmarContrasena'] ?? '';
 
     $controller = new userController();
-    $mensaje = $controller->registrar($nombre, $email, $contrasena, $contrasenaRepetida);
+    $mensaje = $controller->registrar($nombre, $email, $contrasena, $confirmarContrasena);
 
     echo $mensaje;
 }
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" class="icon">
                     <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z" clip-rule="evenodd" />
                 </svg>
-                <input id="input-confirmar-contrasena" type="password" placeholder="Confirmar contrasena" name="contrasenaRepetida" required>
+                <input id="input-confirmar-contrasena" type="password" placeholder="Confirmar contrasena" name="confirmarContrasena" required>
                 <button id="boton-toggle-confirmar-contrasena" class="boton-toggle-contrasena" type="button" onClick="toggleContrasena(this)" data-target="input-confirmar-contrasena">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" class="icon">
                         <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />

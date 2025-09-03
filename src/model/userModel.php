@@ -45,11 +45,15 @@ class usuario {
     }
 
     public function getEmail() {
-        return $this->nombre;
+        return $this->email;
     }
 
-    public function getContrasena() {
-        return $this->nombre;
+    public function setNombre($nombre) {
+        $this->nombre = $nombre;
+    }
+
+    public function setContrasena($contrasena) {
+        $this->nombre = $contrasena;
     }
 }
 ?>

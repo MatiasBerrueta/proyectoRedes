@@ -10,25 +10,28 @@ class userController {
         $this->db = $database->getConexion();
     }
 
-    private function validarContrasena($contrasena, $contrasenaRepetida) {
+    public function validarContrasena($contrasena, $confirmarContrasena) {
         // seguridad a implementar:
         // nombre o email no pueden estar en la contrasena
-        // $longitud = strlen($contrasena) >= 12;
-        $longitud = true;
-        $contrasenasIguales = $contrasena === $contrasenaRepetida;
+
+        // longitud minima en 3 para pruebas cambiar a 12 despues
+        $longitud = strlen($contrasena) >= 3;
+        $contrasenasIguales = $contrasena === $confirmarContrasena;
 
         return $longitud && $contrasenasIguales;
     }
 
-    public function registrar($email, $contrasena, $contrasenaRepetida) {
-        if (!$this->validarContrasena($contrasena, $contrasenaRepetida)) {
+    public function registrar($nombre, $email, $contrasena, $confirmarContrasena) {
+        if (!$this->validarContrasena($contrasena, $confirmarContrasena)) {
             return "La contraseña no cumple con los requisitos de seguridad.";
         }
 
         $usuario = new usuario($email, $contrasena, $this->db);
+        // capas esto deberia ir en el constructor y ponerlo null en iniciarSesion
+        $usuario->setNombre($nombre);
 
         if($usuario->crearUsuario()) {
-            $this->iniciarSesion($usuario->getEmail(), $usuario->getContrasena());
+            $this->iniciarSesion($usuario->getEmail(), $contrasena);
             return "Cuenta creada.";
         } else {
             return "Error al registrar el usuario.";
