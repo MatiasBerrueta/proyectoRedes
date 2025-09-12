@@ -1,20 +1,27 @@
 <?php
-class database {
-    private $HOST = 'db';
-    private $BASE_DATOS = 'proyectoRedesBase';
-    private $USUARIO = 'root';
-    private $CONTRASENA = 'root123';
-    public $conexion;
-    
-    public function getConexion() {
-        try {
-            $this->conexion = new PDO("mysql:host=$this->HOST;dbname=$this->BASE_DATOS;charset=utf8", $this->USUARIO, $this->CONTRASENA);
-            $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch(PDOException $exception) {
-            die("Conexión fallida: " . $exception->getMessage());
-        }
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/logs/error.log'); 
 
-        return $this->conexion;
-    }
+set_error_handler(function($severity, $message, $file, $line) {
+    error_log("Error: [$severity] $message in $file on line $line");
+    echo json_encode(["status" => "error", "message" => $message]);
+});
+
+set_exception_handler(function($exception) {
+    error_log("Excepción: " . $exception->getMessage() . " en " . $exception->getFile() . " linea " . $exception->getLine());
+    echo json_encode(["status" => "error", "message" => $exception->getMessage()]);
+});
+
+$HOST = 'db';
+$BASE_DATOS = 'voxelHostingDB';
+$USUARIO = 'user';
+$CONTRASENA = 'pass123';
+
+try {
+    $conexion = new PDO("mysql:host=$HOST;dbname=$BASE_DATOS;charset=utf8", $USUARIO, $CONTRASENA);
+    $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $exception) {
+    die("Conexión fallida: " . $exception->getMessage());
 }
 ?>
