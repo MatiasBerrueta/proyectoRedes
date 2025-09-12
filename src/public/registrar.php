@@ -1,4 +1,5 @@
 <?php
+require_once "../config.php";
 require_once "../controller/userController.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -7,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $contrasena = $_POST['contrasena'] ?? '';
     $confirmarContrasena = $_POST['confirmarContrasena'] ?? '';
 
-    $controller = new userController();
+    $controller = new userController($conexion);
     $mensaje = $controller->registrar($nombre, $email, $contrasena, $confirmarContrasena);
 
     echo $mensaje;
