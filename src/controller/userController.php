@@ -1,19 +1,15 @@
 <?php
-require_once('../model/userModel.php');
 require_once('../config.php');
+require_once('../model/userModel.php');
 
 class userController {
     private $db;
 
-    public function __construct() {
-        $database = new database();
-        $this->db = $database->getConexion();
+    public function __construct($conexion) {
+        $this->db = $conexion;
     }
 
     public function validarContrasena($contrasena, $confirmarContrasena) {
-        // seguridad a implementar:
-        // nombre o email no pueden estar en la contrasena
-
         // longitud minima en 3 para pruebas cambiar a 12 despues
         $longitud = strlen($contrasena) >= 3;
         $contrasenasIguales = $contrasena === $confirmarContrasena;

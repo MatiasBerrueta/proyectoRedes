@@ -1,11 +1,12 @@
 <?php
+require_once "../config.php";
 require_once "../controller/userController.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'] ?? '';
     $contrasena = $_POST['contrasena'] ?? '';
 
-    $controller = new userController();
+    $controller = new userController($conexion);
     $mensaje = $controller->iniciarSesion($email, $contrasena);
 
     echo $mensaje;
@@ -17,12 +18,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
     <title>Login</title>
 </head>
 <body>
     <div class="form-container">
-        <h1>Login</h1>
+        <div style="display: grid; place-content: center;">
+            <img src="logo.png" alt="" class="logo">
+            <h1>Pixel Hosting</h1>
+        </div>
         <form action="" method="POST">
             <div>
                 <!-- <label for="input-email">Email</label> -->

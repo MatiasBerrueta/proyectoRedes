@@ -5,7 +5,7 @@
 // -verificacion de contrasena valida (servidor) -
 // -verificacion de contrasena valida (cliente)
 // -permitir crear o vincular cuentas con terceros autorizados (google, github)
-
+require_once('../config.php');
 session_start();
 
 if(!isset($_SESSION['nombre'])) {
