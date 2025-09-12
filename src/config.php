@@ -14,7 +14,7 @@ set_exception_handler(function($exception) {
 });
 
 $HOST = 'db';
-$BASE_DATOS = 'voxelHostingDB';
+$BASE_DATOS = 'voxelHosting';
 $USUARIO = 'user';
 $CONTRASENA = 'pass123';
 
