@@ -1,0 +1,206 @@
+// Usar esto en terminal para que se actualice cada vez que se guarda.
+// docker-compose exec app sass --watch /var/www/html/scss:/var/www/html/public/css
+
+*, *::after, *::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: "Inter", sans-serif;
+}
+
+:where(textarea),
+:where(input[type="text"],input[type="search"],input[type="password"],input[type="url"]){
+  appearance: none;
+  border-style: solid;
+  outline: none;
+}
+
+body {
+    display: grid;
+    place-content: center;
+    width: 100vw;
+    height: 100vh;
+    // background-color: #333333;
+}
+
+.logo {
+    margin: 0 auto;
+    filter: drop-shadow(5px 5px 0px black);
+}
+
+.form-container {
+    padding: 3rem;
+    border-radius: 10px;
+
+    h1 {
+        text-align: center;
+        font-size: 32px;
+        margin: 0.75rem 0;
+        font-family: "Pixelify Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        /* margin-bottom: 2rem; */
+    }
+}
+
+.boton-subir {
+    width: 100%;
+    background: none;
+    padding: 0.75rem 0;
+    border: 1px solid #cccccc;
+    border-radius: 7px;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover, &:focus {
+        border-color: #666666;
+    }
+}
+
+.boton-azul {
+    color: #ffffff;
+    background: #115DFC;
+    border-color: #115DFC;
+
+    &:hover, &:focus {
+        background-color : #0539a8;
+        border-color: #0539a8;
+    }
+}
+
+.boton-negro {
+    color: #ffffff;
+    background: #1c2029;
+    border-color: #1c2029;
+
+    &:hover, &:focus {
+        background-color : #0a0e18;
+        border-color: #0a0e18;
+    }
+    
+}
+
+.icon {
+    position: absolute;
+    z-index: 99;
+    width: 20px;
+    height: 20px;
+    left: 12px;
+    bottom: 9px;
+    pointer-events: none;
+    color: #666666;
+}
+
+.boton-toggle-contrasena {
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    padding: 10px;
+    right: 10px;
+    bottom: 7px;
+    background: none;
+    border-color: transparent;
+    cursor: pointer;
+
+    .icon {
+        left: 0;
+        bottom: 0;
+    }   
+
+    &:hover .icon {
+        color: #222222;
+    }
+}
+
+div {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 1.5rem 0;
+
+    label {
+        font-size: 0.75rem;
+        color: #8B8E98;
+        font-weight: 600;
+        margin-bottom: 0.5em;
+    }
+} 
+
+input {
+    width: 50ch;
+    padding-left: 40px;
+    padding-right: 40px;
+    height: 40px;
+    border: 1px solid #e5e5e5;
+    border-radius: 7px;
+    filter: drop-shadow(0px 1px 0px #efefef)
+        drop-shadow(0px 1px 0.5px rgba(239, 239, 239, 0.5));
+
+    &:hover, &:focus {
+        border-color: #aaaaaa;
+    }
+
+    &.campo-valido {
+        background-color: rgba(163, 255, 163, 0.3);
+        border-color: rgba(72, 153, 72, 0.31);
+
+        &:hover, &:focus{
+            border-color: rgba(72, 153, 72, 0.6);
+        }
+    }
+
+    &.campo-no-valido {
+        background-color: rgba(255, 163, 163, 0.3);
+        border-color: rgba(153, 72, 72, 0.31);
+
+        &:hover, &:focus {
+            border-color: rgba(153, 72, 72, 0.6);
+        }
+    }
+}
+
+.mensaje-form {
+    display: block;
+    color: #8B8E98;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.mensaje-form a {
+    text-decoration: none;
+    color: #113ea0;
+}
+
+.mensaje-form a:hover, .mensaje-form a:focus {
+    text-decoration: underline;
+}
+
+.separador {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  color: #8B8E98;
+  margin: 1rem 0;
+}
+
+.separador .linea {
+  display: block;
+  width: 100%;
+  height: 1px;
+  border: 0;
+  background-color: #e8e8e8;
+}
+
+.separador small {
+    white-space: nowrap;
+}
+
+.contenedor-otras-opciones {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+}
