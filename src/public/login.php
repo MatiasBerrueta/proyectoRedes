@@ -18,18 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="logo.svg" type="image/x-icon">
     <link rel="stylesheet" href="css/registro.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
-    <title>Login</title>
+    <title>Login - Voxel Hosting</title>
 </head>
 <body>
     <div class="form-container">
         <div style="display: grid; place-content: center;">
-            <img src="logo.png" alt="" class="logo">
-            <h1>Pixel Hosting</h1>
+            <img src="logo.svg" alt="" class="logo">
+            <!-- <h1>Voxel Hosting</h1> -->
         </div>
         <form action="" method="POST">
             <div>
