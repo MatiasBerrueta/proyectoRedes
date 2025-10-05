@@ -1,20 +1,3 @@
-<?php
-require_once "../config.php";
-require_once "../controller/userController.php";
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre = $_POST['nombre'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $contrasena = $_POST['contrasena'] ?? '';
-    $confirmarContrasena = $_POST['confirmarContrasena'] ?? '';
-
-    $controller = new userController($conexion);
-    $mensaje = $controller->registrar($nombre, $email, $contrasena, $confirmarContrasena);
-
-    echo $mensaje;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

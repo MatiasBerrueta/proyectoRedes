@@ -1,32 +1,17 @@
-<?php
-require_once "../config.php";
-require_once "../controller/userController.php";
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'] ?? '';
-    $contrasena = $_POST['contrasena'] ?? '';
-
-    $controller = new userController($conexion);
-    $mensaje = $controller->iniciarSesion($email, $contrasena);
-
-    echo $mensaje;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="logo.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="<?php __DIR__ . '/public/assets/favicon.svg' ?>" type="image/x-icon">
     <link rel="stylesheet" href="css/registro.css">
     <title>Login - Voxel Hosting</title>
 </head>
 <body>
     <div class="form-container">
         <div style="display: grid; place-content: center;">
-            <img src="logo.svg" alt="" class="logo">
-            <!-- <h1>Voxel Hosting</h1> -->
+            <img src="<?php __DIR__ . '/public/assets/logo.svg' ?>" alt="Voxel Hosting Logo" class="logo">
+            <!-- <h1 class="font-size: 40px">Voxel Hosting</h1> -->
         </div>
         <form action="" method="POST">
             <div>
