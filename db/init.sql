@@ -70,12 +70,12 @@ DELIMITER;
 -- PROCEDIMIENTOS ALMACENADOS --
 
 -- DATOS INICIALES --
-INSERT INTO usuario (email, contrasena) VALUES ('admin@mail.com','1234'); 
+INSERT INTO usuario (email, contrasena) VALUES ('admin@mail.com','$2y$10$TAKQqO5hD3rPbvZCguvHh.tSi7HkP8T4eDjXg5NtRX6bABuLxK4Pu'); 
 INSERT INTO administrador (id_usuario) VALUES (1); 
 
-CALL insertar_cliente('cliente@mail.com','abcd', '099123456');
+CALL insertar_cliente('cliente@mail.com','$2y$10$jgkRqMzgDyLrQULED32zP.6.HLQzhCtsYm22mrWWOA4Q8TU1AHH0S', '099123456');
  
-INSERT INTO plan (nombre, costo, max_jugadores, duracion, fecha_inicio) 
+INSERT INTO plan (nombre, costo, max_jugadores, duracion, fecha_inicio)
 VALUES ('Voxel Essential', 120.00, 20, 12, '2025-01-01'); 
  
 INSERT INTO servidor (nombre, dominio, puerto) 
