@@ -20,7 +20,7 @@ body {
     place-content: center;
     width: 100vw;
     height: 100vh;
-    // background-color: #333333;
+    // background-color: red;
 }
 
 .logo {
@@ -113,7 +113,8 @@ body {
     }   
 
     &:hover .icon {
-        color: #222222;
+        filter: brightness(0.5);
+        // color: #222222;
     }
 }
 
@@ -185,7 +186,7 @@ input {
   justify-content: center;
   gap: 30px;
   color: #8B8E98;
-  margin: 1rem 0;
+  margin: 2rem 0;
 }
 
 .separador .linea {
@@ -203,5 +204,6 @@ input {
 .contenedor-otras-opciones {
     display: flex;
     flex-direction: column;
-    row-gap: 0.5rem;
+    row-gap: 0.75rem;
+    margin: 0;
 }

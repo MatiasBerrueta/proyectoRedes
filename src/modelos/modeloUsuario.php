@@ -1,80 +1,81 @@
 <?php
 class modeloUsuario {
-    private $conexion;
-
-    private $idUsuario;
+    private $id_usuario;
     private $nombre;
     private $email;
-    private $telefono;
-    private $region;
-    private $localidad;
-    private $direccion;
+    private $contrasena;
+    private $rol;
+    private $pais;
     private $temaVisual;
     private $notificacionesActivas;
-    private $rol;
     private $estado;
 
-    public function __construct($idUsuario, $nombre, $email, $db) {
-        $this->idUsuario = $idUsuario;
-        $this->nombre = $nombre;
+    public function __construct($email, $contrasena) {
         $this->email = $email;
-        $this->conexion = $db;
+        $this->contrasena = $contrasena;
     }
 
-    public function modificarNombre($nuevoNombre) {
-        $this->nombre = $nuevoNombre;
-
-        $query = "UPDATE usuarios SET nombre = :nombre WHERE idUsuario = :idUsuario";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->bindParam(':nombre', $this->nombre);
-        $stmt->bindParam(':idUsuario', $this->idUsuario);
-
-        return $stmt->execute();
+    public function obtenerId() {
+        return $this->id_usuario;
     }
 
-    public function modificarTelefono($nuevoTelefono) {
-        $this->telefono = $nuevoTelefono;
-
-        $query = "UPDATE usuarios SET telefono = :telefono WHERE idUsuario = :idUsuario";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->bindParam(':telefono', $this->telefono);
-        $stmt->bindParam(':idUsuario', $this->idUsuario);
-
-        return $stmt->execute();
+    public function obtenerNombre() {
+        return $this->nombre;
     }
 
-    public function modificarRegion($nuevaRegion) {
-        $this->region = $nuevaRegion;
-
-        $query = "UPDATE usuarios SET region = :region WHERE idUsuario = :idUsuario";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->bindParam(':region', $this->region);
-        $stmt->bindParam(':idUsuario', $this->idUsuario);
-
-        return $stmt->execute();
+    public function obtenerEmail() {
+        return $this->email;
     }
 
-    public function modificarLocalidad($nuevaLocalidad) {
-        $this->localidad = $nuevaLocalidad;
-
-        $query = "UPDATE usuarios SET localidad = :localidad WHERE idUsuario = :idUsuario";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->bindParam(':localidad', $this->localidad);
-        $stmt->bindParam(':idUsuario', $this->idUsuario);
-
-        return $stmt->execute();
+    public function obtenerRol() {
+        return $this->rol;
     }
 
-    public function modificarContrasena($contrasenaActual, $contrasenaNueva, $modeloAutenticar) {
-        if(!$modeloAutenticar->autenticarContrasena($this->idUsuario, $contrasenaActual)) return false;
+    public function obtenerContrasena() {
+        return $this->contrasena;
+    }
 
-        $contrasenaNuevaHasehada = password_hash($contrasenaNueva, PASSWORD_BCRYPT);
-        $query = "UPDATE usaurios SET contrasena = :hash WHERE idUsuario = :idUsuario";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->bindParam(':hash', $contrasenaNuevaHasehada);
-        $stmt->bindParam(':idUsuario', $this->idUsuario);
-        
-        return $stmt->execute();
+    public function establecerNombre($nombre) {
+        $this->nombre = $nombre;
+    }
+
+    public function establecerPais($pais) {
+        $this->pais = $pais;
+    }
+
+    public function establecerContrasena($contrasenaActual, $contrasenaNueva, $modeloAutenticar) {
+
+    }
+
+    public function establecerRol($rol) {
+        $this->rol = $rol;
+    }
+
+    public function insertarUsuario($rol) {
+        $db = new Database();
+        $conexion = $db->getConexion();
+
+        if(!in_array($rol, ["ADMIN", "CLIENTE"])) {
+            return null;
+        }
+
+        $query = "INSERT INTO USUARIO (nombre, email, contrasena, rol) VALUES (:nombre, :email, :contrasena, :rol)";
+        // $query = 'CALL AGREGAR_USUARIO(:nombre, :email, :contrasena, uruguay)';
+        $stmt = $conexion->prepare($query);
+
+        $stmt->bindParam(':nombre', $this->nombre, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
+        $stmt->bindParam(':contrasena', $this->contrasena, PDO::PARAM_STR);
+        $stmt->bindParam(':rol', $rol, PDO::PARAM_STR);
+        $this->id_usuario = $conexion->lastInsertId();
+
+        if($stmt->execute()) {
+            $conexion = null;
+            return true;
+        } else {
+            $conexion = null;
+            return null;
+        }
     }
 }
 ?>

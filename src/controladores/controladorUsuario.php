@@ -1,12 +1,11 @@
 <?php
-require_once('../config.php');
 require_once('../modelos/modeloUsuario.php');
 
 class controladorUsuario {
     private $modeloUsuario;
 
-    public function __construct($idUsuario, $nombre, $email, $conexion) {
-        $this->modeloUsuario = new modeloUsuario($idUsuario, $nombre, $email, $conexion);
+    public function __construct($idUsuario, $nombre, $email, $contrasena, $tipo) {
+        $this->modeloUsuario = new modeloUsuario($idUsuario, $nombre, $email, $contrasena, $tipo);
     }
 
     public function cambiarNombre($nuevoNombre) {
@@ -14,8 +13,11 @@ class controladorUsuario {
             return false;
         }
 
-        
-        $this->modeloUsuario->modificarNombre($nuevoNombre);
+        $this->modeloUsuario->establecerNombre($nuevoNombre);
+    }
+
+    public function cambiarEmail($nuevoEmail) {
+        return;
     }
 }
 ?>

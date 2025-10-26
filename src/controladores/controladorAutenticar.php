@@ -1,56 +1,77 @@
 <?php
-require_once "../modelos/modeloAutenticar.php";
+require_once "../modelos/modeloUsuario.php";
+require_once "../modelos/repositorioUsuario.php";
 
 class controladorAutenticar {
-    private $autenticar;
+    public function registrarUsuario($nombre, $email, $contrasena, $confirmarContrasena, $rol) {
+        $emailError = '';
+        $contrasenaError = '';
+        $confirmarContrasenaError = '';
 
-    public function __construct($db) {
-        $this->autenticar = new modeloAutenticar($db);
-    } 
-
-    public function validarContrasena($contrasena, $confirmarContrasena) {
-        // longitud minima en 3 para pruebas cambiar a 12 despues
-        $longitud = strlen($contrasena) >= 3;
-        $contrasenasIguales = $contrasena === $confirmarContrasena;
-
-        return $longitud && $contrasenasIguales;
-    }
-
-    public function registrarUsuario($nombre, $email, $contrasena, $confirmarContrasena) {
-        if (!$this->validarContrasena($contrasena, $confirmarContrasena)) {
-            return "La contraseña no cumple con los requisitos de seguridad.";
-        }
-
-        $resultado = $this->autenticar->crearUsuario($nombre, $email, $contrasena);
-
-        if($resultado) {
-            $this->iniciarSesion($email, $contrasena);
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $emailError = 'Introduzca un email valido';
         } else {
-            return "Error al registrar el usuario.";
+            $repositorioUsuario = new repositorioUsuario();
+            $usuarioEnBd = $repositorioUsuario->obtenerUsuarioPorEmail($email);
+
+            if($usuarioEnBd) {
+                $emailError = 'Ya existe un usuario con ese email';
+            }
         }
+
+        if(strlen($contrasena) < 3) {
+            $contrasenaError = 'La contrasena tiene que tener mas de 3 caracteres';
+        }
+
+        if($contrasena != $confirmarContrasena) {
+            $confirmarContrasenaError = 'Las contrasena no coinciden';
+        }
+
+        if(!$emailError && !$contrasenaError && !$confirmarContrasenaError) {
+            $contrasenaHash = password_hash($_POST['contrasena'], PASSWORD_BCRYPT);
+            $usuario = new modeloUsuario($_POST['email'], $contrasenaHash);
+            $usuario->establecerNombre($nombre);
+            $resultado = $usuario->insertarUsuario($contrasena, $rol);
+
+            if(!is_null($resultado) && $resultado) {
+                $this->iniciarSesion($email, $contrasena);
+                exit;
+            } else {
+                $error = "Error al registrar el usuario.";
+            }
+        }
+
+        require_once '../vistas/vistaRegistrarUsuario.php';
     }
 
     public function iniciarSesion($email, $contrasena) {
-        $datosUsuario = $this->autenticar->obtenerUsuarioPorEmail($email);
+        $repositorioUsuario = new repositorioUsuario();
+        $datosUsuario = $repositorioUsuario->obtenerUsuarioPorEmail($email);
 
-        if($datosUsuario && password_verify($contrasena, $datosUsuario['contrasena'])) {
-            session_start();
-            $_SESSION['idUsuario'] = $datosUsuario['idUsuario'];
-            $_SESSION['nombre'] = $datosUsuario['nombre'];
-            $_SESSION['email'] = $datosUsuario['email'];
-            header('Location: index.php');
-            exit();
+        if(password_verify($contrasena, $datosUsuario['contrasena'])) {
+            $_SESSION['usuario'] = [
+                'id' => $datosUsuario['id_usuario'],
+                'nombre' => $datosUsuario['nombre'],
+                'email' => $datosUsuario['email'],
+                'rol' => $datosUsuario['rol'],
+            ];
+
+            if($datosUsuario['rol'] === 'ADMIN') {
+                header("Location: /admin/perfil");
+            } else if ($datosUsuario['rol'] === 'CLIENTE') {
+                header("Location: /usuario/perfil");
+            }
         } else {
-            return "Creedenciales incorrectas";
+            $error = "Credenciales incorrectas";
+            require_once '../vistas/vistaIniciarSesion.php';
         }
     }
 
     public function cerrarSesion() {
-        session_start();
         session_unset();
         session_destroy();
         
-        header('Location: ../vistas/vistaIniciarSesion.php');
+        header('Location: /');
         exit();
     }
 }

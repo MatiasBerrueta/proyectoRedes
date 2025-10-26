@@ -6,7 +6,8 @@
     <title>Pagina principal</title>
 </head>
 <body>
-    <?php echo 'Hola! ' . $_SESSION['nombre'] ?>
-    <a href="logout.php">Cerrar sesion</a>
+    <h1>Bienvenido</h1>
+    <a href="/login">Inciar Sesion</a>
+    <a href="/registrarCliente">Crear cuenta</a>
 </body>
 </html>

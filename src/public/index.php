@@ -3,15 +3,15 @@
 // -sistema de inicio de sesion. --
 // -sistema de recuperar contrasena.
 // -verificacion de contrasena valida (servidor) -
-// -verificacion de contrasena valida (cliente)
+// -verificacion de contrasena valida (cliente) -
 // -permitir crear o vincular cuentas con terceros autorizados (google, github)
-require_once('../config.php');
+// -sistema de roles
+// -sistema de logs mas detallado especificamente para errores de bd
+
 session_start();
 
-if(!isset($_SESSION['nombre'])) {
-    header('Location: login.php');
-    exit();
-}
-
-require_once('views/viewPaginaPrincipal');
+// base de datos unicamente en los modelos, esto no
+require_once '../config.php';
+require_once '../vendor/autoload.php';
+require_once '../rutas.php';
 ?>
