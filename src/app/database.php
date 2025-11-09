@@ -2,8 +2,8 @@
 class Database {
     private $HOST = 'db';
     private $BASE_DATOS = 'Voxel_Hosting';
-    private $USUARIO = 'test_user';
-    private $CONTRASENA = 'contra123';
+    private $USUARIO = 'root';
+    private $CONTRASENA = 'root123';
     private $conexion;
 
     public function __construct() {

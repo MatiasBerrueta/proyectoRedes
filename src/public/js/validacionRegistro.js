@@ -1,6 +1,13 @@
+const formularioRegistro = document.getElementById('formulario-registro');
+
 const inputEmail = document.getElementById('input-email');
 const inputContrasena = document.getElementById('input-contrasena');
 const inputConfirmarContrasena = document.getElementById('input-confirmar-contrasena');
+
+const mensajeErrorEmail = document.getElementById('mensaje-error-email');
+const mensajeErrorContrasena = document.getElementById('mensaje-error-contrasena');
+const mensajeErrorConfirmarContrasena = document.getElementById('mensaje-error-confirmar-contrasena');
+const mensajeErrorGeneral = document.getElementById('mensaje-error-general');
 
 // Este regex cumple con el estandar RFC 5322 y funciona en el 99% de los casos incluyendo los mas raros. 
 // Tambien corrige un error de otro similar donde se aceptaba una IP con 00 (no valido en IPV4)
@@ -11,24 +18,59 @@ const inputConfirmarContrasena = document.getElementById('input-confirmar-contra
 // por ser mas simple se va a usar hasta que empiece a fallar.
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-
-// -No funciona en el confirmar contrasena del todo, si lo haces en orden si, pero si escribis la primera
-//  contrasena bien despues la segunda bien y volves a cambiar la primera la segunda aparece como bien porque
-//  no se cambio todavia, la segunda deberia seguir al primero tambien para que se actualice al mismo tiempo.
-// -Falta agregar un mensaje que diga porque el campo no es valido.
-function validarCampo(criterio, elementoValidar) {
-    if(criterio) {
-        elementoValidar.classList.remove('campo-no-valido')
-        elementoValidar.classList.add('campo-valido')
+function validarInputEmail(elementoValidar) {
+    if(emailRegex.test(elementoValidar.value)) {
+        elementoValidar.classList.remove('campo-no-valido');
+        // elementoValidar.classList.add('campo-valido');
     } else {
-        elementoValidar.classList.remove('campo-valido')
-        elementoValidar.classList.add('campo-no-valido')
+        // elementoValidar.classList.remove('campo-valido');
+        elementoValidar.classList.add('campo-no-valido');
     }
 }
 
-inputEmail.addEventListener('input', () => validarCampo(emailRegex.test(inputEmail.value), inputEmail));
-inputContrasena.addEventListener('input', () => {
-        validarCampo(inputContrasena.value.length >= 3, inputContrasena);
-        validarCampo(inputConfirmarContrasena.value === inputContrasena.value, inputConfirmarContrasena)
-    });
-inputConfirmarContrasena.addEventListener('input', () => validarCampo(inputConfirmarContrasena.value === inputContrasena.value, inputConfirmarContrasena));
+function validarInputContrasena(elementoValidar) {
+    if(elementoValidar.value.length >= 3) {
+        elementoValidar.classList.remove('campo-no-valido');
+        // elementoValidar.classList.add('campo-valido');
+    } else {
+        // elementoValidar.classList.remove('campo-valido');
+        elementoValidar.classList.add('campo-no-valido');
+    }
+}
+
+function validarInputConfirmarContrasena(elementoValidar) {
+    if(elementoValidar.value === inputContrasena.value) {
+        elementoValidar.classList.remove('campo-no-valido');
+        // elementoValidar.classList.add('campo-valido');
+    } else {
+        // elementoValidar.classList.remove('campo-valido');
+        elementoValidar.classList.add('campo-no-valido');
+    }
+}
+
+
+inputEmail.addEventListener('blur', () => validarInputEmail(inputEmail));
+inputContrasena.addEventListener('blur', () => validarInputContrasena(inputContrasena));
+inputConfirmarContrasena.addEventListener('blur', () => validarInputConfirmarContrasena(inputConfirmarContrasena));
+
+// formularioRegistro.addEventListener('submit', (event) => {
+//     event.preventDefault();
+
+//     fetch('/registrarCliente', {
+//         method: 'POST',
+//         body: new FormData(formularioRegistro),
+//     })
+//     .then(res => res.json())
+//     .then(data => {
+//         console.log(data);
+//         if(data.success) {
+//             window.location = data.redirect;
+//         }
+        
+//         mensajeErrorEmail.textContent = data.errores.email;
+//         mensajeErrorContrasena.textContent = data.errores.contrasena;
+//         mensajeErrorConfirmarContrasena.textContent = data.errores.confirmarContrasena;
+//         mensajeErrorGeneral.textContent = data.errores.general;
+//     })
+    
+// })
