@@ -1,5 +1,5 @@
 // Usar esto en terminal para que se actualice cada vez que se guarda.
-// docker-compose exec app sass --watch /var/www/html/scss:/var/www/html/public/css
+// docker compose exec app sass --watch /var/www/html/scss:/var/www/html/public/css
 
 *, *::after, *::before {
     box-sizing: border-box;
@@ -25,8 +25,7 @@ body {
 
 .logo {
     width: 100%;
-    height: 192px;
-    margin-bottom: -1rem;
+    height: 96px;
 }
 
 .form-container {
@@ -34,6 +33,11 @@ body {
     flex-direction: column;
     padding: 3rem;
     border-radius: 10px;
+
+    form > div {
+        position: relative;
+        margin: 1.5rem 0;
+    }
 
     h1 {
         text-align: center;
@@ -47,6 +51,9 @@ body {
 }
 
 .boton-subir {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     background: none;
     padding: 0.75rem 0;
@@ -67,8 +74,8 @@ body {
     border-color: #115DFC;
 
     &:hover, &:focus {
-        background-color : #0539a8;
-        border-color: #0539a8;
+        background-color : hsl(221, 98%, 50%);
+        border-color: hsl(221, 98%, 50%);
     }
 }
 
@@ -78,8 +85,8 @@ body {
     border-color: #1c2029;
 
     &:hover, &:focus {
-        background-color : #0a0e18;
-        border-color: #0a0e18;
+        background-color : hsl(222, 19%, 22%);
+        border-color: hsl(222, 19%, 22%);
     }
     
 }
@@ -118,9 +125,9 @@ body {
     }
 }
 
-div {
-    position: relative;
+body > div {
     margin: 1.5rem 0;
+    width: 50ch;
 
     label {
         font-size: 0.75rem;
@@ -131,7 +138,7 @@ div {
 } 
 
 input {
-    width: 50ch;
+    width: 100%;
     padding-left: 40px;
     padding-right: 40px;
     height: 40px;
@@ -154,13 +161,22 @@ input {
     }
 
     &.campo-no-valido {
-        background-color: rgba(255, 163, 163, 0.3);
-        border-color: rgba(153, 72, 72, 0.31);
+        // background-color: rgba(255, 163, 163, 0.3);
+        border-color: hsla(0, 53%, 47%, 0.31);
+        outline: 1px solid hsla(0, 100%, 50%, 0.239);
 
         &:hover, &:focus {
-            border-color: rgba(153, 72, 72, 0.6);
+            // outline: 2px solid hsla(0, 100%, 50%, 0.239);
+            border-color: hsla(0, 51%, 65%, 0.6);
         }
     }
+}
+
+.mensaje-input {
+    position: absolute;
+    font-size: small;
+    margin-left: 1rem;
+    color: red;
 }
 
 .mensaje-form {
@@ -206,4 +222,11 @@ input {
     flex-direction: column;
     row-gap: 0.75rem;
     margin: 0;
+}
+
+.gsi-material-button-icon, .icono-github {
+  height: 20px;
+  margin-right: 12px;
+  min-width: 20px;
+  width: 20px;
 }
