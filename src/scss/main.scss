@@ -1,0 +1,112 @@
+// Usar esto en terminal para que se actualice cada vez que se guarda.
+// docker compose exec app sass --watch /var/www/html/scss:/var/www/html/public/css
+
+// Colores base
+$azul: #007bff;
+$azul-claro: #66b2ff;
+$azul-oscuro: #0056b3;
+$azul-logo: hsl(221, 100%, 50%);
+
+$rojo: #dc3545;
+$rojo-claro: #ff6b81;
+$rojo-oscuro: #a71d2a;
+
+$verde: #28a745;
+$verde-claro: #6fdc6f;
+$verde-oscuro: #1c7d32;
+
+// Grises
+$gris-100: #f8f9fa;
+$gris-200: #e9ecef;
+$gris-300: #dee2e6;
+$gris-600: #6c757d;
+$gris-900: #212529;
+
+// Texto
+$color-texto: #333333;
+
+.font-size-1 { font-size: 0.75rem; }  // 12px
+.font-size-2 { font-size: 0.875rem; } // 14px
+.font-size-3 { font-size: 1rem; }     // 16px
+.font-size-4 { font-size: 1.25rem; }  // 20px
+.font-size-5 { font-size: 1.5rem; }   // 24px
+.font-size-6 { font-size: 2rem; }    // 32px
+.font-size-7 { font-size: 2.5rem; }    // 40px
+
+.flex-align-items {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+}
+
+*, *::after, *::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: inherit;
+    color: inherit;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    color: $color-texto;
+}
+
+:where(textarea),
+:where(input[type="text"],input[type="search"],input[type="password"],input[type="url"]){
+  appearance: none;
+  border-style: solid;
+  outline: none;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    padding: 0 15rem;
+    background-color: hsl(0, 0%, 100%, 0.9);
+    // backdrop-filter: blur(5px);
+    // border-bottom: 1px solid hsl(0, 0%, 100%, 0.25);
+    // box-shadow: 0 0 10px 1px hsl(0, 0%, 80%, 0.25);
+    z-index: 100;
+
+    img {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 0;
+        column-gap: 2rem;
+        font-weight: bold;
+
+        .botones-navegacion {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        a {
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        & > * {
+            display: flex;
+            column-gap: 1rem;
+        }
+    }
+}
+
+main {
+    > section { 
+        width: 100%;
+        padding: 3rem 15rem;
+    }
+}

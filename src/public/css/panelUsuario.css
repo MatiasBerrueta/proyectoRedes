@@ -1,0 +1,231 @@
+.font-size-1 {
+  font-size: 0.75rem;
+}
+
+.font-size-2 {
+  font-size: 0.875rem;
+}
+
+.font-size-3 {
+  font-size: 1rem;
+}
+
+.font-size-4 {
+  font-size: 1.25rem;
+}
+
+.font-size-5 {
+  font-size: 1.5rem;
+}
+
+.font-size-6 {
+  font-size: 2rem;
+}
+
+.font-size-7 {
+  font-size: 2.5rem;
+}
+
+.flex-align-items {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+
+*, *::after, *::before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  color: inherit;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  color: #333333;
+}
+
+:where(textarea),
+:where(input[type=text], input[type=search], input[type=password], input[type=url]) {
+  appearance: none;
+  border-style: solid;
+  outline: none;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  padding: 0 15rem;
+  background-color: hsla(0, 0%, 100%, 0.9);
+  z-index: 100;
+}
+header img {
+  width: 3rem;
+  height: 3rem;
+}
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  column-gap: 2rem;
+  font-weight: bold;
+}
+header nav .botones-navegacion {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+header nav a {
+  text-decoration: none;
+}
+header nav a:hover {
+  text-decoration: underline;
+}
+header nav > * {
+  display: flex;
+  column-gap: 1rem;
+}
+
+main > section {
+  width: 100%;
+  padding: 3rem 15rem;
+}
+
+.seccion-titulo {
+  background-color: hsl(221, 100%, 50%);
+}
+.seccion-titulo h2 {
+  font-size: 3rem;
+  color: white;
+}
+
+.contenedor-servidores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  padding-top: 2rem;
+}
+
+.servidor {
+  padding: 1rem;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 5rem 10rem 10rem 5rem;
+  grid-template-areas: "icono-servidor nombre nombre estado" "icono-servidor version-juego . ." "metrica-jugadores metrica-jugadores metrica-jugadores metrica-jugadores" "metrica-cpu metrica-cpu metrica-cpu metrica-cpu" "barra-cpu barra-cpu barra-cpu barra-cpu" "metrica-ram metrica-ram metrica-ram metrica-ram" "barra-ram barra-ram barra-ram barra-ram" "boton-iniciar boton-iniciar boton-configurar boton-configurar";
+  column-gap: 0.5rem;
+}
+.servidor .icono-servidor {
+  grid-area: icono-servidor;
+  margin: auto;
+  background-color: hsl(200, 0%, 90%);
+  color: #555555;
+  padding: 1rem;
+  width: 100%;
+  border-radius: 10px;
+}
+.servidor .nombre-servidor {
+  grid-area: nombre;
+  padding: 0;
+  margin: 0;
+}
+.servidor .estado {
+  grid-area: estado;
+  background-color: rgb(201, 46, 46);
+  color: white;
+  width: max-content;
+  padding: 0.25rem 0.55rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-bottom: auto;
+}
+.servidor .version-juego {
+  grid-area: version-juego;
+  background-color: rgb(46, 139, 201);
+  color: white;
+  width: max-content;
+  margin-bottom: auto;
+  padding: 0.25rem 0.55rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.servidor .metrica-jugadores {
+  grid-area: metrica-jugadores;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #888888;
+}
+.servidor .metrica-jugadores p {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+.servidor .metrica-cpu {
+  grid-area: metrica-cpu;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #888888;
+}
+.servidor .metrica-cpu p {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+.servidor .barra-cpu {
+  grid-area: barra-cpu;
+  height: 10px;
+  width: 100%;
+  background-color: #dddddd;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.servidor .metrica-ram {
+  grid-area: metrica-ram;
+  display: flex;
+  justify-content: space-between;
+  color: #888888;
+}
+.servidor .metrica-ram p {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+.servidor .barra-ram {
+  grid-area: barra-ram;
+  height: 10px;
+  width: 100%;
+  background-color: #dddddd;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.servidor .boton-iniciar {
+  grid-area: boton-iniciar;
+}
+.servidor .boton-configurar {
+  grid-area: boton-configurar;
+}
+.servidor .boton-iniciar, .servidor .boton-configurar {
+  border-radius: 10px;
+  border: 1px solid #333333;
+  background: white;
+  color: #333333;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+.servidor .barra-relleno {
+  height: 100%;
+  width: 0%;
+  background: hsl(210, 100%, 50%);
+  transition: width ease-in-out;
+}
+
+/*# sourceMappingURL=panelUsuario.css.map */

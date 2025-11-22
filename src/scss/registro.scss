@@ -1,26 +1,10 @@
-// Usar esto en terminal para que se actualice cada vez que se guarda.
-// docker compose exec app sass --watch /var/www/html/scss:/var/www/html/public/css
-
-*, *::after, *::before {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    font-family: "Inter", sans-serif;
-}
-
-:where(textarea),
-:where(input[type="text"],input[type="search"],input[type="password"],input[type="url"]){
-  appearance: none;
-  border-style: solid;
-  outline: none;
-}
+@use "main";
 
 body {
     display: grid;
     place-content: center;
     width: 100vw;
     height: 100vh;
-    // background-color: red;
 }
 
 .logo {
@@ -203,18 +187,18 @@ input {
   gap: 30px;
   color: #8B8E98;
   margin: 2rem 0;
-}
 
-.separador .linea {
-  display: block;
-  width: 100%;
-  height: 1px;
-  border: 0;
-  background-color: #e8e8e8;
-}
+  .linea {
+    display: block;
+    width: 100%;
+    height: 1px;
+    border: 0;
+    background-color: #e8e8e8;
+    }
 
-.separador small {
-    white-space: nowrap;
+    small {
+        white-space: nowrap;
+    }
 }
 
 .contenedor-otras-opciones {
