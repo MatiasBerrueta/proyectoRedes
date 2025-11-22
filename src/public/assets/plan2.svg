@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="-2 -2 20 22"
+     width="200" height="220">
+
+  <g fill="none" stroke="#333333" stroke-width="1.2"
+     vector-effect="non-scaling-stroke"
+     stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- Top outline -->
+    <path d="M 1.732,4 5.196,6 8.660,4 12.124,6 15.588,4 8.660,0 Z"/>
+
+    <!-- Top inner -->
+    <path d="M 8.660,4 5.196,2 8.660,0 12.124,2 Z"/>
+
+    <!-- Left front column -->
+    <path d="M 1.732,4 V 8 L 5.196,10 V 6 L 8.660,4 V 8 L 5.196,10 1.732,8 Z"/>
+
+    <!-- Right front column -->
+    <path d="M 8.660,8 12.124,10 V 6 L 15.588,4 V 8 L 12.124,10 Z"/>
+
+    <!-- Bottom assembly -->
+    <path d="M 5.196,10 8.660,12 12.124,10 15.588,8 V 12 L 8.660,16 1.732,12 V 8 Z"/>
+
+    <!-- Center connector -->
+    <path d="M 5.196,10 V 14 L 8.660,16 V 12 L 12.124,10 V 14 L 8.660,16 5.196,14 Z"/>
+  </g>
+</svg>

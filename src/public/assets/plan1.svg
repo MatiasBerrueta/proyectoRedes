@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="-2 -2 20 22"
+     width="200" height="220">
+
+  <g fill="none" stroke="#333333" stroke-width="1.2"
+     vector-effect="non-scaling-stroke"
+     stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- Top diamond -->
+    <path d="M 7.794,4.5 4.330,2.5 7.794,0.5 11.258,2.5 Z"/>
+
+    <!-- Bottom structure -->
+    <path d="M 4.330,10.5 7.794,12.5 11.258,10.5 14.722,8.5 V 12.5 L 7.794,16.5 0.866,12.5 V 8.5 Z"/>
+
+    <!-- Center connector -->
+    <path d="M 4.330,10.5 V 14.5 L 7.794,16.5 V 12.5 L 11.258,10.5 V 14.5 L 7.794,16.5 4.330,14.5 Z"/>
+
+    <!-- Middle left face -->
+    <path d="M 7.794,8.5 4.330,10.5 0.866,8.5 4.330,6.5 Z"/>
+
+    <!-- Middle right face -->
+    <path d="M 11.258,10.5 7.794,8.5 11.258,6.5 14.722,8.5 Z"/>
+
+    <!-- Vertical supports -->
+    <path d="M 7.794,8.5 V 4.5 L 4.330,2.5 V 6.5 Z"/>
+    <path d="M 7.794,8.5 V 4.5 L 11.258,2.5 V 6.5 Z"/>
+  </g>
+</svg>
