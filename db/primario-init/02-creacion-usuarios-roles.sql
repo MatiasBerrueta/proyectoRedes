@@ -1,0 +1,29 @@
+CREATE ROLE 'app_admin';
+GRANT EXECUTE ON Voxel_Hosting.* TO 'app_admin';
+
+CREATE ROLE 'app_cliente';
+GRANT EXECUTE ON PROCEDURE Voxel_Hosting.ESC_AGREGAR_USUARIO TO 'app_cliente';
+GRANT EXECUTE ON PROCEDURE Voxel_Hosting.ESC_ACTUALIZAR_USUARIO TO 'app_cliente';
+GRANT EXECUTE ON PROCEDURE Voxel_Hosting.LEC_OBTENER_USUARIO_EMAIL TO 'app_cliente';
+GRANT EXECUTE ON PROCEDURE Voxel_Hosting.ESC_ASIGNAR_PLAN_USUARIO TO 'app_cliente';
+GRANT EXECUTE ON PROCEDURE Voxel_Hosting.ESC_REGISTRAR_PAGO TO 'app_cliente';
+GRANT EXECUTE ON PROCEDURE Voxel_Hosting.ESC_CONFIRMAR_PAGO TO 'app_cliente';
+GRANT EXECUTE ON PROCEDURE Voxel_Hosting.LEC_OBTENER_PAGO_PENDIENTE TO 'app_cliente';
+GRANT EXECUTE ON PROCEDURE Voxel_Hosting.LEC_TOTAL_PAGO_USUARIO TO 'app_cliente';
+GRANT EXECUTE ON PROCEDURE Voxel_Hosting.ESC_CREAR_SERVIDOR TO 'app_cliente';
+GRANT EXECUTE ON PROCEDURE Voxel_Hosting.ESC_REINICIAR_SERVIDOR TO 'app_cliente';
+GRANT EXECUTE ON PROCEDURE Voxel_Hosting.ESC_ACTUALIZAR_SERVIDOR TO 'app_cliente';
+GRANT EXECUTE ON PROCEDURE Voxel_Hosting.ESC_ELIMINAR_SERVIDOR TO 'app_cliente';
+GRANT EXECUTE ON PROCEDURE Voxel_Hosting.ESC_CREAR_TICKET TO 'app_cliente';
+GRANT EXECUTE ON PROCEDURE Voxel_Hosting.ESC_CERRAR_TICKET TO 'app_cliente';
+GRANT EXECUTE ON PROCEDURE Voxel_Hosting.LEC_TICKET_POR_USUARIO TO 'app_cliente';
+
+CREATE USER 'admin_bd'@'%' IDENTIFIED BY 'contrasenaAdmin324';
+GRANT ALL PRIVILEGES ON Voxel_Hosting.* TO 'admin_bd'@'%';
+
+CREATE USER 'replicador'@'%' IDENTIFIED WITH mysql_native_password BY 'contrarepli';
+GRANT REPLICATION SLAVE ON *.* TO 'replicador'@'%';
+
+CREATE USER 'usuario_app'@'%' IDENTIFIED WITH mysql_native_password BY 'contrasenaUsuarioApp324' DEFAULT ROLE 'app_cliente'@'%'; 
+
+FLUSH PRIVILEGES;

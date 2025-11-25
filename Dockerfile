@@ -6,10 +6,14 @@ RUN apt-get update && apt-get install -y curl gnupg lsb-release ca-certificates 
     && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install nodejs -y \
     && npm install -g sass \
+    && npx playwright install --with-deps \
     && rm -rf /var/lib/apt/lists/*
 
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
+
+RUN composer global require phpunit/phpunit \
+    && ln -s /root/.composer/vendor/bin/phpunit /usr/local/bin/phpunit
 
 COPY src/ /var/www/html/
 
