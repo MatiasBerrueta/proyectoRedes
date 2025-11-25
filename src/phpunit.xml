@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit 
+    bootstrap="tests/bootstrap.php"
+    colors="true"
+    cacheResult="false"
+>
+    <testsuites>
+        <testsuite name="unitarios">
+            <directory>tests/unitarios</directory>
+        </testsuite>
+
+        <testsuite name="integracion">
+            <directory>tests/integracion</directory>
+        </testsuite>
+    </testsuites>
+
+    <php>
+        <env name="APP_ENV" value="testing"/>
+    </php>
+
+</phpunit>
