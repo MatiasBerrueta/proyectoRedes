@@ -1,5 +1,6 @@
 <?php
 require_once APP_ROOT . 'database.php';
+require_once APP_ROOT . 'modelos/api/pterodactylClientApi.php';
 
 class modeloServidor {
     private $idServidor;
@@ -42,49 +43,12 @@ class modeloServidor {
     }
 
     public static function obtenerServidoresPterodactyl() {
-        $ch = curl_init();
-        
-        $url = "http://172.17.0.1:80/api/application/servers";
+        $clientKey = 'ptlc_aUGNsV1gQyu9o0O2sQQzjY4vCvc0KHrujPNIqfFAu5I';
 
-        $headers = [
-            "Authorization: Bearer ptla_uFRtsXT2S1Z3Sb3g5riseURlDxy8xcQGfeQWP0os9K6",
-            "Accept: Application/vnd.pterodactyl.v1+json"
-        ];
+        $api = new pterodactylClientApi($clientKey);
+        $servidores = $api->obtenerServidores();
 
-        curl_setopt_array($ch, [
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,  // Devuelve la respuesta en lugar de imprimirla
-            CURLOPT_HTTPHEADER => $headers,  // Headers personalizados
-        ]);
-
-        $response = curl_exec($ch);
-
-        if (curl_errno($ch)) {
-            echo "Error en cURL: " . curl_error($ch);
-        } else {
-            // Obtener el código de respuesta HTTP (opcional)
-            // $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            // echo "Código HTTP: $http_code\n";
-            // echo "Respuesta:\n$response";
-            $servidores = json_decode($response, true);
-        }
-
-        // Cerrar cURL
-        curl_close($ch);
-
-        // echo "<pre>";
-        // print_r($servidores);
-        // echo "</pre>";
-
-        foreach($servidores['data'] as $servidor) {
-            echo "<pre>";
-            // print_r($servidor['attributes']);
-            echo "Id: " . $servidor['attributes']['id'] . "\n";
-            echo "Nombre: " . $servidor['attributes']['name'] . "\n";
-            echo "Descripcion: " . $servidor['attributes']['description'] . "\n";
-            echo "Estatus: " . $servidor['attributes']['status'] . "\n";
-            echo "</pre>";
-        }
+        return $servidores;
     }
 
     public function modificarServidor() {

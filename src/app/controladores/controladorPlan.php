@@ -19,28 +19,25 @@ class controladorPlan {
         return;
     }
 
-    // Funcion que devuelve los datos de un plan segun id
+    // Funcion que lista los datos de un plan segun id
     public function listarPlan($idPlan) {
         return;
     }
 
     // Funcion que lista todos los planes
-    public function listarPlanes() {
+    public static function listarPlanes() {
         $planes = modeloPlan::obtenerPlanes();
 
-        forEach($planes as $plan) {
-            echo "
-                <div class='plan'>
-                    <h2>" . $plan['nombre'] . "</h2>
-                    <h3>$". $plan['costo'] . "usd / mes</h3>
-                    <small>Pensado para hasta " . $plan['max_jugadores'] . " jugadores</small>
-                    <ul>
-                        <li>8GB de RAM</li>
-                        <li>Instalacion de modpacks</li>
-                        <li>Prioridad en tiempos de trafico alto</li>
-                    </ul>
-                    <button>Comprar</button>
-                </div>";
+        forEach($planes as $i => $plan) {
+            $nombre = $plan['nombre'];
+            $costo = $plan['costo'];
+            // capas agregar un atributo "descripcion" en vez de solo max_jugadores
+            // que diga algo como ""
+            $max_jugadores = $plan['max_jugadores'];
+            // agregar en la base de datos este atributo
+            $prestaciones = ['8GB de RAM', 'Instalacion de modpacks', 'Prioridad en tiempos de trafico alto'];
+
+            include APP_ROOT . 'vistas/componentes/plan.php';
         }
     }
 
