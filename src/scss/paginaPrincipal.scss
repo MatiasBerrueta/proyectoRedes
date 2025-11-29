@@ -1,69 +1,50 @@
 @use "main" as *;
 
-button {
-    display: block;
-    margin: 0 auto;
-    padding: 0.75rem 2rem;
-    background: black;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-
-    &:hover {
-        background-color: white;
-        color: black;
-        outline: 1px solid black;
-    }
-}
-
 main {
     section {
         text-align: center;
 
-        h2 {
+        .contenedor > span {
+            display: block;
+            color: var(--color-texto);
             font-size: 2.25rem;
+            font-weight: bold;
         }
 
-        p {
-            font-size: 1rem;
+        .contenedor > p {
+            color: var(--color-texto-secundario);
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
         }
     }
 
     .seccion-presentacion {
-        padding: 6rem 10rem 3rem 10rem;
-        height: calc(80vh + 3rem);
+        // padding: 6rem 10rem 3rem 10rem;
+        height: calc(100vh - 4rem);
         display: flex;
         flex-direction: column;
-        align-items: center;
         justify-content: center;
-        text-align: center;
-        background-color: $azul-logo;
+        text-align: left;
+        background-color: var(--azul-logo);
+        // background-image: radial-gradient(circle at center bottom,  var(--azul-logo) 0%,  hsl(221, 65%, 23%) 70%);
         
-        h1 {
-            font-size: 4rem;
+        .contenedor h1 {
             line-height: 4rem;
             color: white;
         }
         
-        p {
+        .contenedor p {
             margin: 2rem 0;
             color: white;
         }
 
-        & > button {
-            font-weight: bold;
+        button {
+            @include boton(var(--azul-logo), white);
             background: none;
             border: 1px solid white;
-
-            svg {
-                color: inherit;
-            }
+            margin: 0;
 
             &:hover {
-                background-color: white;
-                color: $azul-logo;
                 outline: none;
             }
         }
@@ -71,18 +52,12 @@ main {
     }
 
     .seccion-juegos {
-        background-color: $gris-100;
-        
-        &>p {
-            margin-bottom: 2rem;
-        }
-
         .carrusel-juegos {
             overflow: hidden;
             position: relative;
 
             @mixin white-gradient {
-                background: linear-gradient(to right, $gris-100 0%,hsl(0, 0%, 95%, 0) 100%);
+                background: linear-gradient(to right, var(--color-fondo) 0%,hsl(0, 0%, 95%, 0) 100%);
             }
 
             &::before,
@@ -127,11 +102,15 @@ main {
 
             .juego {
                 min-width: 20vw;
-                background-color: white;
-                border: 1px solid $gris-300;
+                background-color: var(--color-card);
+                border: 1px solid var(--color-borde);
                 border-radius: 10px;
                 overflow: hidden;
                 text-align: start;
+
+                h3 {
+                    color: var(--color-texto);
+                }
                 
                 img {
                     width: 100%;
@@ -142,33 +121,42 @@ main {
 
                 .informacion-juego {
                     padding: 1rem;
+
+                    p {
+                        color: var(--color-texto-secundario);
+                    }
                 }
 
                 button {
-                    margin: 1rem;
+                    @include boton(var(--color-card), var(--color-texto));
+                    outline: 1px solid var(--color-texto);
+                    margin-top: 1rem;
                 }
             }
         }
     }
 
     .seccion-planes {
-        .presentacion-planes {
-            width: 100%;
-            margin-bottom: 2rem;
-        }
+        // background-color: $azul-logo;
+        // color: white;
 
         .contenedor-planes {
             display: flex;
             justify-content: center;
             column-gap: 2rem;
+            color: var(--color-texto);
     
             .plan {
-                border: 1px solid $gris-300;
+                border: 1px solid var(--color-borde);
+                background-color: var(--color-card);
                 border-radius: 10px;
                 padding: 2rem;
                 width: max-content;
                 text-align: start;
-                transition: 150ms ease-in-out;
+
+                button {
+                    @include boton(var(--azul-logo), var(--color-card));
+                }
     
                 ul {
                     margin: 1.5rem 0;
@@ -180,11 +168,104 @@ main {
                         column-gap: 0.25rem;
                     }
                 }
+            }
+        }
+    }
+
+    .seccion-features {
+        .contenedor > span {
+            margin-bottom: 2rem;
+        }
+
+        .contenedor-razones {
+            --min-column-size: 300px;
+
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min-column-size)), 1fr));
+            gap: 1.5rem;
+        }
+
+        .bloque-razon {
+            text-align: left;
+            border: 1px solid var(--color-borde);
+            background-color: var(--azul-logo);
+            padding: 3rem;
+            border-radius: 0.5rem;
+            width: 100%;
+
+            span {
+                display: block;
+                font-size: 1.25rem;
+                font-weight: bold;
+                margin-bottom: 0.5rem;
+                color: white;
+                // color: var(--azul-logo);
+            }
+
+            p {
+                color: white;
+                // color: var(--color-texto-secundario);
+            }
+        }
+    }
+
+    .seccion-tutorial {  
+        .contenedor > span {
+            margin-bottom: 2rem;
+        }
+        
+        .contenedor > div {
+            display: grid;
+            grid-template-columns: 5fr 4fr;
+            gap: 3rem;
+        }
+
+        .tutorial-pasos {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            row-gap: 1rem;
+
+            button {
+                font-weight: normal;
+                padding: 1rem;
+                border-radius: 10px;
+                cursor: pointer;
+                margin: 0;
+                width: 100%;
+                text-align: left;
+                background-color: var(--color-card);
+                color: var(--color-texto);
+                border: 1px solid var(--color-borde);
+
+                &[aria-selected="true"] {
+                    border-color: color-mix(in srgb, var(--color-borde) 80%, black);
+                    outline: none;
+                }
 
                 &:hover {
-                    box-shadow: 0 0 10px 0px hsl(0, 0%, 70%, 0.25);
+                    border-color: color-mix(in srgb, var(--color-borde) 50%, black);
+                    outline: none;
                 }
             }
+
+            span {
+                font-size: 1.25rem;
+                font-weight: normal;
+                color: var(--color-texto)
+            }
+
+            p {
+                padding: 0.25rem 0;
+                font-size: 1rem;
+                color: var(--color-texto-secundario);
+            }
+        }
+
+        .display-pasos {
+            width: 100%;
+            background-color: var(--azul-logo);
+            border-radius: 20px;
         }
     }
 }
