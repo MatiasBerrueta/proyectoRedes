@@ -54,20 +54,25 @@ class modeloUsuario {
     }
 
     public function insertarUsuario() {
-        $db = new Database();
-        $conexion = $db->getConexion();
+        try {
+            $db = new Database();
+            $conexion = $db->getConexion();
+    
+            $query = "CALL ESC_AGREGAR_USUARIO(:nombre, :email, :contrasena, :pais)";
+            $stmt = $conexion->prepare($query);
+    
+            $stmt->bindParam(':nombre', $this->nombre, PDO::PARAM_STR);
+            $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
+            $stmt->bindParam(':contrasena', $this->contrasena, PDO::PARAM_STR);
+            $stmt->bindParam(':pais', $this->pais, PDO::PARAM_STR);
+            // $stmt->bindParam(':rol', $this->rol, PDO::PARAM_STR);
+            $this->idUsuario = $conexion->lastInsertId();
+            
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            return false;
+        }
 
-        $query = "CALL ESC_AGREGAR_USUARIO(:nombre, :email, :contrasena, :pais)";
-        $stmt = $conexion->prepare($query);
-
-        $stmt->bindParam(':nombre', $this->nombre, PDO::PARAM_STR);
-        $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
-        $stmt->bindParam(':contrasena', $this->contrasena, PDO::PARAM_STR);
-        $stmt->bindParam(':pais', $this->pais, PDO::PARAM_STR);
-        // $stmt->bindParam(':rol', $this->rol, PDO::PARAM_STR);
-        $this->idUsuario = $conexion->lastInsertId();
-
-        return $stmt->execute();
     }
 
     public static function obtenerUsuarioPorEmail($email) {
@@ -115,6 +120,18 @@ class modeloUsuario {
         $stmt->bindParam(':temaVisual', $this->temaVisual, PDO::PARAM_STR);
         $stmt->bindParam(':notificacionesActivas', $this->notificacionesActivas, PDO::PARAM_STR);
         $stmt->bindParam(':estado', $this->estado, PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
+
+    public static function eliminarUsuarioEmail($email) {
+        $db = new Database();
+        $conexion = $db->getConexion();
+
+        $query = "DELETE USUARIO WHERE email = :email";
+        $stmt = $conexion->prepare($query);
+
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
 
         return $stmt->execute();
     }

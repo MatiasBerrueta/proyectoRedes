@@ -2,45 +2,70 @@
 require_once APP_ROOT . 'modelos/modeloUsuario.php';
 
 class controladorAutenticar {
-    public function registrarUsuario($nombre, $email, $contrasena, $confirmarContrasena, $rol) {
-        $emailError = '';
-        $contrasenaError = '';
-        $confirmarContrasenaError = '';
-
+    public function validarEmail($email) {
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $emailError = 'Introduzca un email valido';
-        } else {
-            $usuarioEnBd = modeloUsuario::obtenerUsuarioPorEmail($email);
+            return 'Introduzca un email valido';
+        } 
 
-            if($usuarioEnBd) {
-                $emailError = 'Ya existe un usuario con ese email';
-            }
+        if(modeloUsuario::obtenerUsuarioPorEmail($email)) {
+            return 'Ya existe un usuario con ese email';
         }
 
-        if(strlen($contrasena) < 3) {
-            $contrasenaError = 'La contrasena tiene que tener mas de 3 caracteres';
+        return '';
+    }
+
+    public function validarContrasena($contrasena) {
+        $CARACTERES_MINIMOS = 3;
+
+        if(strlen($contrasena) < $CARACTERES_MINIMOS) {
+            return "La contrasena tiene que tener mas de $CARACTERES_MINIMOS caracteres";
         }
 
-        if($contrasena != $confirmarContrasena) {
-            $confirmarContrasenaError = 'Las contrasena no coinciden';
+        return '';
+    }
+
+    public function validarConfirmacion($contrasena, $confirmarContrasena) {
+         if($contrasena !== $confirmarContrasena) {
+            return 'Las contrasenas no coinciden';
         }
 
-        if(!$emailError && !$contrasenaError && !$confirmarContrasenaError) {
-            $contrasenaHash = password_hash($_POST['contrasena'], PASSWORD_BCRYPT);
-            $usuario = new modeloUsuario($_POST['email'], $contrasenaHash);
-            $usuario->establecerNombre($nombre);
-            $usuario->establecerPais("Uruguay");
-            $resultado = $usuario->insertarUsuario();
+        return '';
+    }
 
-            if(!is_null($resultado) && $resultado) {
-                $this->iniciarSesion($email, $contrasena);
-                exit;
-            } else {
-                $error = "Error al registrar el usuario.";
-            }
+    public function registrarUsuario($nombre, $email, $contrasena, $confirmarContrasena, $rol) {
+        $emailError = $this->validarEmail($email);
+        $contrasenaError = $this->validarContrasena($contrasena);
+        $confirmarContrasenaError = $this->validarConfirmacion($contrasena, $confirmarContrasena);
+
+        if ($emailError || $contrasenaError || $confirmarContrasenaError) {
+            return [
+                'ok' => false,
+                'emailError' => $emailError,
+                'contrasenaError' => $contrasenaError,
+                'confirmarContrasenaError' => $confirmarContrasenaError
+            ];
         }
 
-        require_once APP_ROOT . '/vistas/vistaRegistrarUsuario.php';
+        $contrasenaHash = password_hash($contrasena, PASSWORD_BCRYPT);
+        $usuario = new modeloUsuario($email, $contrasenaHash);
+        $usuario->establecerNombre($nombre);
+        $usuario->establecerPais("Uruguay");
+        
+        $resultado = $usuario->insertarUsuario();
+
+        if ($resultado) {
+            $this->iniciarSesion($email, $contrasena);
+
+            return [
+                'ok' => true,
+                'mensaje' => 'Usuario registrado correctamente'
+            ];
+        } 
+
+        return [
+            'ok' => false,
+            'mensaje' => 'Error al registrar el usuario'
+        ];
     }
 
     // Esta funcion deberia remplazar a la actual si se decide usar ajax
@@ -89,30 +114,35 @@ class controladorAutenticar {
     public function iniciarSesion($email, $contrasena) {
         $datosUsuario = modeloUsuario::obtenerUsuarioPorEmail($email);
 
-        if($datosUsuario && password_verify($contrasena, $datosUsuario['contrasena'])) {
-            $_SESSION['usuario'] = [
-                'id' => $datosUsuario['id_usuario'],
-                'nombre' => $datosUsuario['nombre'],
-                'email' => $datosUsuario['email'],
-                'rol' => $datosUsuario['rol'],
+        if(!$datosUsuario) {
+            return [
+                'ok' => false,
+                'mensaje' => 'El usuario no existe'
             ];
-
-            if($datosUsuario['rol'] === 'ADMIN') {
-                header("Location: /admin/perfil");
-            } else if ($datosUsuario['rol'] === 'CLIENTE') {
-                header("Location: /usuario/perfil");
-            }
-        } else {
-            $error = "Credenciales incorrectas";
-            require_once APP_ROOT . 'vistas/vistaIniciarSesion.php';
         }
+
+        if(!password_verify($contrasena, $datosUsuario['contrasena'])) {
+            return [
+                'ok' => false,
+                'mensaje' => 'Credenciales incorrectas'
+            ];
+        }
+        
+        $_SESSION['usuario'] = [
+            'id' => $datosUsuario['id_usuario'],
+            'nombre' => $datosUsuario['nombre'],
+            'email' => $datosUsuario['email'],
+            'rol' => $datosUsuario['rol'],
+        ];
+
+        return [
+            'ok' => true,
+            'rol' => $datosUsuario['rol']
+        ];
     }
 
     public function cerrarSesion() {
         session_unset();
         session_destroy();
-        
-        header('Location: /');
-        exit();
     }
 }

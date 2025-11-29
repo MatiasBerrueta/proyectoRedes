@@ -22,11 +22,9 @@
                 <!-- <label for="input-email">Email</label> -->
                 <img src="/assets/iconoEmail.svg" alt="Icono email" class="icon">
                 <input id="input-email" type="text" placeholder="email@gmail.com" name="email" value="<?php if(isset($_POST['email'])) echo $_POST['email']?>" required>
-                <?php if(!empty($emailError)): ?>
-                    <p class="mensaje-input"><?= $emailError ?> </p>
+                <?php if(!empty($resultado['emailError'])): ?>
+                    <p id="mensaje-error-email" class="mensaje-input"><?= $resultado['emailError'] ?></p>
                 <?php endif; ?>
-                <p id="mensaje-error-email" class="mensaje-input"></p>
-
             </div>
             <div>
                 <!-- <label for="input-contrasena">Contraseña</label> -->
@@ -35,10 +33,10 @@
                 <button id="boton-toggle-contrasena" class="boton-toggle-contrasena" type="button" onClick="toggleContrasena(this, 'input-contrasena')">
                     <img src="/assets/iconoVerContrasena.svg" alt="Icono ver contrasena" class="icon">
                 </button>
-                <?php if(!empty($contrasenaError)): ?>
-                    <p class="mensaje-input"><?= $contrasenaError ?> </p>
+                <?php if(!empty($resultado['contrasenaError'])): ?>
+                    <p id="mensaje-error-contrasena" class="mensaje-input"><?= $resultado['contrasenaError'] ?></p>
                 <?php endif; ?>
-                <p id="mensaje-error-contrasena" class="mensaje-input"></p>
+                <p  class="mensaje-input"></p>
             </div>
             <div>
                 <!-- <label for="input-confirmar-contrasena">Confirmar contraseña</label> -->
@@ -47,16 +45,16 @@
                 <button id="boton-toggle-confirmar-contrasena" class="boton-toggle-contrasena" type="button" onClick="toggleContrasena(this, 'input-confirmar-contrasena')">
                     <img src="/assets/iconoVerContrasena.svg" alt="Icono ver contrasena" class="icon">
                 </button>
-                <?php if(!empty($confirmarContrasenaError)): ?>
-                    <p class="mensaje-input"><?= $confirmarContrasenaError ?> </p>
+                <?php if(!empty($resultado['confirmarContrasenaError'])): ?>
+                    <p id="mensaje-error-confirmar-contrasena" class="mensaje-input"><?= $resultado['confirmarContrasenaError'] ?></p>
                 <?php endif; ?>
-                <p id="mensaje-error-confirmar-contrasena" class="mensaje-input"></p>
+                <p  class="mensaje-input"></p>
             </div>
             <button class="boton-subir boton-azul" type="submit">Crear cuenta</button>
-             <?php if(!empty($error)): ?>
-                <p class="mensaje-input"><?= $error ?> </p>
+             <?php if(!empty($resultdao['mensaje'])): ?>
+                <p id="mensaje-error-general" class="mensaje-input"><?= $resultado['mensaje'] ?></p>
             <?php endif; ?>
-            <p id="mensaje-error-general" class="mensaje-input"></p>
+            <p  class="mensaje-input"></p>
         </form>
         <div class="separador">
             <hr class="linea">

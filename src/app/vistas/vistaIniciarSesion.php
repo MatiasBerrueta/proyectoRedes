@@ -26,8 +26,8 @@
             </div>
             <small class="mensaje-form"><a href="/recuperarContrasena">Olvide mi contrasena</a></small>
             <button class="boton-subir boton-azul" type="submit">Ingresar</button>
-            <?php if(!empty($error)): ?>
-                <p class="mensaje-input"><?= $error ?> </p>
+            <?php if(!empty($resultado['mensaje'])): ?>
+                <p class="mensaje-input"><?= $resultado['mensaje'] ?> </p>
             <?php endif; ?>
         </form>
         <div class="separador">
