@@ -47,8 +47,7 @@ $gris-900: hsl(221, 11%, 15%);
     --color-card: white;
     --color-borde: hsl(221, 14%, 89%);
     --color-header: hsl(221, 14%, 100%, 0.9);
-
-    transition: background-color 300ms, color 300ms;
+    --color-svg: 0;
 }
 
 html.tema-oscuro {
@@ -59,6 +58,7 @@ html.tema-oscuro {
     --color-card: hsl(221, 12%, 17%);     /* card 6% más claro que el fondo */
     --color-borde: hsl(221, 12%, 28%);    /* borde claro (no oscuro) */
     --color-header: hsl(221, 12%, 20%, 0.9);
+    --color-svg: invert(100%);
 }
 
 @mixin boton($color-fondo, $color-letra) {
@@ -122,13 +122,22 @@ header {
     position: sticky;
     top: 0;
     width: 100%;
+    background-color: var(--azul-logo);
+    color: white;
     background-color: var(--color-header);
     color: var(--color-texto);
     backdrop-filter: blur(5px);
     // box-shadow: 0 0 20px -1px var(--color-header);
     z-index: 100;
+    transition: background-color 250ms color 250ms;
 
-    img {
+    // &.scrolled {
+    //     background-color: var(--color-header);
+    //     transition: background-color 250ms color 250ms;
+    //     color: var(--color-texto);
+    // }
+
+    .logo {
         width: 3rem;
         height: 3rem;
     }
@@ -140,6 +149,13 @@ header {
         padding: 0.75rem 0;
         column-gap: 2rem;
         font-weight: bold;
+
+
+        img:not(.logo) {
+            width: 20px;
+            height: 20px;
+            filter: var(--color-svg);
+        }
 
         .botones-navegacion {
             position: absolute;
@@ -174,11 +190,6 @@ header {
             font-weight: bold;
             cursor: pointer;
 
-            img {
-                width: 20px;
-                height: 20px;
-            }
-
             &:hover {
                 border-color: color-mix(in srgb, var(--azul-logo) 50%, white);
             }
@@ -187,6 +198,15 @@ header {
 
     .menu-usuario {
         position: relative;
+        
+        .separador {
+            display: block;
+            width: 100%;
+            height: 1px;
+            border: 0;
+            background-color: $gris-400;
+            margin: 0.25rem 0;
+        }
 
         .boton-menu-usuario {
             padding: 0.5rem 0.75rem;
@@ -202,11 +222,6 @@ header {
 
             &:hover {
                 border-color: color-mix(in srgb, var(--color-borde) 80%, black);
-            }
-
-            img {
-                width: 20px;
-                height: 20px;
             }
         }
 
@@ -226,9 +241,12 @@ header {
             }
 
             a, #boton-cambiar-tema {
-                display: block;
+                display: flex;
+                align-items: center;
+                // justify-content: space-between;
+                column-gap: 0.5rem;
                 background: none;
-                padding: 0.5rem 1rem;
+                padding: 0.5rem;
                 border: none;
                 text-align: left;
                 color: inherit;
@@ -241,10 +259,6 @@ header {
                     background-color: color-mix(in srgb, var(--color-card) 93%, black);
                     text-decoration: none;
                 }
-            }
-
-            & > *:not(:nth-last-child) {
-                border: 1px solid black;
             }
         }
     }

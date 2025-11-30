@@ -20,14 +20,19 @@ main {
 
     .seccion-presentacion {
         // padding: 6rem 10rem 3rem 10rem;
-        height: calc(100vh - 4rem);
+        height: calc(85vh - 0rem);
         display: flex;
         flex-direction: column;
         justify-content: center;
         text-align: left;
         background-color: var(--azul-logo);
+        // clip-path: ellipse(110% 90% at 50% 0%);
         // background-image: radial-gradient(circle at center bottom,  var(--azul-logo) 0%,  hsl(221, 65%, 23%) 70%);
         
+        .contenedor {
+            // margin-top: -10rem;
+        }
+
         .contenedor h1 {
             line-height: 4rem;
             color: white;

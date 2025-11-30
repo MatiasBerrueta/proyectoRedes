@@ -2,7 +2,7 @@
     <div class="contenedor">
         <nav>
             <a href="/">
-                <img src="/assets/logo.svg" alt="Logo voxel hosting">
+                <img class="logo" src="/assets/logo.svg" alt="Logo voxel hosting">
             </a>
             <div class="botones-navegacion">
                 <a href="/juegos">Planes</a>
@@ -15,13 +15,23 @@
                     <a class="boton-panel" href="/usuario/panel">Panel</a>
                     <div class="menu-usuario">
                         <button id="boton-menu-usuario" class="boton-menu-usuario" aria-expanded="false">
-                            <img src="/assets/iconoUsuario.svg" alt="">
+                            <img src="/assets/user(1).svg" alt="">
                             <?= htmlspecialchars($_SESSION['usuario']['nombre']) ?>
                         </button>
                         <div id="menu-dropdown" class="menu-dropdown" hidden>
-                            <a href="/usuario/perfil">Ver perfil</a>
-                            <button id="boton-cambiar-tema">Cambiar tema</button>
-                            <a href="/logout">Cerrar sesion</a>    
+                            <a href="/usuario/perfil">
+                                <img src="/assets/adjustments-horizontal.svg" alt="">
+                                Ver perfil
+                            </a>
+                            <button id="boton-cambiar-tema">
+                                <img src="/assets/brush.svg" alt="">
+                                Cambiar tema
+                            </button>
+                            <div class="separador"></div>
+                            <a href="/logout">
+                                <img src="/assets/logout-2.svg" alt="">
+                                Cerrar sesion
+                            </a>    
                         </div>
                     </div>
                 <?php else: ?>

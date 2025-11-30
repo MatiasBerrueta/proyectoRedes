@@ -1,4 +1,4 @@
-@use "main";
+@use "main" as *;
 
 .seccion-titulo {
     background-color: var(--azul-logo);
@@ -9,13 +9,75 @@
     }
 }
 
-.contenedor-servidores {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3rem;
+.seccion-servidores .contenedor {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, calc(50% - 1.5rem));
+    gap: 1.5rem;
     padding-top: 2rem;
 }
 
 .servidor {
-    // display: grid;
+    padding: 2rem;
+    border: 1px solid var(--color-borde);
+    border-radius: 10px;
+    background-color: var(--color-card);
+    color: var(--color-texto);
+
+    > div:not(:nth-last-child(1)) {
+        margin-bottom: 0.5rem;
+    }
+
+    .informacion-juego {
+        display: flex;
+        align-items: center;
+        column-gap: 0.5rem;
+
+        .estado {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.9rem;
+            background: hsl(0, 85%, 47%);
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-left: auto;
+        }
+    }
+
+
+    .barra {
+        height: 5px;
+        width: 100%;
+        background-color: $gris-500;
+        border-radius: 99px;
+    }
+
+    .botones-accion {
+        display: grid;
+        grid-template-columns: repeat(2, calc(50% - 0.5rem));
+        justify-content: space-between;
+        margin-top: 2rem;
+
+        button {
+            width: 100%;
+            padding: 0.5rem 0;
+            font-weight: bold;
+            border-radius: 5px;
+            border: 1px solid $gris-500;
+            // filter: brightness(120%);
+            background: none;
+            cursor: pointer;
+            justify-content: center;
+            column-gap: 0.5rem;
+
+            &:hover {
+                filter: brightness(120%);
+            }
+        }
+
+        button:not([hidden]) {
+            display: flex;
+            align-items: center;
+            column-gap: 0.5rem;
+        } 
+    }
 }
