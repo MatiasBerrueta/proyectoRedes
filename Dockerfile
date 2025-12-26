@@ -5,7 +5,6 @@ RUN docker-php-ext-install pdo pdo_mysql
 RUN apt-get update && apt-get install -y curl gnupg lsb-release ca-certificates zip \
     && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install nodejs -y \
-    && npm install -g sass \
     && npx playwright install --with-deps \
     && rm -rf /var/lib/apt/lists/*
 
