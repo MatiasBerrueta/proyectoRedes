@@ -10,5 +10,5 @@
             </li>
         <?php endforeach; ?>
     </ul>
-    <button>Seleccionar</button>
+    <button class="boton">Adquirir</button>
 </div>

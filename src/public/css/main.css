@@ -4,6 +4,9 @@
 /* importa fuente roboto */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
+/* importa fuente jersey */
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
+
 ::view-transition-old(root) {
     animation-delay: 500ms;
 }
@@ -178,11 +181,13 @@ header {
             a {
                 padding: 0.35rem 0.75rem;
                 border-radius: 5px;
+                border: 1px solid transparent;
             }
 
             a:hover {
-                background-color: var(--gris-200);
+                /* background-color: var(--gris-200); */
                 /* text-decoration: underline; */
+                border-color: var(--gris-600);
             }
         }
 
@@ -196,7 +201,7 @@ header {
             column-gap: 0.75rem;
         }
 
-        .boton-panel {
+        .boton-panel, a[href="/registrarCliente"] {
             display: flex;
             align-items: center;
             column-gap: 0.5rem;
@@ -216,6 +221,28 @@ header {
                 border-color: color-mix(in srgb, var(--azul-logo) 50%, white);
             }
         }
+
+        a[href="/registrarCliente"] {
+            background: var(--azul-logo);
+            color: white;   
+        }
+    }
+
+    .boton-menu-usuario, a[href="/login"] {
+        font-size: inherit;
+        padding: 0.35rem 0.5rem;
+        display: flex;
+        align-items: center;
+        column-gap: 0.5rem;
+        background: none;
+        border: 1px solid var(--gris-500);
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+
+        &:hover {
+            border-color: color-mix(in srgb, var(--gris-500) 80%, black);
+        }
     }
 
     .menu-usuario {
@@ -228,23 +255,6 @@ header {
             border: 0;
             background-color: var(--gris-400);
             margin: 0.25rem 0;
-        }
-
-        .boton-menu-usuario {
-            font-size: inherit;
-            padding: 0.35rem 0.5rem;
-            display: flex;
-            align-items: center;
-            column-gap: 0.5rem;
-            background: none;
-            border: 1px solid var(--gris-500);
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-
-            &:hover {
-                border-color: color-mix(in srgb, var(--gris-500) 80%, black);
-            }
         }
 
         .menu-dropdown {
