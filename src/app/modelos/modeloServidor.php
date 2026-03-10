@@ -51,6 +51,15 @@ class modeloServidor {
         return $servidores;
     }
 
+    public static function obtenerRecursosServidorPterodactyl($id) {
+        $clientKey = 'ptlc_aUGNsV1gQyu9o0O2sQQzjY4vCvc0KHrujPNIqfFAu5I';
+
+        $api = new pterodactylClientApi($clientKey);
+        $recursosServidor = $api->obtenerRecursosServidorPorId($id);
+
+        return $recursosServidor;
+    }
+
     public function modificarServidor() {
         return;
     }
