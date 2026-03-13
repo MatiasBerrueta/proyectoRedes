@@ -29,4 +29,12 @@ class pterodactylClientApi {
     public function obtenerServidorPorId($id) {
         return $this->request('/servers/' . $id);
     }
+
+    public function obtenerRecursosServidorPorId($id) {
+        return $this->request('/servers/' . $id . '/resources');
+    }
+
+    public function obtenerWebSocket($id) {
+        return $this->request('/servers/'. $id . '/websocket');
+    }
 }

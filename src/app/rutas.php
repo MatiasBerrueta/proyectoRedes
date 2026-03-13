@@ -66,14 +66,25 @@ $router->post('/registrarCliente', function() {
     exit;
 });
 
-$router->get('/usuario/panel', function() {
+$router->get('/panel/servidores', function() {
     require_once APP_ROOT . 'controladores/controladorServidor.php';
     require_once APP_ROOT . 'vistas/vistaUsuario.php';
 });
 
-$router->get('/admin/panel', function() {
-    require_once APP_ROOT . 'vistas/vistaAdministrador.php';
+$router->get('/panel/servidores/([a-zA-Z0-9]+)', function($idServidor) {
+    $tab = 'consola';
+    require_once APP_ROOT . 'controladores/controladorServidor.php';
+    require_once APP_ROOT . 'vistas/vistaServidor.php';
 });
+
+$router->get('/panel/servidores/([a-zA-Z0-9]+)/([a-zA-Z]+)', function($idServidor, $tab) {
+    require_once APP_ROOT . 'controladores/controladorServidor.php';
+    require_once APP_ROOT . 'vistas/vistaServidor.php';
+});
+
+// $router->get('/panel/servidores/([a-zA-Z0-9]+)/([a-zA-Z]+)', function($idServidor, $tab) {
+//     require_once APP_ROOT . "vistas/componentes/$tab.php";
+// });
 
 $router->get('/recuperarContrasena', function() {
     require_once APP_ROOT . 'vistas/recuperarContrasena.php';
@@ -92,8 +103,42 @@ $router->set404(function() {
     require_once APP_ROOT . 'vistas/404.php';
 });
 
-$router->delete('/testing/borrarUsuario/(.+)', function ($email) {
+$router->delete('/testing/borrarUsuario/(.+)', function($email) {
     modeloUsuario::eliminarUsuarioEmail($email);
+});
+
+$router->post('/api/websocket', function() {
+    if (!isset($_SESSION['usuario'])) {
+        http_response_code(401);
+        echo json_encode(["error" => "No autenticado"]);
+        exit;
+    }
+
+    $idServidor = $_POST['servidor_id'];
+    require_once APP_ROOT . 'modelos/api/pterodactylClientApi.php';
+
+    $clienteApiKey = 'ptlc_aUGNsV1gQyu9o0O2sQQzjY4vCvc0KHrujPNIqfFAu5I';
+    $api = new pterodactylClientApi($clienteApiKey);
+    echo json_encode($api->obtenerWebSocket($idServidor));
+});
+
+$router->post('api/datosServidor', function() {
+    if (!isset($_SESSION['usuario'])) {
+        http_response_code(401);
+        echo json_encode(["error" => "No autenticado"]);
+        exit;
+    }
+
+    $idServidor = $_POST['servidor_id'];    
+    require_once APP_ROOT . 'modelos/api/pterodactylClientApi.php';
+
+    $clienteApiKey = 'ptlc_aUGNsV1gQyu9o0O2sQQzjY4vCvc0KHrujPNIqfFAu5I';
+    $api = new pterodactylClientApi($clienteApiKey);
+    echo json_encode($api->obtenerServidorPorId($idServidor));
+});
+
+$router->get('/usuario/perfil', function() {
+    echo "este es el perfil";
 });
 
 $router->run();
