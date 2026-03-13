@@ -15,6 +15,10 @@ RUN curl -sS https://getcomposer.org/installer | php \
 RUN composer global require phpunit/phpunit \
     && ln -s /root/.composer/vendor/bin/phpunit /usr/local/bin/phpunit
 
+COPY src/composer.json src/composer.lock /var/www/html/
+
+RUN composer install
+
 COPY src/ /var/www/html/
 
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
