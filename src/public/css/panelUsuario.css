@@ -6,8 +6,12 @@ body {
     background-color: var(--color-fondo);
 }
 
+header nav {
+    padding: 0.5rem 1.5rem;
+}
+
 .seccion-servidores {
-    padding: 1.5rem 5rem 1.5rem 21.5rem;
+    padding: 1.5rem 1.5rem 1.5rem 20rem;
 }
 
 .contenedor-acciones {
@@ -15,11 +19,6 @@ body {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 1.5rem;
-
-    h2 {
-        font-size: 1.5rem;
-        color: var(--color-texto);
-    }
 
     .boton-crear-servidor {
         display: flex;
@@ -42,16 +41,15 @@ body {
 
 .contenedor-servidores {
     display: grid;
-    grid-template-columns: repeat(auto-fill, calc(33% - 1rem));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
 }
 
 aside {
     display: block;
     position: fixed;
-    width: 20rem;
-    padding: 1.5rem 0;
-    padding-right: 1.5rem;
+    width: 18rem;
+    padding: 1.5rem;
     height: calc(100vh - 4rem);
     border-right: 1px solid var(--color-borde);
     background-color: var(--color-header);
@@ -62,16 +60,16 @@ aside {
 
         li {
             padding: 1rem;
-            padding-left: 5rem;
             color: var(--color-texto);
-            font-weight: 500;
-            border-radius: 0 5px 5px 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-radius: 5px;
             cursor: pointer;
         }
 
         li.activo {
-            background-color: var(--azul-logo);
-            color: white;
+            background-color: hsla(216, 100%, 81%, 0.5);
+            color: var(--azul-logo);
         }
 
         li:hover:not(.activo) {
@@ -90,82 +88,116 @@ header {
 }
 
 .servidor {
-    padding: 1.5rem;
     border: 1px solid var(--color-borde);
-    border-radius: 10px;
+    border-radius: 5px;
     background-color: var(--color-card);
     color: var(--color-texto);
     text-decoration: none;
     cursor: pointer;
+    overflow: hidden;
 
-    .icono-juego {
-        width: 3.5rem;
-        height: 3.5rem;
-        padding: 0.5rem;
-        background: var(--gris-300);
-        border-radius: 5px;
-    }
-
-    .contenedor-metrica {
-        margin-bottom: 0.75rem;
-    }
-
-    .metricas {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 0.5rem;
-
-        p {
-            display: flex;
-            align-items: center;
-            column-gap: 0.25rem;
-        }
+    &:hover {
+        border-color: var(--gris-500);
     }
 
     .informacion-servidor {
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
-        margin-top: 1rem;
+        padding: 1rem;
+        /* margin-top: 1rem; */
+        width: 100%;
+        row-gap: 0.5rem;
+
+        .contenedor-metrica {
+            width: 100%;
+        }
+
+        .metricas {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.25rem;
+
+            p {
+                display: flex;
+                align-items: center;
+                column-gap: 0.25rem;
+            }
+
+            img {
+                width: 16px;
+                height: 16px;
+            }
+        }
+
+        .barra {
+            height: 5px;
+            width: 100%;
+            background-color: var(--gris-200);
+            /* border-radius: 99px; */
+            overflow: hidden;
+        }
+
+        .barra-relleno {
+            height: 100%;
+            width: 0%;
+            background-color: hsl(211, 80%, 50%);
+        }
     }
 
     .informacion-juego {
         display: flex;
-        align-items: center;
         column-gap: 0.5rem;
+        background:
+            linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+            var(--banner);
+        background-size: cover;
+        background-position: center left;
+        background-repeat: no-repeat;
+        color: white;
+        min-height: 7rem;
+        padding: 1rem;
+        /* border-radius: 5px; */
+
+        .misma-linea {
+            margin-top: auto;
+        }
 
         .estado {
+            --offline-color-texto: hsl(0, 90%, 73%);
+            --offline-color-fondo: hsl(0, 76%, 40%, 0.5);
+            --offline-color-borde: hsl(0, 76%, 40%);
+
             display: flex;
             align-items: center;
             padding: 0.25rem 0.5rem;
-            font-size: 0.9rem;
-            color: hsl(0, 80%, 53%);
-            background-color: hsl(0, 80%, 90%);
+            color: var(--offline-color-texto);
+            background-color: var(--offline-color-fondo);
             font-weight: bold;
             border-radius: 5px;
             margin-left: auto;
+            margin-bottom: auto;
+            border: 1px solid var(--offline-color-borde);
+            backdrop-filter: blur(10px);
 
             div {
-                background-color: hsl(0, 80%, 53%);
+                background-color: var(--offline-color-texto);
                 height: 8px;
                 width: 8px;
                 border-radius: 99px;
                 margin-right: 0.25rem;
             }
+
+            &.online {
+                /* --offline-color-texto: hsl(105, 53%, 52%); */
+                /* --offline-color-fondo: hsl(105, 80%, 90%); */
+
+                --offline-color-texto: hsl(105, 90%, 80%);
+                --offline-color-fondo: hsl(105, 60%, 35%);
+                --offline-color-borde: hsl(105, 76%, 40%);
+
+            }
         }
-    }
-
-    .barra {
-        height: 7px;
-        width: 100%;
-        background-color: var(--gris-300);
-        border-radius: 99px;
-        overflow: hidden;
-    }
-
-    .barra-relleno {
-        height: 100%;
-        width: 50%;
-        background-color: var(--azul-oscuro);
     }
 
     .botones-accion {
@@ -197,4 +229,17 @@ header {
             column-gap: 0.5rem;
         } 
     }
+}
+
+dialog::backdrop {
+    background-color: rgba(0,0,0,0.4);
+}
+
+#crearServidorModal {
+    margin: auto;
+    border: 1px solid var(--color-borde);
+    border-radius: 5px;
+    padding: 1rem;
+    width: 500px;
+    max-width: 90vw;
 }

@@ -163,7 +163,7 @@ header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0.5rem 5rem;
+        padding: 0.5rem 7rem;
         height: 4rem;
         font-weight: bold;
 
@@ -304,11 +304,11 @@ footer {
     font-family: inherit;
   
     .footer-contenedor {
-        padding: 3rem 5rem;
+        padding: 3rem 7rem;
         margin: 0 auto;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1.5rem;
+        column-gap: 2rem;
 
         .footer-desc {
             color: var(--color-texto);

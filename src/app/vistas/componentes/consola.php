@@ -20,7 +20,8 @@
 <div>
     <h1>Consola</h1>
     <h2>Nombre: <?= $nombreServidor ?></h2>
-    <p>Estatus: <span class="texto-estatus"><?= $estadoServidor ?></span></p>
+    <!-- cambiar nombre estatus por estado en todas sus apariciones -->
+    <p>Estado: <span class="texto-estatus"><?= $estadoServidor ?></span></p>
     <p>ip: <span class="texto-ip"><?= $ipServidor ?></span></p>
     <div>
         <button class="boton-iniciar">Iniciar</button>

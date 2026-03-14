@@ -33,11 +33,40 @@ function formatBytes($bytes, $precision = 2) {
     <main>
         <section class="seccion-servidores">
             <div class="contenedor-acciones">
-                <h2>Mis servidores</h2>
-                <button class="boton-crear-servidor">
+                <h2 class="font-size-6">Mis servidores</h2>
+                <button class="boton-crear-servidor" onclick="crearServidorModal.showModal()">
                     <img src="/assets/plus.svg" alt="Icono crear servidor">
                     Crear servidor
                 </button>
+                <dialog id="crearServidorModal">
+                    <form action="">
+                        <button type="button" class="boton-cerrar-crear-servidor" onclick="crearServidorModal.close()">cerrar</button>
+                        <div>
+                            <label for="input-nombre">Nombre</label>
+                            <input id="input-nombre" type="text">
+                        </div>
+                        <div>
+                            <label for="selector-juego">Juego</label>
+                            <select name="selector-juegos" id="selector-juegos">
+                                <option value="minecraft">Minecraft</option>
+                                <option value="terraria">Terraria</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="input-descripcion">Descripcion</label>
+                            <input id="input-descripcion" type="text">
+                        </div>
+                        <button type="submit" class="boton-crear-servidor">Crear</button>
+                    </form>
+                </dialog>
+                <script>
+                    // const botonAbrirAgregarServidorModal = document.querySelector('.boton-crear-servidor');
+                    // const agregarServidorModal = document.querySelector('#crearServidorModal');
+                    // const botonCerrarAgergarServidorModal = document.querySelector('.boton-cerrar-crear-servidor');
+
+                    // botonAbrirAgregarServidorModal.addEventListener('click', () => agregarServidorModal.showModal());
+                    // botonCerrarAgergarServidorModal.addEventListener('click', () => agregarServidorModal.close());
+                </script>
             </div>
             <div class="contenedor-servidores">
                 <?php controladorServidor::mostrarServidoresUsuario(); ?>
@@ -52,6 +81,23 @@ function formatBytes($bytes, $precision = 2) {
             </nav>
         </aside>
         <script>
+            function inicializarServidor(servidor) {
+                const jugadores = parseFloat(servidor.dataset.jugadores);
+                const maxJugadores = parseFloat(servidor.dataset.maxJugadores);
+                const cpu = parseFloat(servidor.dataset.cpu);
+                const maxCpu = parseFloat(servidor.dataset.maxCpu);
+                const ram = parseFloat(servidor.dataset.ram);
+                const maxRam = parseFloat(servidor.dataset.maxRam);
+
+                const calcularPorcentaje = (valor, maximo) => (valor / maximo) * 100 + '%';
+
+                servidor.querySelector('.barra-jugadores').style.width = calcularPorcentaje(jugadores, maxJugadores);
+                servidor.querySelector('.barra-cpu').style.width = calcularPorcentaje(cpu, maxCpu);
+                servidor.querySelector('.barra-ram').style.width = calcularPorcentaje(ram, maxRam);
+            }
+
+            document.querySelectorAll('.servidor').forEach(inicializarServidor);
+
             const contenedorServidores = document.querySelector('.seccion-servidores');
 
             function formatBytes(bytes, decimals = 2) {
