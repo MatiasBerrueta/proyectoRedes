@@ -10,8 +10,12 @@ header nav {
     padding: 0.5rem 1.5rem;
 }
 
+main {
+    display: flex;
+}
+
 .seccion-servidores {
-    padding: 1.5rem 1.5rem 1.5rem 20rem;
+    padding: 1.5rem;
 }
 
 .contenedor-acciones {
@@ -46,8 +50,7 @@ header nav {
 }
 
 aside {
-    display: block;
-    position: fixed;
+    position: sticky;
     width: 18rem;
     padding: 1.5rem;
     height: calc(100vh - 4rem);
@@ -59,21 +62,47 @@ aside {
         list-style: none;
 
         li {
-            padding: 1rem;
-            color: var(--color-texto);
+            display: flex;
+            align-items: center;
+            column-gap: 0.5rem;
+            color: var(--gris-700);
             font-weight: bold;
             font-size: 1.1rem;
             border-radius: 5px;
             cursor: pointer;
+
+            a {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                padding: 0.75rem;
+                gap: 0.5rem;
+                text-decoration: none;
+            }
+
+            .contenedor-svg {
+                padding: 0.4rem;
+                border-radius: 5px;
+                background-color: hsla(216, 25%, 89%, 1);
+            }
+
+            svg {
+                display: block;
+            }
         }
 
         li.activo {
-            background-color: hsla(216, 100%, 81%, 0.5);
+            background-color: hsla(216, 100%, 89%, 0.4);
             color: var(--azul-logo);
+
+            .contenedor-svg {
+                background-color: hsla(216, 100%, 86%, 0.5);
+            }
         }
 
         li:hover:not(.activo) {
-            background-color: var(--gris-200);
+            color: var(--color-texto);
+            background-color: hsla(216, 25%, 92%, 0.5);
         }
 
         li:not(:nth-last-child(1)) {
@@ -97,7 +126,11 @@ header {
     overflow: hidden;
 
     &:hover {
-        border-color: var(--gris-500);
+        border-color: var(--gris-400);
+
+        .informacion-juego::before {
+            transform: scale(1.1);
+        }
     }
 
     .informacion-servidor {
@@ -147,11 +180,13 @@ header {
 
     .informacion-juego {
         display: flex;
+        position: relative;
+        overflow: hidden;
         column-gap: 0.5rem;
-        background:
+        /* background:
             linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
-            var(--banner);
-        background-size: cover;
+            var(--banner); */
+        background-size: cover 100%;
         background-position: center left;
         background-repeat: no-repeat;
         color: white;
@@ -161,44 +196,67 @@ header {
 
         .misma-linea {
             margin-top: auto;
+            z-index: 1;
         }
 
         .estado {
-            --offline-color-texto: hsl(0, 90%, 73%);
-            --offline-color-fondo: hsl(0, 76%, 40%, 0.5);
-            --offline-color-borde: hsl(0, 76%, 40%);
+            --estado-color-texto: hsl(210, 20%, 80%);
+            --estado-color-fondo: hsl(210, 20%, 25%, 0.35);
+            --estado-color-borde: hsl(210, 15%, 55%);
 
             display: flex;
             align-items: center;
             padding: 0.25rem 0.5rem;
-            color: var(--offline-color-texto);
-            background-color: var(--offline-color-fondo);
+            color: var(--estado-color-texto);
+            background-color: var(--estado-color-fondo);
             font-weight: bold;
             border-radius: 5px;
             margin-left: auto;
             margin-bottom: auto;
-            border: 1px solid var(--offline-color-borde);
-            backdrop-filter: blur(10px);
+            border: 1px solid var(--estado-color-borde);
+            backdrop-filter: blur(6px);
 
             div {
-                background-color: var(--offline-color-texto);
+                background-color: var(--estado-color-texto);
                 height: 8px;
                 width: 8px;
                 border-radius: 99px;
                 margin-right: 0.25rem;
             }
 
+            &.stopping {
+                --estado-color-texto: hsl(0, 100%, 78%);
+                --estado-color-fondo: hsl(0, 70%, 53%, 0.3);
+                --estado-color-borde: hsl(0, 60%, 46%);
+            }
+
             &.online {
-                /* --offline-color-texto: hsl(105, 53%, 52%); */
-                /* --offline-color-fondo: hsl(105, 80%, 90%); */
+                --estado-color-texto: hsl(105, 90%, 75%);
+                --estado-color-fondo: hsl(105, 60%, 35%, 0.4);
+                --estado-color-borde: hsl(105, 76%, 50%);
+            }
 
-                --offline-color-texto: hsl(105, 90%, 80%);
-                --offline-color-fondo: hsl(105, 60%, 35%);
-                --offline-color-borde: hsl(105, 76%, 40%);
-
+            &.starting {
+                --estado-color-texto: hsl(40, 91%, 75%);
+                --estado-color-fondo: hsl(40, 60%, 35%, 0.4);
+                --estado-color-borde: hsl(40, 76%, 50%);
             }
         }
     }
+
+    .informacion-juego::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+            var(--banner);
+        background-size: cover;
+        background-position: center;
+        transform: scale(1);
+        transition: transform 0.3s ease;
+        z-index: 0;
+        }
 
     .botones-accion {
         display: grid;

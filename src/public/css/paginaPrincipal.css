@@ -130,7 +130,7 @@ section {
     .contenedor-planes {
         display: flex;
         justify-content: center;
-        column-gap: 3rem;
+        column-gap: 2rem;
         color: var(--color-texto);
 
         .plan {
@@ -156,6 +156,20 @@ section {
                     column-gap: 0.25rem;
                 }
             }
+        }
+    }
+
+    .planes-adicionales {
+        margin-top: 2rem;
+        font-size: 1.25rem;
+
+        span {
+            /* font-weight: bold; */
+            color: var(--color-texto);
+        }
+
+        p {
+            color: var(--color-texto-secundario);
         }
     }
 }
@@ -197,35 +211,49 @@ section {
     }
 }
 
-.seccion-tutorial {  
-    .contenedor > span {
-        margin-bottom: 2rem;
+
+
+.tarjetas-tutorial {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.tarjeta {
+    flex: 1 1 180px;
+    padding: 1rem;
+    border-radius: 8px;
+    background: white;
+    border: 1px solid var(--gris-300);
+    text-align: left;
+
+    p {
+        color: var(--gris-600); 
     }
-    
-    .contenedor > div {
-        display: flex;
-        justify-content: space-between;
-        /* align-items: center; */
-        margin-bottom: 2rem;
+}
 
-        span {
-            font-size: 2rem;
-            font-weight: bold;
-        }
+.cta-tutorial {
+    display: flex;
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid var(--gris-300);
+    justify-content: space-between;
+    border-radius: 5px;
+    align-items: center;
+    width: 100%;
 
-        img {
-            width: 200px;
-            height: 200px;
-            background: black;
-        }
-    }
-
-    .contenedor > div:nth-child(odd) {
-        flex-direction: row-reverse;
-    }
-
-    .descripcion-paso {
+    div {
         text-align: left;
-        margin-inline: 1rem;
+    }
+
+    button {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        background-color: var(--azul-logo);
+        color: white;
+        border: none;
+        border-radius: 5px;
     }
 }

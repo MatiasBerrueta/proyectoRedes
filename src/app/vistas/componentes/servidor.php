@@ -7,12 +7,14 @@
     data-ram="<?= ($usoRam / 1024) / 1024 ?>"
     data-max-ram="<?= $maximoUsoRam ?>">
     <div class="informacion-juego" style="--banner:url('/assets/<?= $juego ?>-banner.jpeg')">
-        <!-- <img class='icono-juego' src='/assets/brand-minecraft.svg' width='32' alt='Icono juego minecraft'> -->
         <div class="misma-linea">
-            <h3 class='font-size-5'> <?= $nombre ?> </h3>
+            <h3 class='font-size-5'><?= $nombre ?></h3>
             <span class='ip-servidor'><?= $ipServidor ?>:<?= $puertoServidor ?></span>
         </div>
-        <span class="estado" class='estado <?= strtolower($estado) ?>'><div></div><?= $estado ?></span>
+        <span class="estado <?= strtolower($estado) ?>">
+            <div></div>
+            <?= $estado ?>
+        </span>
     </div>
     <div class="informacion-servidor flex-align-items">
         <div class='contenedor-metrica'>

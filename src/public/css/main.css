@@ -149,6 +149,23 @@ header {
         color: var(--color-texto);
     } */
 
+    .contenedor-logo {
+        position: relative;
+    }
+
+    .contenedor-logo:hover::after {
+        opacity: 0.3;
+    }
+
+    .contenedor-logo::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: white;
+        opacity: 0;
+        pointer-events: none;
+    }
+
     .logo {
         width: 40px;
         height: 40px;

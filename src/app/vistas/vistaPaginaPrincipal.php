@@ -102,54 +102,57 @@
         </section>
         <section class="seccion-planes">
             <div class="contenedor">
-                <span>Conoce nuestros planes</span>
+                <span>Planes accesibles y competitivos</span>
                 <p>Nuestros planes estan pensandos para darte una experiencia de juego fluida y a un bajo precio</p>
                 <div class="contenedor-planes">
                     <?php controladorPlan::listarPlanes() ?>
                 </div>
-                <p>¿No estás seguro de qué plan elegir? Usa nuestro <a href="">asistente de planes</a> o <a href="">crea uno a tu medida.</a></p>
+                <div class="planes-adicionales">
+                    <span>¿No estás seguro de qué plan elegir?</span>
+                    <p> Usa nuestro <a href="">asistente de planes</a> o <a href="">crea uno a tu medida.</a></p>
+                </div>
+                
             </div>
         </section>
         <section class="seccion-tutorial">
             <div class="contenedor">
-                <span>Como usar Voxel Hosting</span>
-                <div>
-                    <div class="descripcion-paso">
+                <span>Facil de configurar</span>
+
+                <div class="tarjetas-tutorial">
+                    
+                    <div class="tarjeta">
                         <span>01. Crea tu cuenta</span>
                         <p>Regístrate en segundos con tu correo o cuenta social.</p>
                     </div>
-                    <img src="" alt="" class="display-paso active">
-                </div>
-                <div>
-                    <div class="descripcion-paso">
+
+                    <div class="tarjeta">
                         <span>02. Elegi un juego</span>
                         <p>Selecciona entre más de 20 juegos soportados y configura tu servidor.</p>
                     </div>
-                    <img src="" alt="" class="display-paso active">
-                </div>
-                <div>
-                    <div class="descripcion-paso">
+
+                    <div class="tarjeta">
                         <span>03. Adquiri un plan</span>
                         <p>Elegi uno de nuestros planes segun tus preferencias.</p>
-                        <div class="barra-carga"></div>
                     </div>
-                    <img src="" alt="" class="display-paso active">
-                </div>
-                <div>
-                    <div class="descripcion-paso">
+
+                    <div class="tarjeta">
                         <span>04. Desplega el servidor</span>
                         <p>Presiona desplegar y mira tu servidor en línea en menos de un minuto.</p>
-                        <div class="barra-carga"></div>
                     </div>
-                    <img src="" alt="" class="display-paso active">
-                </div>
-                <div>
-                    <div class="descripcion-paso">
+
+                    <div class="tarjeta">
                         <span>05. Empeza a jugar!</span>
                         <p>Comparte tu IP del servidor y comienza a jugar con amigos inmediatamente.</p>
-                        <div class="barra-carga"></div>
                     </div>
-                    <img src="" alt="" class="display-paso active">
+
+                </div>
+
+                <div class="cta-tutorial">
+                    <div>
+                        <span>Listo para empezar?</span>
+                        <p>Inicia ahora con una prueba gratis de 7 dias!</p>
+                    </div>
+                    <button>Prueba gratis</button>
                 </div>
             </div>
         </section>

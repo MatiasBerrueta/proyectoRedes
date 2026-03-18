@@ -1,0 +1,110 @@
+:root {
+    --slider-relleno: var(--azul-logo);
+}
+
+.config-section > div > div,
+.config-section > div > label {
+    margin-bottom: 1rem;
+}
+
+.switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    width: 50%;
+}
+
+.switch input {
+    display: none;
+}
+
+.switch input:checked + .slider {
+    background-color: var(--azul-logo);
+}
+
+.switch input:checked + .slider::before {
+    transform: translateX(1.25rem);
+}
+
+.label-text {
+    font-size: 1rem;
+    margin-right: auto;
+}
+
+.slider {
+    position: relative;
+    width: calc(2.25rem + 6px);
+    height: 22px;
+    background-color: var(--gris-300);
+    border-radius: 3px;
+    transition: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    left: 3px;
+    top: 3px;
+    background-color: white;
+    border-radius: 3px;
+    transition: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    padding: 5px;
+    width: 50%;
+    height: calc(1rem + 10px);
+    background: var(--gris-300);
+    cursor: pointer;
+    border-radius: 3px;
+
+    &:hover {
+        --slider-relleno: rgb(169, 192, 207);
+    }
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 1rem;
+    height: 1rem;
+    background: white;
+    border-radius: 3px;
+    margin-top: -5px; /* centra verticalmente */
+    transition: 0.15s cubic-bezier(0.2, 0, 0, 1);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 1rem;
+    height: 1rem;
+    background: white;
+    border: none;
+    border-radius: 3px;
+    transition: 0.15s cubic-bezier(0.2, 0, 0, 1);
+}
+
+input[type="range"]:active::-webkit-slider-thumb {
+    transform: scale(1.1);
+}
+
+.range-wrapper {
+    position: relative;
+
+    .ticks {
+        /* position: absolute; */
+        /* top: 0; */
+        pointer-events: none;
+        color: var(--gris-500);
+    }
+}
+
+select {
+    width: 50%;
+    border-radius: 5px;
+    border: 1px solid var(--gris-400);
+    padding: 0.5rem 1rem;
+    background: white;
+}

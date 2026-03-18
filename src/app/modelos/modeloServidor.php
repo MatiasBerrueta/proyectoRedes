@@ -43,7 +43,7 @@ class modeloServidor {
     }
 
     public static function obtenerServidoresPterodactyl() {
-        $clientKey = 'ptlc_aUGNsV1gQyu9o0O2sQQzjY4vCvc0KHrujPNIqfFAu5I';
+        $clientKey = 'ptlc_qPc55GRrtjtQXvACeFWqvun2GExhVSV0hzGFCqgA3lw';
 
         $api = new pterodactylClientApi($clientKey);
         $servidores = $api->obtenerServidores();
@@ -52,7 +52,7 @@ class modeloServidor {
     }
 
     public static function obtenerRecursosServidorPterodactyl($id) {
-        $clientKey = 'ptlc_aUGNsV1gQyu9o0O2sQQzjY4vCvc0KHrujPNIqfFAu5I';
+        $clientKey = 'ptlc_qPc55GRrtjtQXvACeFWqvun2GExhVSV0hzGFCqgA3lw';
 
         $api = new pterodactylClientApi($clientKey);
         $recursosServidor = $api->obtenerRecursosServidorPorId($id);

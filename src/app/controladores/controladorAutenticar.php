@@ -1,5 +1,6 @@
 <?php
 require_once APP_ROOT . 'modelos/modeloUsuario.php';
+require_once APP_ROOT . 'modelos/api/pterodactylAppApi.php';
 
 class controladorAutenticar {
     public function validarEmail($email) {
@@ -52,6 +53,10 @@ class controladorAutenticar {
         $usuario->establecerPais("Uruguay");
         
         $resultado = $usuario->insertarUsuario();
+
+        $external_id = "app_" . $usuario->obtenerId();
+        $pterodactylAppApi = new pterodactylAppApi;
+        $pterodactylAppApi->crearUsuarioPterodactyl($email, $nombre, $nombre, 'a', $contrasena, $external_id);
 
         if ($resultado) {
             $this->iniciarSesion($email, $contrasena);

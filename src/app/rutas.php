@@ -11,6 +11,12 @@ $router->before('GET|POST', '/usuario/.*', function() {
     }
 });
 
+$router->before('GET|POST', '/panel/.*', function() {
+    if (!isset($_SESSION['usuario'])) {
+        header('Location: /login');
+    }
+});
+
 $router->get('/', function() {
     require_once APP_ROOT . 'controladores/controladorPlan.php';
     require_once APP_ROOT . 'vistas/vistaPaginaPrincipal.php';
@@ -27,13 +33,14 @@ $router->post('/login', function() {
     $resultado = $controlador->iniciarSesion($_POST['email'], $_POST['contrasena']);
 
     if ($resultado['ok']) {
-        if ($resultado['rol'] === 'ADMIN') {
-            header("Location: /admin/panel");
-            exit;
-        } else {
-            header("Location: /usuario/panel");
-            exit;
-        }
+        header("Location: /panel/servidores");
+        // if ($resultado['rol'] === 'ADMIN') {
+        //     header("Location: /admin/panel");
+        //     exit;
+        // } else {
+        //     header("Location: /usuario/panel");
+        //     exit;
+        // }
     } else {
         require APP_ROOT . "vistas/vistaIniciarSesion.php";
     }
@@ -52,13 +59,14 @@ $router->post('/registrarCliente', function() {
     $resultado = $controlador->registrarUsuario($_POST['nombre'], $_POST['email'], $_POST['contrasena'], $_POST['confirmarContrasena'], 'CLIENTE');
 
     if($resultado['ok']) {
-        if ($resultado['rol'] === 'ADMIN') {
-            header("Location: /admin/panel");
-            exit;
-        } else {
-            header("Location: /usuario/panel");
-            exit;
-        }
+        header("Location: /panel/servidores");
+        // if ($resultado['rol'] === 'ADMIN') {
+        //     header("Location: /admin/panel");
+        //     exit;
+        // } else {
+        //     header("Location: /usuario/panel");
+        //     exit;
+        // }
     } else {
         require_once APP_ROOT . 'vistas/vistaRegistrarUsuario.php';
     }
@@ -117,7 +125,8 @@ $router->post('/api/websocket', function() {
     $idServidor = $_POST['servidor_id'];
     require_once APP_ROOT . 'modelos/api/pterodactylClientApi.php';
 
-    $clienteApiKey = 'ptlc_aUGNsV1gQyu9o0O2sQQzjY4vCvc0KHrujPNIqfFAu5I';
+    // $clienteApiKey = 'ptlc_aUGNsV1gQyu9o0O2sQQzjY4vCvc0KHrujPNIqfFAu5I';
+    $clienteApiKey = 'ptlc_d8128a5e9b400e73b9afdcd977f602040f2cb0982bc22294c0efffa8bd95fe5d217ed57dd61b812c';
     $api = new pterodactylClientApi($clienteApiKey);
     echo json_encode($api->obtenerWebSocket($idServidor));
 });
@@ -132,7 +141,8 @@ $router->post('api/datosServidor', function() {
     $idServidor = $_POST['servidor_id'];    
     require_once APP_ROOT . 'modelos/api/pterodactylClientApi.php';
 
-    $clienteApiKey = 'ptlc_aUGNsV1gQyu9o0O2sQQzjY4vCvc0KHrujPNIqfFAu5I';
+    // $clienteApiKey = 'ptlc_aUGNsV1gQyu9o0O2sQQzjY4vCvc0KHrujPNIqfFAu5I';
+    $clienteApiKey = 'ptlc_d8128a5e9b400e73b9afdcd977f602040f2cb0982bc22294c0efffa8bd95fe5d217ed57dd61b812c';
     $api = new pterodactylClientApi($clienteApiKey);
     echo json_encode($api->obtenerServidorPorId($idServidor));
 });

@@ -1,6 +1,6 @@
 <header>
     <nav>
-        <a href="/">
+        <a class="contenedor-logo" href="/">
             <img class="logo" src="/assets/logo.svg" alt="Logo voxel hosting">
             <h1 class="nombre-logo">Voxel Hosting</h1>
         </a>
@@ -11,6 +11,7 @@
         </div>
         <div class="botones-cuentas">
             <?php if (isset($_SESSION['usuario'])): ?>
+                <?php if(htmlspecialchars($_SESSION['usuario']['rol']) == 'ADMIN') echo 'Eres un admin'; ?>
                 <a class="boton-panel" href="/panel/servidores">
                     <img src="/assets/layout-dashboard.svg" alt="Icono panel">    
                     Panel
