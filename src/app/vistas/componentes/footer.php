@@ -1,50 +1,39 @@
 <footer>
-    <div class="footer-contenedor">
-        <div class="footer-marca">
-            <span><img src="/assets/logo.svg" alt="VoxelHost Logo" class="footer-logo" width="48" height="48"></span>
-            
-            <p class="footer-desc">
-                <!-- Voxel Hosting -->
-                Servidores de juego rápidos, seguros y listos en minutos.
-            </p>
-        </div>
-        <nav class="footer-nav">
-            <h4>Producto</h4>
-            <ul>
-                <li><a href="/planes">Planes</a></li>
-                <li><a href="/juegos">Juegos disponibles</a></li>
-                <li><a href="/tutorial">Cómo funciona</a></li>
-                <li><a href="/recomendador">Recomendador de planes</a></li>
-            </ul>
-        </nav>
-        <nav class="footer-nav">
-            <h4>Soporte</h4>
-            <ul>
-                <li><a href="/soporte">Contacto técnico</a></li>
-                <li><a href="/base-conocimiento">Base de conocimiento</a></li>
-                <li><a href="/status">Estado del servicio</a></li>
-                <li><a href="/panel">Panel de usuario</a></li>
-            </ul>
-        </nav>
-        <nav class="footer-nav">
-            <h4>Legal</h4>
-            <ul>
-                <li><a href="/terminos">Términos y condiciones</a></li>
-                <li><a href="/privacidad">Política de privacidad</a></li>
-                <li><a href="/aup">Política de uso aceptable (AUP)</a></li>
-                <li><a href="/cookies">Política de cookies</a></li>
-            </ul>
-        </nav>
-        <div class="footer-contacto">
-            <h4>Contacto</h4>
-            <ul>
-                <li>Email: <a href="mailto:soporte@voxelhost.com">soporte@voxelhost.com</a></li>
-                <li>Discord: <a href="#" target="_blank">Unite a la comunidad</a></li>
-                <li>Twitter: <a href="#" target="_blank">@VoxelHost</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-final">
-        <p>© 2025 VoxelHost. Todos los derechos reservados.</p>
-    </div>
+	<div class="footer-contenedor">
+		<span class="footer-marca">
+			<svg  class="logo" xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 135.46666 135.46666"
+			width="512" height="512">
+				<rect width="135.46666" height="135.46666" fill="var(--color-footer)" rx="16.933334"/>
+
+				<g fill="none" stroke="#fff" stroke-width="4"
+				stroke-linecap="round" stroke-linejoin="round"
+				vector-effect="non-scaling-stroke"
+				transform="translate(3.397798,6.716718)">
+
+				<path d="M29.695 31.017v55l17.321 10v-25l17.321 10v25l17.321 10V46.017l-17.321-10v25l-17.321-10v-25l-17.321-10z"/>
+				<path d="M29.695 16.017l17.321-10 17.321 10-17.321 10 17.321-10v25l-17.321 10v-25z"/>
+				<path d="M47.015 96.017l17.321-10v-5l-17.321-10z"/>
+
+				<path d="M81.656 116.017
+					l17.32-10
+					V35
+					l-17.32 10
+					l-17.321-10
+					l17.321-10
+					l17.32 10
+					l-17.32 10z"/>
+				</g>
+			</svg>
+			<!-- <img src="/assets/logo.svg" alt="VoxelHost"> -->
+			VoxelHost
+		</span>
+		<p class="footer-copy">© 2026 Voxel Hosting</p>
+		<nav class="footer-links">
+			<a href="mailto:soporte@voxelhost.com">Contacto</a>
+			<a href="#" target="_blank">Discord</a>
+			<a href="/terminos">Términos</a>
+			<a href="/privacidad">Privacidad</a>
+		</nav>
+	</div>
 </footer>

@@ -17,16 +17,28 @@ document.addEventListener('click', (evento) => {
     }
 });
 
+function toggleTema() {
+    if(document.documentElement.classList.contains('tema-oscuro')) {
+        document.documentElement.classList.remove('tema-oscuro');
+        document.documentElement.classList.add('tema-claro');
+        localStorage.setItem('tema', 'claro');
+    } else if(document.documentElement.classList.contains('tema-claro')) {
+        document.documentElement.classList.remove('tema-claro');
+        localStorage.removeItem('tema');
+    } else {
+        document.documentElement.classList.add('tema-oscuro');
+        localStorage.setItem('tema', 'oscuro');
+  }
+}
+
 botonCambiarTema.addEventListener('click', (evento) => {
-    if(!document.startViewTransition) {
-        document.documentElement.classList.toggle('tema-oscuro');
-        return;
-    }
+    if(!document.startViewTransition) { return toggleTema(); }
 
     document.documentElement.style.setProperty("--x", evento.clientX + "px");
     document.documentElement.style.setProperty("--y", evento.clientY + "px");
 
-    document.startViewTransition(() => {
-        document.documentElement.classList.toggle('tema-oscuro');
-    })
+    document.startViewTransition(() => { toggleTema(); })
 });
+
+const temaGuardado = localStorage.getItem('tema');
+if (temaGuardado === 'oscuro') document.documentElement.classList.add('tema-oscuro');

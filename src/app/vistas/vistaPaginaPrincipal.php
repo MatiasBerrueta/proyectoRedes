@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/paginaPrincipal.css">
     <script src="/js/controladorTemas.js" defer></script>
+    <script src="/js/separadorPixeladoGenerador.js" defer></script>
     <title>Pagina principal - Voxel Hosting</title>
 </head>
 <body class="">
@@ -21,8 +22,10 @@
                     Empezar ahora 
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M15 16l4 -4" /><path d="M15 8l4 4" /></svg>
                 </button>
+                <?php include PUBLIC_ROOT . 'assets/ilustracion.svg'; ?>
             </div>
         </section>
+        <div class="pixel-separator" data-seed="1500" data-direction="up"></div>
         <section class="seccion-features">
             <div class="contenedor">
                 <span>¿Por qué elegirnos?</span>
@@ -43,9 +46,18 @@
                         <span>Crecemos con tu comunidad</span>
                         <p>Cuando tu servidor se llena, subir de nivel no corta la partida. Escalá RAM, CPU y almacenamiento en segundos, con backups automáticos incluidos.</p>
                     </div>
+                    <div class="bloque-razon">
+                        <span>Crecemos con tu comunidad</span>
+                        <p>Cuando tu servidor se llena, subir de nivel no corta la partida. Escalá RAM, CPU y almacenamiento en segundos, con backups automáticos incluidos.</p>
+                    </div>
+                    <div class="bloque-razon">
+                        <span>Crecemos con tu comunidad</span>
+                        <p>Cuando tu servidor se llena, subir de nivel no corta la partida. Escalá RAM, CPU y almacenamiento en segundos, con backups automáticos incluidos.</p>
+                    </div>
                 </div>
             </div>
         </section>
+        <div class="pixel-separator" data-seed="1520" data-direction="down"></div>
         <section class="seccion-juegos">
             <div class="contenedor">
                 <span>Hospeda tus juegos favoritos</span>
@@ -117,46 +129,74 @@
         <section class="seccion-tutorial">
             <div class="contenedor">
                 <span>Facil de configurar</span>
-
-                <div class="tarjetas-tutorial">
-                    
+                <div class="tarjetas-tutorial">    
+                    <!-- <div class="tarjeta">
+                        <span>Paso 1</span>
+                        <div class="tarjeta-contenido">
+                            <div>
+                                <span>Crea tu cuenta</span>
+                                <p>Regístrate en segundos con tu correo o cuenta social.</p>
+                            </div>
+                            <div class="img"></div>
+                            <img src="" alt="">
+                        </div>
+                    </div> -->
                     <div class="tarjeta">
-                        <span>01. Crea tu cuenta</span>
-                        <p>Regístrate en segundos con tu correo o cuenta social.</p>
+                        <span>Paso 2</span>
+                        <div class="tarjeta-contenido">
+                            <div>
+                                <span>Elegi un juego</span>
+                                <p>Selecciona entre más de 20 juegos soportados y configura tu servidor.</p>
+                            </div>
+                            <div class="img"></div>
+                            <!-- <img src="" alt=""> -->
+                        </div>
                     </div>
-
                     <div class="tarjeta">
-                        <span>02. Elegi un juego</span>
-                        <p>Selecciona entre más de 20 juegos soportados y configura tu servidor.</p>
+                        <span>Paso 3</span>
+                        <div class="tarjeta-contenido">
+                            <div>
+                                <span>Adquiri un plan</span>
+                                <p>Elegi uno de nuestros planes segun tus preferencias.</p>
+                            </div>
+                            <div class="img"></div>
+                            <!-- <img src="" alt=""> -->
+                        </div>
                     </div>
-
                     <div class="tarjeta">
-                        <span>03. Adquiri un plan</span>
-                        <p>Elegi uno de nuestros planes segun tus preferencias.</p>
+                        <span>Paso 4</span>
+                        <div class="tarjeta-contenido">
+                            <div>
+                                <span>Desplega el servidor</span>
+                                <p>Presiona desplegar y mira tu servidor en línea en menos de un minuto.</p>
+                            </div>
+                            <div class="img"></div>
+                            <!-- <img src="" alt=""> -->
+                        </div>
                     </div>
-
                     <div class="tarjeta">
-                        <span>04. Desplega el servidor</span>
-                        <p>Presiona desplegar y mira tu servidor en línea en menos de un minuto.</p>
+                        <span>Paso 5</span>
+                        <div class="tarjeta-contenido">
+                            <div>
+                                <span>Empeza a jugar!</span>
+                                <p>Comparte tu IP del servidor y comienza a jugar con amigos inmediatamente.</p>
+                            </div>
+                            <div class="img"></div>
+                            <!-- <img src="" alt=""> -->
+                        </div>
                     </div>
-
-                    <div class="tarjeta">
-                        <span>05. Empeza a jugar!</span>
-                        <p>Comparte tu IP del servidor y comienza a jugar con amigos inmediatamente.</p>
-                    </div>
-
                 </div>
-
                 <div class="cta-tutorial">
                     <div>
-                        <span>Listo para empezar?</span>
+                        <span class="font-size-4">Listo para empezar?</span>
                         <p>Inicia ahora con una prueba gratis de 7 dias!</p>
                     </div>
-                    <button>Prueba gratis</button>
+                    <button>Comenzar prueba gratis</button>
                 </div>
             </div>
         </section>
     </main>
+    <div class="pixel-separator" data-seed="150" data-direction="up" data-color="hsl(243, 35%, 18%)"></div>
     <?php include_once 'componentes/footer.php' ?>
 </body>
 </html>

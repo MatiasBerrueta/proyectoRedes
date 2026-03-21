@@ -1,51 +1,71 @@
+html {
+  background: linear-gradient(to bottom, var(--color-fondo) 50%, var(--color-footer) 50%);
+  background-attachment: fixed;
+}
+
 section {
     text-align: center;
 
     .contenedor > span {
         display: block;
         color: var(--color-texto);
-        font-size: 3rem;
-        font-family: "Jersey 10", sans-serif;
+        font-size: 2.5rem;
+        font-family: "Silkscreen", sans-serif;
         font-style: normal;
+        letter-spacing: -5px;
+        font-weight: bold;
     }
 
     .contenedor > p {
         color: var(--color-texto-secundario);
         font-size: 1.25rem;
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
     }
+
+    /* &:nth-child(2n) {
+        background-color: var(--azul-logo);
+        color: white;
+    } */
 }
 
 .seccion-presentacion {
-    height: calc(85vh - 0rem);
+    height: calc(100vh - 4rem);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     text-align: left;
-    background-color: var(--azul-logo);
+    margin-top: 7rem;
+    /* background-color: var(--azul-logo); */
+    color: var(--color-texto);
 
     .contenedor h1 {
-        line-height: 4rem;
-        color: white;
+        line-height: 3.5rem;
+        color: var(--azul-logo);
     }
     
     .contenedor p {
-        margin: 2rem 0;
-        color: white;
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--color-texto-secundario);
     }
 
     button {
         background: none;
-        border: 1px solid white;
         margin: 0;
-        color: white;
+        color: var(--color-fondo);
+        border: 1px solid var(--azul-logo);
+        background-color: var(--azul-logo);
 
         &:hover {
             color: var(--azul-logo);
-            background-color: white;
+            background-color: transparent;
         }
     }
     
+    .contenedor > svg {
+        display: block;
+        margin-left: auto;
+        margin-top: -10rem;
+    }
 }
 
 @keyframes scroll {
@@ -124,9 +144,6 @@ section {
 }
 
 .seccion-planes {
-    /* background-color: var(--azul-logo); */
-    /* color: white; */
-
     .contenedor-planes {
         display: flex;
         justify-content: center;
@@ -136,14 +153,20 @@ section {
         .plan {
             border: 1px solid var(--color-borde);
             background-color: var(--color-card);
-            border-radius: 10px;
+            border-radius: 5px;
             padding: 2rem;
             width: 100%;
             text-align: start;
 
+            svg {
+                width: 32px;
+                height: 32px;
+            }
+
             button {
                 border: 1px solid black;
                 margin-inline: auto;
+                margin-top: 3rem;
             }
 
             ul {
@@ -175,82 +198,139 @@ section {
 }
 
 .seccion-features {
-    .contenedor > span {
-        margin-bottom: 2rem;
-    }
+    background-color: var(--azul-logo);
+    color: white;
 
-    .contenedor-razones {
-        --min-column-size: 300px;
-
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min-column-size)), 1fr));
-        gap: 1.5rem;
-    }
-
-    .bloque-razon {
-        text-align: left;
-        border: 1px solid var(--color-borde);
-        background-color: var(--azul-logo);
-        padding: 3rem;
-        border-radius: 0.5rem;
-        width: 100%;
-
-        span {
-            display: block;
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: white;
-            /* color: var(--azul-logo); */
-        }
-
-        p {
-            color: white;
-            /* color: var(--color-texto-secundario); */
-        }
+    span {
+        color: inherit !important;
     }
 }
 
+.contenedor-razones {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* border: 3px solid white; */
+    /* border-radius: 5px; */
+    /* overflow: hidden; */
+    margin-top: 2rem;
+    gap: 1rem 3rem;
+}
 
+.bloque-razon {
+    flex: 1;
+    text-align: left;
+    /* border: 3px solid white; */
+    padding: 1.5rem 2rem;
+    width: 100%;
+
+
+    &:not(:nth-child(2n)) {
+        border-right: none;
+        /* border: 3px solid white; */
+    }
+
+    &:nth-child(n+3) {
+        border-top: none;
+        /* border: 3px solid white; */
+    }
+
+    span {
+        display: block;
+        font-size: 1.35rem;
+        font-weight: bold;
+        /* color: var(--color-texto); */
+        /* color: var(--azul-logo); */
+    }
+
+    p {
+        /* color: var(--color-texto-secundario); */
+        font-size: 1.1rem;
+    }
+}
 
 .tarjetas-tutorial {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 1rem;
     margin-top: 2rem;
 }
 
 .tarjeta {
-    flex: 1 1 180px;
-    padding: 1rem;
-    border-radius: 8px;
-    background: white;
-    border: 1px solid var(--gris-300);
     text-align: left;
+    color: var(--color-texto);
+
+    & > span {
+        display: block;
+        border: 1px solid var(--color-borde);
+        border-radius: 5px;
+        padding: 0.5rem 1rem;
+        width: max-content;
+        margin-bottom: 0.5rem;
+        background: var(--color-blanco);
+
+    }
+}
+
+.tarjeta-contenido {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde);
+    padding: 1rem 2rem;
+    height: 300px;
+    border-radius: 5px;
+
+    /* &:not(:nth-child(4n)) {
+        border-right: none;
+    } */
+
+    span {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
 
     p {
         color: var(--gris-600); 
+        margin-top: 0.25rem;
+    }
+
+    .img {
+        width: 100%;
+        height: 150px;
+        background-color: var(--color-superficie);
+        border: none;
+        outline: none;
     }
 }
 
 .cta-tutorial {
     display: flex;
-    margin-top: 2rem;
+    margin-top: 1rem;
     padding: 1rem;
-    background-color: white;
-    border: 1px solid var(--gris-300);
+    border: 1px solid var(--color-borde);
     justify-content: space-between;
     border-radius: 5px;
     align-items: center;
     width: 100%;
+    background-color: var(--color-blanco);
 
     div {
         text-align: left;
     }
 
+    span {
+        font-weight: bold;
+    }
+
+    p {
+        color: var(--color-texto-secundario);
+    }
+
     button {
-        padding: 0.5rem 1rem;
-        font-size: 1rem;
+        padding: 0.75rem 1rem;
+        font-size: 1.15rem;
+        font-weight: bold;
         background-color: var(--azul-logo);
         color: white;
         border: none;
