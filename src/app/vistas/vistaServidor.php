@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/panelUsuario.css">
     <link rel="stylesheet" href="/css/servidor-contenido.css">
     <script src="/js/controladorTemas.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/ansi_up@5.0.0/ansi_up.min.js"></script>
     <title>Usuario</title>
 </head>
 <body>
@@ -75,18 +76,20 @@
         <section class="seccion-servidores">
             <a href="/panel/servidores">Volver a lista servidores</a>
             <?php require_once APP_ROOT . "vistas/componentes/$tab.php"; ?>
-            <!-- <div id="contenido"></div> -->
         </section>
     </main>
     <script>
         const consola = document.querySelector('.contenido-consola');
-        const botonIniciar = document.querySelector('.boton-iniciar');
-        const botonDetener = document.querySelector('.boton-detener');
-        const botonReiniciar = document.querySelector('.boton-reiniciar');
-        const textoEstatus = document.querySelector('.texto-estatus');
+        const botonIniciar = document.querySelector('.boton.iniciar');
+        const botonDetener = document.querySelector('.boton.detener');
+        const botonReiniciar = document.querySelector('.boton.reiniciar');
+        const textoEstado = document.querySelector('.texto-estado');
         
         const pathName = window.location.pathname;
         const serverId = pathName.split('/').pop();
+
+        const ansi_up = new AnsiUp();
+        ansi_up.use_classes = true;
 
         async function obtenerDatosWebSocket(serverId) {
             const form = new FormData();
@@ -131,14 +134,19 @@
                     case 'console output':
                         console.log('Console:', message.args[0]);
 
-                        const nuevaLinea = document.createElement("div");
-                        nuevaLinea.textContent = message.args[0];
-                        consola.appendChild(nuevaLinea);
-                        consola.parentElement.scrollTop = consola.parentElement.scrollHeight;
+                        const raw = message.args[0];
+                        const html = ansi_up.ansi_to_html(raw);
+                        const div = document.createElement('div');
+                        div.className = 'line';
+                        div.innerHTML = html.replace(/\n/g, '<br>');
+
+                        consola.appendChild(div);
+
+                        consola.scrollTop = consola.scrollHeight;
                         break;
                     case 'status':
                         console.log('Status changed:', message.args[0]);
-                        textoEstatus.innerText = message.args[0];
+                        textoEstado.innerText = message.args[0];
                         break;
                     case 'stats':
                         const stats = JSON.parse(message.args[0]);

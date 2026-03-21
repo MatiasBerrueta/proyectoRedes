@@ -126,7 +126,7 @@ $router->post('/api/websocket', function() {
     require_once APP_ROOT . 'modelos/api/pterodactylClientApi.php';
 
     // $clienteApiKey = 'ptlc_aUGNsV1gQyu9o0O2sQQzjY4vCvc0KHrujPNIqfFAu5I';
-    $clienteApiKey = 'ptlc_d8128a5e9b400e73b9afdcd977f602040f2cb0982bc22294c0efffa8bd95fe5d217ed57dd61b812c';
+    $clienteApiKey = 'ptlc_qPc55GRrtjtQXvACeFWqvun2GExhVSV0hzGFCqgA3lw';
     $api = new pterodactylClientApi($clienteApiKey);
     echo json_encode($api->obtenerWebSocket($idServidor));
 });
@@ -142,7 +142,7 @@ $router->post('api/datosServidor', function() {
     require_once APP_ROOT . 'modelos/api/pterodactylClientApi.php';
 
     // $clienteApiKey = 'ptlc_aUGNsV1gQyu9o0O2sQQzjY4vCvc0KHrujPNIqfFAu5I';
-    $clienteApiKey = 'ptlc_d8128a5e9b400e73b9afdcd977f602040f2cb0982bc22294c0efffa8bd95fe5d217ed57dd61b812c';
+    $clienteApiKey = 'ptlc_qPc55GRrtjtQXvACeFWqvun2GExhVSV0hzGFCqgA3lw';
     $api = new pterodactylClientApi($clienteApiKey);
     echo json_encode($api->obtenerServidorPorId($idServidor));
 });

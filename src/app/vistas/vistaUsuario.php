@@ -11,8 +11,6 @@ function formatBytes($bytes, $precision = 2) {
     $pow = min($pow, count($units) - 1); 
    
     $bytes /= pow(1024, $pow);
-    // this will also work in place of the above line:
-    // $bytes /= (1 << (10 * $pow)); 
    
     return round($bytes, $precision) . $units[$pow]; 
 } 
@@ -31,6 +29,18 @@ function formatBytes($bytes, $precision = 2) {
 <body>
     <?php include_once 'componentes/header.php'; ?>
     <main>
+        <aside>
+            <nav>
+                <ul>
+                    <li class="activo">
+                        <a href="/servidores">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-server-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-2" /><path d="M3 15a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3l0 -2" /><path d="M7 8l0 .01" /><path d="M7 16l0 .01" /><path d="M11 8h6" /><path d="M11 16h6" /></svg>
+                            Mis servidores
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
         <section class="seccion-servidores">
             <div class="contenedor-acciones">
                 <h2 class="font-size-6">Mis servidores</h2>
@@ -72,18 +82,6 @@ function formatBytes($bytes, $precision = 2) {
                 <?php controladorServidor::mostrarServidoresUsuario(); ?>
             </div>
         </section>
-        <aside>
-            <nav>
-                <ul>
-                    <li class="activo">
-                        <a href="/servidores">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-server-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-2" /><path d="M3 15a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3l0 -2" /><path d="M7 8l0 .01" /><path d="M7 16l0 .01" /><path d="M11 8h6" /><path d="M11 16h6" /></svg>
-                            Mis servidores
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
         <script>
             function inicializarServidor(servidor) {
                 const jugadores = parseFloat(servidor.dataset.jugadores);
@@ -115,48 +113,6 @@ function formatBytes($bytes, $precision = 2) {
 
                 return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
             }
-
-            // const identifier = '1cbf818f';
-            // const metricaEstado = document.getElementById(`estado-${identifier}`);
-            // const metricaCpu = document.getElementById(`cpu-${identifier}`);
-            // const barraCpu = document.getElementById(`barra-cpu-${identifier}`);
-            // const metricaRam = document.getElementById(`ram-${identifier}`);
-            // const barraRam = document.getElementById(`barra-ram-${identifier}`);
-            // const botonIniciar = document.getElementById(`iniciar-${identifier}`);
-            // const botonDetener = document.getElementById(`detener-${identifier}`);
-
-            // socket.onmessage = function(event) {
-            //     const message = JSON.parse(event.data);
-            //     console.log(message);
-
-            //     if (message.event === 'stats') {
-            //         const stats = JSON.parse(message.args[0]);
-
-            //         const ramActualEnGB = (stats.memory_bytes / 1024 / 1024 / 1024).toFixed(1);
-            //         const ramMaximaEnGB = (stats.memory_limit_bytes / 1024 / 1024 / 1024).toFixed(1);
-
-            //         metricaEstado.textContent = stats.state;
-            //         metricaCpu.textContent = Math.floor(stats.cpu_absolute) + '%';
-            //         barraCpu.style.width = Math.floor(stats.cpu_absolute) + '%';
-            //         metricaRam.textContent = `${formatBytes(stats.memory_bytes)}/${formatBytes(stats.memory_limit_bytes)}`;
-            //         barraRam.style.width = ((stats.memory_bytes / stats.memory_limit_bytes) * 100) + "%";
-            //     }
-            // };
-
-            // botonIniciar.addEventListener('click', () => {
-            //     socket.send(JSON.stringify({
-            //         event: 'set state',
-            //         args: ['start']
-            //     }));
-            // });
-
-            // botonDetener.addEventListener('click', () => {
-            //     socket.send(JSON.stringify({
-            //         event: 'set state',
-            //         args: ['stop']
-            //     }));
-            // });
-
         </script>
     </main>
 </body>
