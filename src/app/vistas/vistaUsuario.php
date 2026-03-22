@@ -45,7 +45,7 @@ function formatBytes($bytes, $precision = 2) {
             <div class="contenedor-acciones">
                 <h2 class="font-size-6">Mis servidores</h2>
                 <button class="boton-crear-servidor" onclick="crearServidorModal.showModal()">
-                    <img src="/assets/plus.svg" alt="Icono crear servidor">
+                    <?php include PUBLIC_ROOT . 'assets/iconos/plus.svg'; ?>
                     Crear servidor
                 </button>
                 <dialog id="crearServidorModal">

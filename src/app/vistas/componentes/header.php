@@ -1,7 +1,7 @@
 <header>
     <nav>
         <a class="contenedor-logo" href="/">
-            <img class="logo" src="/assets/logo.svg" alt="Logo voxel hosting">
+            <?php include PUBLIC_ROOT . 'assets/iconos/logo.svg' ?>
             <h1 class="nombre-logo">Voxel Hosting</h1>
         </a>
         <div class="botones-navegacion">
@@ -13,26 +13,26 @@
             <?php if (isset($_SESSION['usuario'])): ?>
                 <?php if(htmlspecialchars($_SESSION['usuario']['rol']) == 'ADMIN') echo 'Eres un admin'; ?>
                 <a class="boton-panel" href="/panel/servidores">
-                    <img src="/assets/layout-dashboard.svg" alt="Icono panel">    
+                    <?php include PUBLIC_ROOT . 'assets/iconos/panel.svg' ?>   
                     Panel
                 </a>
                 <div class="menu-usuario">
                     <button id="boton-menu-usuario" class="boton-menu-usuario" aria-expanded="false">
-                        <img src="/assets/user(1).svg" alt="Icono usuario">
+                        <?php include PUBLIC_ROOT . 'assets/iconos/user.svg' ?>   
                         <?= htmlspecialchars($_SESSION['usuario']['nombre']) ?>
                     </button>
                     <div id="menu-dropdown" class="menu-dropdown" hidden>
                         <a href="/usuario/perfil">
-                            <img src="/assets/adjustments-horizontal.svg" alt="">
+                            <?php include PUBLIC_ROOT . 'assets/iconos/settings.svg' ?>   
                             Ver perfil
                         </a>
                         <button id="boton-cambiar-tema">
-                            <img src="/assets/brush.svg" alt="">
-                            Cambiar tema
+                            <?php include PUBLIC_ROOT . 'assets/iconos/sun.svg' ?>   
+                            Tema
                         </button>
                         <div class="separador"></div>
                         <a href="/logout">
-                            <img src="/assets/logout-2.svg" alt="">
+                            <?php include PUBLIC_ROOT . 'assets/iconos/logout.svg' ?>   
                             Cerrar sesion
                         </a>    
                     </div>

@@ -33,7 +33,7 @@ section {
     display: flex;
     flex-direction: column;
     text-align: left;
-    margin-top: 7rem;
+    margin-top: 3rem;
     /* background-color: var(--azul-logo); */
     color: var(--color-texto);
 
@@ -64,7 +64,9 @@ section {
     .contenedor > svg {
         display: block;
         margin-left: auto;
-        margin-top: -10rem;
+        margin-top: -10%;
+        /* width: 600px; */
+        /* height: 600px; */
     }
 }
 

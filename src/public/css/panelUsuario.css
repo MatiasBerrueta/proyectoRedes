@@ -52,8 +52,8 @@ main {
 
 aside {
     position: sticky;
-    width: 18rem;
     padding: 1.5rem;
+    width: 19rem;
     height: calc(100vh - 4rem);
     border-right: 1px solid var(--color-borde);
     background-color: var(--color-header);
@@ -66,7 +66,7 @@ aside {
             display: flex;
             align-items: center;
             column-gap: 0.5rem;
-            color: var(--gris-700);
+            color: var(--gris-600);
             font-weight: bold;
             font-size: 1.1rem;
             border-radius: 5px;
@@ -93,7 +93,7 @@ aside {
         }
 
         li.activo {
-            background-color: hsla(216, 100%, 89%, 0.4);
+            background-color: var(--azul-transparente);
             color: var(--azul-logo);
 
             .contenedor-svg {
@@ -103,7 +103,7 @@ aside {
 
         li:hover:not(.activo) {
             color: var(--color-texto);
-            background-color: hsla(216, 25%, 92%, 0.5);
+            background-color: var(--gris-900);
         }
 
         li:not(:nth-last-child(1)) {
@@ -127,7 +127,7 @@ header {
     overflow: hidden;
 
     &:hover {
-        border-color: var(--gris-400);
+        border-color: var(--color-borde-hover);
 
         .informacion-juego::before {
             transform: scale(1.1);
@@ -151,6 +151,8 @@ header {
             display: flex;
             justify-content: space-between;
             margin-bottom: 0.25rem;
+            font-size: 14px;
+            color: var(--color-texto-secundario);
 
             p {
                 display: flex;
@@ -158,7 +160,7 @@ header {
                 column-gap: 0.25rem;
             }
 
-            img {
+            svg {
                 width: 16px;
                 height: 16px;
             }
@@ -167,15 +169,15 @@ header {
         .barra {
             height: 5px;
             width: 100%;
-            background-color: var(--gris-200);
-            /* border-radius: 99px; */
+            border-radius: 1px;
+            background-color: var(--color-superficie);
             overflow: hidden;
         }
 
         .barra-relleno {
             height: 100%;
             width: 0%;
-            background-color: hsl(211, 80%, 50%);
+            background-color: var(--azul-logo);
         }
     }
 
@@ -202,7 +204,7 @@ header {
 
         .estado {
             --estado-color-texto: hsl(210, 20%, 80%);
-            --estado-color-fondo: hsl(210, 20%, 25%, 0.35);
+            --estado-color-fondo: hsl(210, 20%, 25%);
             --estado-color-borde: hsl(210, 15%, 55%);
 
             display: flex;
@@ -211,11 +213,11 @@ header {
             color: var(--estado-color-texto);
             background-color: var(--estado-color-fondo);
             font-weight: bold;
-            border-radius: 5px;
+            border-radius: 3px;
             margin-left: auto;
             margin-bottom: auto;
             border: 1px solid var(--estado-color-borde);
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(0);
 
             div {
                 background-color: var(--estado-color-texto);
@@ -227,19 +229,19 @@ header {
 
             &.stopping {
                 --estado-color-texto: hsl(0, 100%, 78%);
-                --estado-color-fondo: hsl(0, 70%, 53%, 0.3);
+                --estado-color-fondo: hsl(0, 70%, 53%);
                 --estado-color-borde: hsl(0, 60%, 46%);
             }
 
             &.online {
                 --estado-color-texto: hsl(105, 90%, 75%);
-                --estado-color-fondo: hsl(105, 60%, 35%, 0.4);
+                --estado-color-fondo: hsl(105, 60%, 35%);
                 --estado-color-borde: hsl(105, 76%, 50%);
             }
 
             &.starting {
                 --estado-color-texto: hsl(40, 91%, 75%);
-                --estado-color-fondo: hsl(40, 60%, 35%, 0.4);
+                --estado-color-fondo: hsl(40, 60%, 35%, 0.6);
                 --estado-color-borde: hsl(40, 76%, 50%);
             }
         }

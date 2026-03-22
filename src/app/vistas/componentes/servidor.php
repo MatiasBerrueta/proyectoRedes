@@ -19,7 +19,7 @@
     <div class="informacion-servidor flex-align-items">
         <div class='contenedor-metrica'>
             <div class='metricas'>
-                <p><img src='/assets/users.svg' alt='Icono jugadores'>Players</p>
+                <p><?php include PUBLIC_ROOT . 'assets/iconos/users.svg'; ?>Players</p>
                 <div>
                     <span class='jugadores-actuales'><?= $numeroJugadores ?></span> / <span class="jugadores-maximos"><?= $maximoNumeroJugadores ?></span>
                 </div>
@@ -30,7 +30,7 @@
         </div>
         <div class='contenedor-metrica'>
             <div class='metricas'>
-                <p><img src='/assets/cpu.svg' alt='Icono cpu'>CPU</p>
+                <p><?php include PUBLIC_ROOT . 'assets/iconos/cpu.svg'; ?>CPU</p>
                  <div>
                    <span class='cpu-actual'><?= $usoCpu ?>%</span> / <span class="limite-cpu"><?= $maximoUsoCpu ?>%</span>
                 </div>
@@ -41,7 +41,7 @@
         </div>
         <div class='contenedor-metrica'>
             <div class='metricas'>
-                <p><img src='/assets/device-floppy.svg' alt='Icono ram'>RAM</p>
+                <p><?php include PUBLIC_ROOT . 'assets/iconos/device-floppy.svg'; ?>RAM</p>
                 <div>
                     <span class='ram-actual'><?= formatBytes($usoRam) ?></span> / <span class="limite-ram"><?= formatBytes($maximoUsoRam * 1024 * 1024) ?></span>
                 </div>

@@ -1,5 +1,5 @@
  <div class='plan'>
-    <p class="font-size-4 flex-align-items" style="justify-content: space-between"><b><?= $nombre ?></b> <img src="/assets/plan<?= $i + 1 ?>.svg" alt="" width="32"></p>
+    <p class="font-size-4 flex-align-items" style="justify-content: space-between"><b><?= $nombre ?></b><?php include PUBLIC_ROOT . 'assets/iconos/plan' . ($i + 1) . '.svg'; ?></p>
     <p><span class="font-size-6"><b><?= $costo ?></span> usd / mes</b></p>
     <p>Pensado para hasta <?= $max_jugadores ?> jugadores</p>
     <ul>

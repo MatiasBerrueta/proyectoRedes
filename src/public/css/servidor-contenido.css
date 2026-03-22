@@ -146,7 +146,8 @@
 .contenedor-estadistica {
     display: flex;
     padding: 1rem;
-    border: 1px solid var(--gris-300);
+    border: 1px solid var(--color-borde);
+    background-color: var(--color-superficie);
     border-radius: 5px;
     justify-content: space-between;
 

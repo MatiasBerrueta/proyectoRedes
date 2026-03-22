@@ -10,7 +10,9 @@
 </head>
 <body>
     <div class="form-container">
-        <img src="assets/logo.svg" alt="Voxel Hosting Logo" class="logo">
+        <a href="/">
+            <?php include PUBLIC_ROOT . 'assets/logo.svg'; ?>
+        </a>
         <form action="" method="POST">
             <div>
                 <!-- <label for="input-email">Email</label> -->

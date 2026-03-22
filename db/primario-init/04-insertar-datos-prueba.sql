@@ -1,5 +1,6 @@
 INSERT INTO USUARIO (nombre, email, contrasena, rol, estado, pais)  VALUES 
-('Juan Pérez', 'juanp@example.com', '12345', 'CLIENTE', 'ACTIVO',  'Uruguay'), 
+-- Contrasena: 12345
+('Juan Pérez', 'juanp@example.com', '$2y$10$YnqqUnsGq5ow2rh5K3p5aO9lMmLBdleWKCpGJN.LUJbp7ccj9Ytdi', 'CLIENTE', 'ACTIVO',  'Uruguay'), 
 ('María López', 'marial@example.com', 'abcde', 'CLIENTE',  
 'INACTIVO', 'Argentina'), 
 ('Carlos Gómez', 'cgomez@example.com', 'pass123', 'ADMIN',  'ACTIVO', 'Chile'); 

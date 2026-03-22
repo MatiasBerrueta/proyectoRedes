@@ -4,7 +4,7 @@
 
   <!-- Fondo azul -->
   <rect width="135.46666" height="135.46666"
-        fill="#0050ff" rx="16.933334"/>
+        fill="currentColor" rx="16.933334"/>
 
   <!-- Logo -->
   <g fill="none" stroke="#fff" stroke-width="4"
