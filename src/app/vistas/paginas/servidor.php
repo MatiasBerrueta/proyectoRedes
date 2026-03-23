@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    (function() {
+        const temaGuardado = localStorage.getItem('tema');
+        if (temaGuardado === 'oscuro') document.documentElement.classList.add('tema-oscuro');
+    })();
+    </script>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/panelUsuario.css">
     <link rel="stylesheet" href="/css/servidor-contenido.css">
@@ -11,7 +17,7 @@
     <title>Usuario</title>
 </head>
 <body>
-    <?php require_once 'componentes/header.php'; ?>
+    <?php include_once APP_ROOT . 'vistas/componentes/header.php'; ?>
     <main>
         <aside id="sidemenu">
             <nav>
@@ -75,7 +81,7 @@
         </aside>
         <section class="seccion-servidores">
             <a href="/panel/servidores">Volver a lista servidores</a>
-            <?php require_once APP_ROOT . "vistas/componentes/$tab.php"; ?>
+            <?php require_once APP_ROOT . "vistas/secciones/$tab.php"; ?>
         </section>
     </main>
     <script>

@@ -19,7 +19,7 @@ $router->before('GET|POST', '/panel/.*', function() {
 
 $router->get('/', function() {
     require_once APP_ROOT . 'controladores/controladorPlan.php';
-    require_once APP_ROOT . 'vistas/vistaPaginaPrincipal.php';
+    require_once APP_ROOT . 'vistas/paginas/principal.php';
 });
 
 $router->get('/login', function() {
@@ -48,11 +48,11 @@ $router->post('/login', function() {
     unset($_POST);
 });
 
-$router->get('/registrarCliente', function() {
-    require_once APP_ROOT . 'vistas/vistaRegistrarUsuario.php';
+$router->get('/registroUsuario', function() {
+    require_once APP_ROOT . 'vistas/registroUsuario.php';
 });
 
-$router->post('/registrarCliente', function() {
+$router->post('/registroUsuario', function() {
     require_once APP_ROOT . 'controladores/controladorAutenticar.php';
 
     $controlador = new controladorAutenticar();
@@ -68,7 +68,7 @@ $router->post('/registrarCliente', function() {
         //     exit;
         // }
     } else {
-        require_once APP_ROOT . 'vistas/vistaRegistrarUsuario.php';
+        require_once APP_ROOT . 'vistas/paginas/registroUsuario.php';
     }
 
     exit;
@@ -76,18 +76,18 @@ $router->post('/registrarCliente', function() {
 
 $router->get('/panel/servidores', function() {
     require_once APP_ROOT . 'controladores/controladorServidor.php';
-    require_once APP_ROOT . 'vistas/vistaUsuario.php';
+    require_once APP_ROOT . 'vistas/paginas/panelUsuario.php';
 });
 
 $router->get('/panel/servidores/([a-zA-Z0-9]+)', function($idServidor) {
     $tab = 'consola';
     require_once APP_ROOT . 'controladores/controladorServidor.php';
-    require_once APP_ROOT . 'vistas/vistaServidor.php';
+    require_once APP_ROOT . 'vistas/paginas/servidor.php';
 });
 
 $router->get('/panel/servidores/([a-zA-Z0-9]+)/([a-zA-Z]+)', function($idServidor, $tab) {
     require_once APP_ROOT . 'controladores/controladorServidor.php';
-    require_once APP_ROOT . 'vistas/vistaServidor.php';
+    require_once APP_ROOT . 'vistas/paginas/servidor.php';
 });
 
 // $router->get('/panel/servidores/([a-zA-Z0-9]+)/([a-zA-Z]+)', function($idServidor, $tab) {
@@ -95,7 +95,7 @@ $router->get('/panel/servidores/([a-zA-Z0-9]+)/([a-zA-Z]+)', function($idServido
 // });
 
 $router->get('/recuperarContrasena', function() {
-    require_once APP_ROOT . 'vistas/recuperarContrasena.php';
+    require_once APP_ROOT . 'vistas/paginas/recuperarContrasena.php';
 });
 
 $router->get('/logout', function() {
@@ -108,7 +108,7 @@ $router->get('/logout', function() {
 
 $router->set404(function() {
     http_response_code(404);
-    require_once APP_ROOT . 'vistas/404.php';
+    require_once APP_ROOT . 'vistas/paginas/404.php';
 });
 
 $router->delete('/testing/borrarUsuario/(.+)', function($email) {
@@ -124,10 +124,11 @@ $router->post('/api/websocket', function() {
 
     $idServidor = $_POST['servidor_id'];
     require_once APP_ROOT . 'modelos/api/pterodactylClientApi.php';
+    require_once APP_ROOT . 'modelos/modeloUsuario.php';
 
-    // $clienteApiKey = 'ptlc_aUGNsV1gQyu9o0O2sQQzjY4vCvc0KHrujPNIqfFAu5I';
-    $clienteApiKey = 'ptlc_qPc55GRrtjtQXvACeFWqvun2GExhVSV0hzGFCqgA3lw';
-    $api = new pterodactylClientApi($clienteApiKey);
+    $usuarioActual = modeloUsuario::obtenerUsuarioPorEmail($_SESSION['usuario']['email']);
+
+    $api = new pterodactylClientApi($usuarioActual['client_key']);
     echo json_encode($api->obtenerWebSocket($idServidor));
 });
 
@@ -140,10 +141,11 @@ $router->post('api/datosServidor', function() {
 
     $idServidor = $_POST['servidor_id'];    
     require_once APP_ROOT . 'modelos/api/pterodactylClientApi.php';
+    require_once APP_ROOT . 'modelos/modeloUsuario.php';
 
-    // $clienteApiKey = 'ptlc_aUGNsV1gQyu9o0O2sQQzjY4vCvc0KHrujPNIqfFAu5I';
-    $clienteApiKey = 'ptlc_qPc55GRrtjtQXvACeFWqvun2GExhVSV0hzGFCqgA3lw';
-    $api = new pterodactylClientApi($clienteApiKey);
+    $usuarioActual = modeloUsuario::obtenerUsuarioPorEmail($_SESSION['usuario']['email']);
+
+    $api = new pterodactylClientApi($usuarioActual['client_key']);
     echo json_encode($api->obtenerServidorPorId($idServidor));
 });
 

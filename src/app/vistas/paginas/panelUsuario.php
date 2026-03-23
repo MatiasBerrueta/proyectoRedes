@@ -1,33 +1,21 @@
-<?php
-// Source - https://stackoverflow.com/a/2510459
-// Posted by Leo, modified by community. See post 'Timeline' for change history
-// Retrieved 2026-02-16, License - CC BY-SA 4.0
-
-function formatBytes($bytes, $precision = 2) { 
-    $units = ['B', 'KB', 'MB', 'GB', 'TB']; 
-   
-    $bytes = max($bytes, 0); 
-    $pow = floor(($bytes ? log($bytes) : 0) / log(1024)); 
-    $pow = min($pow, count($units) - 1); 
-   
-    $bytes /= pow(1024, $pow);
-   
-    return round($bytes, $precision) . $units[$pow]; 
-} 
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    (function() {
+        const temaGuardado = localStorage.getItem('tema');
+        if (temaGuardado === 'oscuro') document.documentElement.classList.add('tema-oscuro');
+    })();
+    </script>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/panelUsuario.css">
     <script src="/js/controladorTemas.js" defer></script>
     <title>Usuario</title>
 </head>
 <body>
-    <?php include_once 'componentes/header.php'; ?>
+    <?php include_once APP_ROOT . 'vistas/componentes/header.php'; ?>
     <main>
         <aside>
             <nav>
@@ -36,6 +24,18 @@ function formatBytes($bytes, $precision = 2) {
                         <a href="/servidores">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-server-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-2" /><path d="M3 15a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3l0 -2" /><path d="M7 8l0 .01" /><path d="M7 16l0 .01" /><path d="M11 8h6" /><path d="M11 16h6" /></svg>
                             Mis servidores
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/servidores">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-server-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-2" /><path d="M3 15a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3l0 -2" /><path d="M7 8l0 .01" /><path d="M7 16l0 .01" /><path d="M11 8h6" /><path d="M11 16h6" /></svg>
+                            Prefabricados
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/servidores">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-server-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-2" /><path d="M3 15a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3l0 -2" /><path d="M7 8l0 .01" /><path d="M7 16l0 .01" /><path d="M11 8h6" /><path d="M11 16h6" /></svg>
+                            Servidores comunitarios
                         </a>
                     </li>
                 </ul>
@@ -79,6 +79,23 @@ function formatBytes($bytes, $precision = 2) {
                 </script>
             </div>
             <div class="contenedor-servidores">
+                <?php
+                // Source - https://stackoverflow.com/a/2510459
+                // Posted by Leo, modified by community. See post 'Timeline' for change history
+                // Retrieved 2026-02-16, License - CC BY-SA 4.0
+
+                function formatBytes($bytes, $precision = 2) { 
+                    $units = ['B', 'KB', 'MB', 'GB', 'TB']; 
+                
+                    $bytes = max($bytes, 0); 
+                    $pow = floor(($bytes ? log($bytes) : 0) / log(1024)); 
+                    $pow = min($pow, count($units) - 1); 
+                
+                    $bytes /= pow(1024, $pow);
+                
+                    return round($bytes, $precision) . $units[$pow]; 
+                } 
+                ?>
                 <?php controladorServidor::mostrarServidoresUsuario(); ?>
             </div>
         </section>

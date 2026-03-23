@@ -38,7 +38,7 @@
                     </div>
                 </div>
             <?php else: ?>
-                <a href="/registrarCliente">Crear cuenta</a>
+                <a href="/registroUsuario">Crear cuenta</a>
                 <a href="/login">Iniciar sesión</a>
             <?php endif; ?>
         </div>

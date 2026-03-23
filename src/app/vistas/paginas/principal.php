@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    (function() {
+        const temaGuardado = localStorage.getItem('tema');
+        if (temaGuardado === 'oscuro') document.documentElement.classList.add('tema-oscuro');
+    })();
+    </script>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/paginaPrincipal.css">
     <script src="/js/controladorTemas.js" defer></script>
@@ -10,12 +16,12 @@
     <title>Pagina principal - Voxel Hosting</title>
 </head>
 <body class="">
-    <?php include_once 'componentes/header.php'; ?>
+    <?php include_once APP_ROOT . 'vistas/componentes/header.php'; ?>
     <main>
         <section class="seccion-presentacion">
             <div class="contenedor">
-                <h1 class="font-size-8">Crea tu servidor en minutos
-                <br>juega sin limites.</h1>
+                <h1 class="font-size-8">Crea tu servidor en minutos,
+                <br>juega sin límites.</h1>
                 <p class="font-size-5">Tú eliges el juego y el tamaño de tu comunidad, nosotros nos ocupamos de la 
                 <br>configuración, el rendimiento y el soporte para que disfrutes sin complicaciones.</p>
                 <button class="boton font-size-4 flex-align-items">
@@ -197,6 +203,6 @@
         </section>
     </main>
     <div class="pixel-separator" data-seed="150" data-direction="up" data-color="hsl(243, 35%, 18%)"></div>
-    <?php include_once 'componentes/footer.php' ?>
+    <?php include_once APP_ROOT . 'vistas/componentes/footer.php'; ?>
 </body>
 </html>
