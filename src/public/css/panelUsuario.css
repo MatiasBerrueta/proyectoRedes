@@ -17,6 +17,11 @@ main {
 
 .seccion-servidores {
     padding: 1.5rem;
+    width: 100%;
+
+    & > a {
+        text-decoration: none;
+    }
 }
 
 .contenedor-acciones {

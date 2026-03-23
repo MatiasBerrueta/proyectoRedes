@@ -4,13 +4,7 @@
 /* importa fuente roboto */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
-/* importa fuente jersey */
-@import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
-
-
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 ::view-transition-old(root) {
     animation-delay: 500ms;
@@ -29,10 +23,10 @@
     --x: 0px;
     --y: 0px;
     
-    --azul-logo: hsl(243, 75%, 59%);
-    --azul-logo-oscuro: hsl(243, 35%, 18%);
-    --azul-logo-claro: hsl(243, 82%, 75%);
-    --azul-transparente: hsla(243, 85%, 89%, 0.25);
+    --azul-logo: hsl(225, 75%, 59%);
+    --azul-logo-oscuro: hsl(225, 35%, 18%);
+    --azul-logo-claro: hsl(225, 82%, 75%);
+    --azul-transparente: hsla(225, 85%, 89%, 0.25);
     --color-fondo: hsl(221, 17%, 98%);
 
     --color-texto: hsl(221, 10%, 15%);
@@ -50,24 +44,27 @@
 
     --svg-trazo-1: var(--gris-700); 
     --svg-trazo-2: var(--gris-600); 
-    --svg-trazo-3: var(--gris-300); 
+    --svg-trazo-3: var(--gris-300);
 
-    --gris-100: hsl(221, 17%, 96%);
-    --gris-200: hsl(221, 16%, 90%);
-    --gris-300: hsl(221, 15%, 84%);
+    --tarjeta-fondo-1: hsl(221, 34%, 98%);
+    --tarjeta-fondo-2: hsl(221, 25%, 99%);
+
+    --gris-100: hsl(221, 17%, 97%);
+    --gris-200: hsl(221, 16%, 91%);
+    --gris-300: hsl(221, 15%, 86%);
     --gris-400: hsl(221, 14%, 72%);
     --gris-500: hsl(221, 12%, 63%);
     --gris-600: hsl(221, 10%, 50%);
     --gris-700: hsl(221, 10%, 37%);
     --gris-800: hsl(221, 10%, 31%);
-    --gris-900: hsl(221, 11%, 17%);
+    --gris-900: hsl(221, 11%, 20%);
 }
 
 :root.tema-oscuro {
-    --azul-logo: hsl(243, 75%, 65%);
-    --azul-logo-oscuro: hsl(243, 40%, 75%);
-    --azul-logo-claro: hsl(243, 79%, 70%);
-    --azul-transparente: hsla(243, 38%, 44%, 0.25);
+    --azul-logo: hsl(225, 75%, 65%);
+    --azul-logo-oscuro: hsl(225, 40%, 75%);
+    --azul-logo-claro: hsl(225, 79%, 70%);
+    --azul-transparente: hsla(225, 38%, 44%, 0.25);
     --color-fondo: hsl(221, 17%, 10%);
 
     --color-texto: hsl(221, 20%, 90%);
@@ -77,22 +74,26 @@
     --color-borde: hsl(221, 14%, 22%);
     --color-borde-hover: hsl(221, 17%, 30%);
     --color-header: hsl(221, 17%, 10%, 0.7);
-    --color-footer: hsl(243, 30%, 10%);
 
     --color-blanco: hsl(221, 15%, 14%);
     --color-blanco-puro: hsl(221, 15%, 18%);
     --color-superficie: hsl(221, 15%, 12%);
 
-    --svg-trazo-1: var(--gris-600); 
-    --svg-trazo-2: var(--gris-800); 
-    --svg-trazo-3: var(--gris-900); 
+    --svg-trazo-1: var(--gris-500); 
+    --svg-trazo-2: var(--gris-600); 
+    --svg-trazo-3: var(--gris-800); 
+
+    --tarjeta-fondo-1: hsl(221, 17%, 13%);
+    --tarjeta-fondo-2: hsl(221, 18%, 18%);
+    --tarjeta-fondo-3: hsl(221, 20%, 23%);
 }
 
 @media (prefers-color-scheme: dark) {
     :root.tema-oscuro {
-        --azul-logo: hsl(243, 75%, 65%);
-        --azul-logo-oscuro: hsl(243, 40%, 75%);
-        --azul-logo-claro: hsl(243, 79%, 74%);
+        --azul-logo: hsl(225, 75%, 65%);
+        --azul-logo-oscuro: hsl(225, 40%, 75%);
+        --azul-logo-claro: hsl(225, 79%, 70%);
+        --azul-transparente: hsla(225, 38%, 44%, 0.25);
         --color-fondo: hsl(221, 17%, 10%);
 
         --color-texto: hsl(221, 20%, 90%);
@@ -100,11 +101,20 @@
 
         --color-card: hsl(221, 15%, 14%);
         --color-borde: hsl(221, 14%, 22%);
+        --color-borde-hover: hsl(221, 17%, 30%);
         --color-header: hsl(221, 17%, 10%, 0.7);
 
-        --color-blanco: hsl(221, 15%, 14%);      /* card oscura */
-        --color-blanco-puro: hsl(221, 15%, 18%); /* superficie clara dentro del dark */
-        --color-superficie: hsl(221, 15%, 12%);  /* un paso más oscuro que la card */
+        --color-blanco: hsl(221, 15%, 14%);
+        --color-blanco-puro: hsl(221, 15%, 18%);
+        --color-superficie: hsl(221, 15%, 12%);
+
+        --svg-trazo-1: var(--gris-500); 
+        --svg-trazo-2: var(--gris-600); 
+        --svg-trazo-3: var(--gris-800); 
+
+        --tarjeta-fondo-1: hsl(221, 17%, 13%);
+        --tarjeta-fondo-2: hsl(221, 18%, 18%);
+        --tarjeta-fondo-3: hsl(221, 20%, 23%);
     }
 }
 
@@ -393,19 +403,4 @@ footer {
         }
     }
 
-}
-
-main {
-    > section { 
-        width: 100%;
-        padding-inline: 5rem clamp(1rem, 5vw, 4rem);
-        padding-block: 4rem;
-        padding-top: 2rem;
-    }
-}
-
-.contenedor {
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
 }

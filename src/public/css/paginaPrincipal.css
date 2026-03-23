@@ -3,6 +3,21 @@ html {
   background-attachment: fixed;
 }
 
+main {
+    > section { 
+        width: 100%;
+        padding-inline: 5rem clamp(1rem, 5vw, 4rem);
+        padding-block: 4rem;
+        padding-top: 2rem;
+    }
+}
+
+.contenedor {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
 section {
     text-align: center;
 
@@ -51,13 +66,14 @@ section {
     button {
         background: none;
         margin: 0;
-        color: var(--color-fondo);
+        color: white;
+        /* color: var(--color-fondo); */
         border: 1px solid var(--azul-logo);
         background-color: var(--azul-logo);
 
         &:hover {
-            color: var(--azul-logo);
-            background-color: transparent;
+            background-color: var(--azul-logo-claro);
+            color: white;
         }
     }
     
@@ -215,26 +231,26 @@ section {
     /* border-radius: 5px; */
     /* overflow: hidden; */
     margin-top: 2rem;
-    gap: 1rem 3rem;
+    gap: 1rem;
 }
 
 .bloque-razon {
     flex: 1;
     text-align: left;
-    /* border: 3px solid white; */
-    padding: 1.5rem 2rem;
+    border: 2px solid white;
+    padding: 1rem;
     width: 100%;
 
 
-    &:not(:nth-child(2n)) {
+    /* &:not(:nth-child(2n)) {
         border-right: none;
-        /* border: 3px solid white; */
+        border: 3px solid white;    
     }
 
     &:nth-child(n+3) {
         border-top: none;
-        /* border: 3px solid white; */
-    }
+        border: 3px solid white;
+    } */
 
     span {
         display: block;
