@@ -39,6 +39,3 @@ botonCambiarTema.addEventListener('click', (evento) => {
 
     document.startViewTransition(() => { toggleTema(); })
 });
-
-const temaGuardado = localStorage.getItem('tema');
-if (temaGuardado === 'oscuro') document.documentElement.classList.add('tema-oscuro');
