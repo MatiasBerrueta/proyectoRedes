@@ -35,16 +35,17 @@
         <section class="seccion-features">
             <div class="contenedor">
                 <span>¿Por qué elegirnos?</span>
+                <p>Nos enfocamos en darte la mejor experiencia posible.</p>
                 <div class="contenedor-razones">
                     <div class="bloque-razon">
                         <span>Rendimiento que se siente jugando</span>
                         <p>La velocidad no es solo hardware. Ajustamos cada servidor según el juego, la cantidad de jugadores y el estilo de tu comunidad. Menos lag, más partidas fluidas.</p>
                     </div>
-                    <div class="bloque-razon derecha">
+                    <div class="bloque-razon">
                         <span>Soporte que habla tu mismo idioma</span>
                         <p>Si un plugin rompe tu mundo o un mod no carga, hablamos de eso todos los días. Nuestro soporte está entrenado en problemas reales de gaming, no en respuestas genéricas.</p>
                     </div>
-                    <div class="bloque-razon derecha">
+                    <div class="bloque-razon">
                         <span>Tu servidor, tu estilo</span>
                         <p>Desde servidores para amigos hasta comunidades grandes: elegí la región, modpacks, slots y recursos. Nuestro sistema te recomienda el plan que encaja mejor con tu forma de jugar.</p>
                     </div>
@@ -123,7 +124,11 @@
                 <span>Planes accesibles y competitivos</span>
                 <p>Nuestros planes estan pensandos para darte una experiencia de juego fluida y a un bajo precio</p>
                 <div class="contenedor-planes">
-                    <?php controladorPlan::listarPlanes() ?>
+                    <?php
+                    foreach($planes as $plan) {
+                        include APP_ROOT . 'vistas/componentes/plan.php';
+                    }
+                    ?>
                 </div>
                 <div class="planes-adicionales">
                     <span>¿No estás seguro de qué plan elegir?</span>

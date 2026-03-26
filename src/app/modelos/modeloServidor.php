@@ -1,6 +1,4 @@
 <?php
-require_once APP_ROOT . 'database.php';
-require_once APP_ROOT . 'modelos/api/pterodactylClientApi.php';
 
 class modeloServidor {
     private $idServidor;
@@ -9,63 +7,11 @@ class modeloServidor {
     private $puerto;
     private $estado;
     private $reglas;
-    private $ultimoLog;
     private $videojuego;
+    private $ultimoLog;
     
     public function __construct() {
 
-    }
-
-    public function insertarServidor() {
-        return;
-    }
-
-    public static function obtenerServidor($idServidor) {
-        return [];
-    }
-
-    public static function obtenerServidores() {
-        $db = new Database();
-        $conexion = $db->getConexion();
-
-        $query = "SELECT nombre, dominio, puerto, estado, id_videojuego FROM USUARIO";
-        $stmt = $conexion->prepare($query);
-
-        $stmt->execute();
-
-        $datosUsuario = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        if($datosUsuario) {
-            return $datosUsuario;
-        } else {
-            return null;
-        }
-    }
-
-    public static function obtenerServidoresPterodactyl() {
-        $clientKey = 'ptlc_qPc55GRrtjtQXvACeFWqvun2GExhVSV0hzGFCqgA3lw';
-
-        $api = new pterodactylClientApi($clientKey);
-        $servidores = $api->obtenerServidores();
-
-        return $servidores;
-    }
-
-    public static function obtenerRecursosServidorPterodactyl($id) {
-        $clientKey = 'ptlc_qPc55GRrtjtQXvACeFWqvun2GExhVSV0hzGFCqgA3lw';
-
-        $api = new pterodactylClientApi($clientKey);
-        $recursosServidor = $api->obtenerRecursosServidorPorId($id);
-
-        return $recursosServidor;
-    }
-
-    public function modificarServidor() {
-        return;
-    }
-
-    public function borrarServidor() {
-        return;
     }
 
     public function obtenerIdServidor() {

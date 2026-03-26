@@ -11,8 +11,8 @@
         </div>
         <div class="botones-cuentas">
             <?php if (isset($_SESSION['usuario'])): ?>
-                <?php if(htmlspecialchars($_SESSION['usuario']['rol']) == 'ADMIN') echo 'Eres un admin'; ?>
-                <a class="boton-panel" href="/panel/servidores">
+                <?php if(htmlspecialchars($_SESSION['usuario']['rol']) === 'ADMIN') echo 'Eres un admin'; ?>
+                <a class="boton-panel" href="/panel">
                     <?php include PUBLIC_ROOT . 'assets/iconos/panel.svg' ?>   
                     Panel
                 </a>
@@ -22,8 +22,8 @@
                         <?= htmlspecialchars($_SESSION['usuario']['nombre']) ?>
                     </button>
                     <div id="menu-dropdown" class="menu-dropdown" hidden>
-                        <a href="/usuario/perfil">
-                            <?php include PUBLIC_ROOT . 'assets/iconos/settings.svg' ?>   
+                        <a href="/perfil">
+                            <?php include PUBLIC_ROOT . 'assets/iconos/configuracion.svg' ?>   
                             Ver perfil
                         </a>
                         <button id="boton-cambiar-tema">

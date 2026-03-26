@@ -219,7 +219,7 @@ section {
     background-color: var(--azul-logo);
     color: white;
 
-    span {
+    span, p {
         color: inherit !important;
     }
 }
@@ -227,30 +227,26 @@ section {
 .contenedor-razones {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    /* border: 3px solid white; */
-    /* border-radius: 5px; */
-    /* overflow: hidden; */
     margin-top: 2rem;
-    gap: 1rem;
 }
 
 .bloque-razon {
     flex: 1;
     text-align: left;
-    border: 2px solid white;
-    padding: 1rem;
+    border: 2px dashed white;  
+    border-right: none;
+    border-top: none;
+    padding: 3rem;
     width: 100%;
 
 
-    /* &:not(:nth-child(2n)) {
-        border-right: none;
-        border: 3px solid white;    
+    &:nth-child(n+5) {
+        border-bottom: none;
     }
 
-    &:nth-child(n+3) {
-        border-top: none;
-        border: 3px solid white;
-    } */
+    &:nth-child(2n - 1) {
+        border-left: none;
+    }
 
     span {
         display: block;
@@ -261,7 +257,6 @@ section {
     }
 
     p {
-        /* color: var(--color-texto-secundario); */
         font-size: 1.1rem;
     }
 }

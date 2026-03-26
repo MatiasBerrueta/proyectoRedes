@@ -94,9 +94,12 @@
                     $bytes /= pow(1024, $pow);
                 
                     return round($bytes, $precision) . $units[$pow]; 
-                } 
+                }
+
+                foreach($servidores as $servidor) {
+                    include APP_ROOT . 'vistas/componentes/componenteServidor.php';
+                }
                 ?>
-                <?php controladorServidor::mostrarServidoresUsuario(); ?>
             </div>
         </section>
         <script>

@@ -1,7 +1,6 @@
 <?php
-require_once APP_ROOT . 'database.php';
 
-class modeloPlan {
+class ModeloPlan {
     private $idPlan;
     private $nombre;
     private $costo;
@@ -24,24 +23,6 @@ class modeloPlan {
     // Selecciona un unico plan desde la base de datos usando una id
     public static function obtenerPlan($id) {
         return true;
-    }
-
-    // Selecciona todos los planes que haya
-    public static function obtenerPlanes() {
-        $db = new Database();
-        $conexion = $db->getConexion();
-
-        $query = "SELECT id_plan, nombre, costo, max_jugadores, duracion FROM PLAN";
-        $stmt = $conexion->prepare($query);
-        $stmt->execute();
-
-        $datosPlanes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        if($datosPlanes) {
-            return $datosPlanes;
-        } else {
-            return null;
-        }
     }
 
     // Actualiza todos los datos de planes, se puede usar para modificar un solo dato

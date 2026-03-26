@@ -7,7 +7,7 @@ nombre VARCHAR(1000),
 email VARCHAR(100) UNIQUE NOT NULL,
 contrasena VARCHAR(1000) NOT NULL,
 rol ENUM('ADMIN', 'CLIENTE'),
-estado ENUM('ACTIVO', 'INACTIVO'),
+estado ENUM('ACTIVO', 'INACTIVO') DEFAULT 'ACTIVO',
 pais VARCHAR(50),
 client_key VARCHAR(255),
 id_pterodactyl VARCHAR(100)
@@ -57,11 +57,14 @@ FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario)
 );
 
 CREATE TABLE VIDEOJUEGO (
-id_videojuego INT PRIMARY KEY AUTO_INCREMENT,
-nombre VARCHAR(1000),
-descripcion TEXT,
-version VARCHAR(50),
-logo VARCHAR(100)
+id_juego INT AUTO_INCREMENT PRIMARY KEY,
+egg_id INT NOT NULL,
+nest_id INT NOT NULL,
+nombre VARCHAR(100) NOT NULL,
+nombre_grupo VARCHAR(100) DEFAULT NULL,
+descripcion VARCHAR(255) DEFAULT NULL,
+imagen VARCHAR(255) DEFAULT NULL,
+estado ENUM('ACTIVO', 'INACTIVO') DEFAULT 'ACTIVO',
 );
 
 CREATE TABLE SERVIDOR (
@@ -70,6 +73,7 @@ nombre VARCHAR(1000),
 dominio VARCHAR(100),
 puerto INT,
 estado ENUM('REINICIANDO', 'ACTIVO', 'DETENIDO', 'PARANDO'),
+id_pterodactyl INT,
 id_videojuego INT,
 id_usuario INT,
 FOREIGN KEY (id_videojuego) REFERENCES VIDEOJUEGO(id_videojuego),

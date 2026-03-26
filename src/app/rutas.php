@@ -1,10 +1,43 @@
 <?php
 use Bramus\Router\Router;
 
+require_once APP_ROOT . 'Database.php';
+require_once APP_ROOT . 'integraciones/pterodactylAppApi.php';
+require_once APP_ROOT . 'integraciones/pterodactylClientApi.php';
+
+require_once APP_ROOT . 'repositorios/RepositorioUsuario.php';
+require_once APP_ROOT . 'repositorios/RepositorioServidor.php';
+require_once APP_ROOT . 'repositorios/RepositorioPlan.php';
+
+require_once APP_ROOT . 'servicios/ServicioUsuario.php';
+require_once APP_ROOT . 'servicios/ServicioServidor.php';
+
+require_once APP_ROOT . 'controladores/ControladorPagina.php';
+require_once APP_ROOT . 'controladores/ControladorUsuario.php';
+require_once APP_ROOT . 'controladores/ControladorServidor.php';
+
+
 $router = new router();
 
-// esto hace que cualquiera que entre a una ruta de usuario sin tener
-// una sesion iniciada se le rediriga a /login
+$database = new Database();
+$pterodactylApp = new pterodactylAppApi();
+$pterodactylCliente = new pterodactylClientApi();
+
+require_once APP_ROOT . 'comandos/comandos.php';
+$comandos = new SincronizarJuegos($pterodactylApp, $database->getConexion());
+// $comandos->sincronizarJuegos(); 
+
+$repositorioUsuario = new RepositorioUsuario($database->getConexion());
+$repositorioServidor = new RepositorioServidor($database->getConexion());
+$repositorioPlan = new RepositorioPlan($database->getConexion());
+
+$servicioUsuario = new ServicioUsuario($repositorioUsuario, $pterodactylApp);
+$servicioServidor = new ServicioServidor($pterodactylCliente, $repositorioServidor, $repositorioUsuario);
+
+$controladorPagina = new ControladorPagina($repositorioPlan);
+$controladorUsuario = new ControladorUsuario($servicioUsuario);
+$controladorServidor = new ControladorServidor($servicioServidor);
+
 $router->before('GET|POST', '/usuario/.*', function() {
     if (!isset($_SESSION['usuario'])) {
         header('Location: /login');
@@ -17,94 +50,46 @@ $router->before('GET|POST', '/panel/.*', function() {
     }
 });
 
-$router->get('/', function() {
-    require_once APP_ROOT . 'controladores/controladorPlan.php';
-    require_once APP_ROOT . 'vistas/paginas/principal.php';
+$router->get('/', function() use ($controladorPagina) {
+    $controladorPagina->mostrarPrincipal();
 });
 
-$router->get('/login', function() {
-    require_once APP_ROOT . 'vistas/vistaIniciarSesion.php';
+$router->get('/login', function() use ($controladorUsuario) {
+    $controladorUsuario->mostrarLogin();
 });
 
-$router->post('/login', function() {
-    require_once APP_ROOT . 'controladores/controladorAutenticar.php';
-
-    $controlador = new controladorAutenticar();
-    $resultado = $controlador->iniciarSesion($_POST['email'], $_POST['contrasena']);
-
-    if ($resultado['ok']) {
-        header("Location: /panel/servidores");
-        // if ($resultado['rol'] === 'ADMIN') {
-        //     header("Location: /admin/panel");
-        //     exit;
-        // } else {
-        //     header("Location: /usuario/panel");
-        //     exit;
-        // }
-    } else {
-        require APP_ROOT . "vistas/vistaIniciarSesion.php";
-    }
-
-    unset($_POST);
+$router->post('/login', function() use ($controladorUsuario)  {
+    $controladorUsuario->iniciarSesion();
 });
 
-$router->get('/registroUsuario', function() {
-    require_once APP_ROOT . 'vistas/registroUsuario.php';
+$router->get('/registroUsuario', function() use ($controladorUsuario)  {
+    $controladorUsuario->mostrarRegristro();
 });
 
-$router->post('/registroUsuario', function() {
-    require_once APP_ROOT . 'controladores/controladorAutenticar.php';
-
-    $controlador = new controladorAutenticar();
-    $resultado = $controlador->registrarUsuario($_POST['nombre'], $_POST['email'], $_POST['contrasena'], $_POST['confirmarContrasena'], 'CLIENTE');
-
-    if($resultado['ok']) {
-        header("Location: /panel/servidores");
-        // if ($resultado['rol'] === 'ADMIN') {
-        //     header("Location: /admin/panel");
-        //     exit;
-        // } else {
-        //     header("Location: /usuario/panel");
-        //     exit;
-        // }
-    } else {
-        require_once APP_ROOT . 'vistas/paginas/registroUsuario.php';
-    }
-
-    exit;
+$router->post('/registroUsuario', function() use ($controladorUsuario)  {
+    $controladorUsuario->registrarUsuario();
 });
 
-$router->get('/panel/servidores', function() {
-    require_once APP_ROOT . 'controladores/controladorServidor.php';
-    require_once APP_ROOT . 'vistas/paginas/panelUsuario.php';
+$router->get('/panel', function() use ($controladorServidor)  {
+    $controladorServidor->mostrarPanel();
 });
 
-$router->get('/panel/servidores/([a-zA-Z0-9]+)', function($idServidor) {
-    $tab = 'consola';
-    require_once APP_ROOT . 'controladores/controladorServidor.php';
-    require_once APP_ROOT . 'vistas/paginas/servidor.php';
+$router->get('/panel/servidor/([a-zA-Z0-9]+)', function($idServidor) use ($controladorServidor) {
+    $controladorServidor->mostrarServidor($idServidor);
 });
 
-$router->get('/panel/servidores/([a-zA-Z0-9]+)/([a-zA-Z]+)', function($idServidor, $tab) {
-    require_once APP_ROOT . 'controladores/controladorServidor.php';
-    require_once APP_ROOT . 'vistas/paginas/servidor.php';
+$router->get('/panel/servidor/([a-zA-Z0-9]+)/([a-zA-Z]+)', function($idServidor, $tab) use ($controladorServidor) {
+    $controladorServidor->mostrarServidor($idServidor, $tab);
 });
-
-// $router->get('/panel/servidores/([a-zA-Z0-9]+)/([a-zA-Z]+)', function($idServidor, $tab) {
-//     require_once APP_ROOT . "vistas/componentes/$tab.php";
-// });
 
 $router->get('/recuperarContrasena', function() {
-    require_once APP_ROOT . 'vistas/paginas/recuperarContrasena.php';
+    // require_once APP_ROOT . 'vistas/paginas/recuperarContrasena.php';
 });
 
-$router->get('/logout', function() {
-    require_once APP_ROOT . 'controladores/controladorAutenticar.php';
-    
-    $controladorAutenticar = new controladorAutenticar();
-    $controladorAutenticar->cerrarSesion();
-    header('Location: /login');
+$router->get('/logout', function() use ($controladorUsuario)  {
+    $controladorUsuario->cerrarSesion();
 });
+
 
 $router->set404(function() {
     http_response_code(404);
@@ -112,42 +97,33 @@ $router->set404(function() {
 });
 
 $router->delete('/testing/borrarUsuario/(.+)', function($email) {
-    modeloUsuario::eliminarUsuarioEmail($email);
+    RepositorioUsuario::eliminarUsuarioEmail($email);
 });
 
-$router->post('/api/websocket', function() {
-    if (!isset($_SESSION['usuario'])) {
-        http_response_code(401);
-        echo json_encode(["error" => "No autenticado"]);
-        exit;
-    }
-
+$router->post('/api/websocket', function() use ($repositorioUsuario, $pterodactylCliente) {
     $idServidor = $_POST['servidor_id'];
-    require_once APP_ROOT . 'modelos/api/pterodactylClientApi.php';
-    require_once APP_ROOT . 'modelos/modeloUsuario.php';
+    $clientKey = $repositorioUsuario->obtenerClientKey($_SESSION['usuario']['id']);
+    $websocket = $pterodactylCliente->obtenerWebSocket($idServidor, $clientKey);
 
-    $usuarioActual = modeloUsuario::obtenerUsuarioPorEmail($_SESSION['usuario']['email']);
-
-    $api = new pterodactylClientApi($usuarioActual['client_key']);
-    echo json_encode($api->obtenerWebSocket($idServidor));
+    echo json_encode($websocket);
 });
 
-$router->post('api/datosServidor', function() {
-    if (!isset($_SESSION['usuario'])) {
-        http_response_code(401);
-        echo json_encode(["error" => "No autenticado"]);
-        exit;
-    }
+// $router->post('api/datosServidor', function() {
+//     if (!isset($_SESSION['usuario'])) {
+//         http_response_code(401);
+//         echo json_encode(["error" => "No autenticado"]);
+//         exit;
+//     }
 
-    $idServidor = $_POST['servidor_id'];    
-    require_once APP_ROOT . 'modelos/api/pterodactylClientApi.php';
-    require_once APP_ROOT . 'modelos/modeloUsuario.php';
+//     $idServidor = $_POST['servidor_id'];    
+//     require_once APP_ROOT . 'modelos/api/pterodactylClientApi.php';
+//     require_once APP_ROOT . 'modelos/modeloUsuario.php';
 
-    $usuarioActual = modeloUsuario::obtenerUsuarioPorEmail($_SESSION['usuario']['email']);
+//     // $usuarioActual = modeloUsuario::obtenerUsuarioPorEmail($_SESSION['usuario']['email']);
 
-    $api = new pterodactylClientApi($usuarioActual['client_key']);
-    echo json_encode($api->obtenerServidorPorId($idServidor));
-});
+//     $api = new pterodactylClientApi($usuarioActual['client_key']);
+//     echo json_encode($api->obtenerServidorPorId($idServidor));
+// });
 
 $router->get('/usuario/perfil', function() {
     echo "este es el perfil";

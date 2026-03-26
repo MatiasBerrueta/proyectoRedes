@@ -11,26 +11,26 @@
 <body>
     <div class="form-container">
         <a href="/">
-            <?php include PUBLIC_ROOT . 'assets/logo.svg'; ?>
+            <?php include PUBLIC_ROOT . 'assets/iconos/logo.svg'; ?>
         </a>
         <form action="" method="POST">
             <div>
                 <!-- <label for="input-email">Email</label> -->
-                <img src="/assets/iconoEmail.svg" alt="Icono email" class="icon">
+                <img src="/assets/iconos/iconoEmail.svg" alt="Icono email" class="icon">
                 <input id="input-email" type="text" placeholder="email@gmail.com" name="email">
             </div>
             <div>
                 <!-- <label for="input-contrasena">Contraseña</label> -->
-                <img src="/assets/iconoContrasena.svg" alt="Icono contrasena" class="icon">
+                <img src="/assets/iconos/iconoContrasena.svg" alt="Icono contrasena" class="icon">
                 <input id="input-contrasena" type="password" placeholder="contraseña" name="contrasena">
                 <button id="boton-toggle-confirmar-contrasena" class="boton-toggle-contrasena" type="button" onClick="toggleContrasena(this, 'input-contrasena')">
-                    <img src="/assets/iconoVerContrasena.svg" alt="Icono ver contrasena" class="icon">
+                    <img src="/assets/iconos/iconoVerContrasena.svg" alt="Icono ver contrasena" class="icon">
                 </button>
             </div>
             <small class="mensaje-form"><a href="/recuperarContrasena">Olvide mi contrasena</a></small>
             <button class="boton-subir boton-azul" type="submit">Ingresar</button>
-            <?php if(!empty($resultado['mensaje'])): ?>
-                <p class="mensaje-input"><?= $resultado['mensaje'] ?> </p>
+            <?php if(!empty($datos['error'])): ?>
+                <p class="mensaje-input"><?= $datos['error'] ?> </p>
             <?php endif; ?>
         </form>
         <div class="separador">
@@ -52,7 +52,7 @@
                 Continuar con Google
             </button>
             <button class="boton-subir boton-negro">
-                <img src="/assets/github-mark-white.svg" alt="Icono Github" class="icono-github">                
+                <img src="/assets/iconos/github-mark-white.svg" alt="Icono Github" class="icono-github">                
                 Continuar con Github
             </button>
         </div>
@@ -64,10 +64,10 @@
 
             if (targetInput.type === "password") {
                 targetInput.type = "text";
-                boton.innerHTML = '<img src="/assets/iconoOcultarContrasena.svg" alt="Icono ocultar contrasena" class="icon">';
+                boton.innerHTML = '<img src="/assets/iconos/iconoOcultarContrasena.svg" alt="Icono ocultar contrasena" class="icon">';
             } else {
                 targetInput.type = "password";
-                boton.innerHTML = '<img src="/assets/iconoVerContrasena.svg" alt="Icono ver contrasena" class="icon">';
+                boton.innerHTML = '<img src="/assets/iconos/iconoVerContrasena.svg" alt="Icono ver contrasena" class="icon">';
             }
         }
     </script>
