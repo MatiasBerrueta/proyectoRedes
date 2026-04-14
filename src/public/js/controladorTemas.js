@@ -18,17 +18,15 @@ document.addEventListener('click', (evento) => {
 });
 
 function toggleTema() {
-    if(document.documentElement.classList.contains('tema-oscuro')) {
+    if (document.documentElement.classList.contains('tema-oscuro')) {
         document.documentElement.classList.remove('tema-oscuro');
         document.documentElement.classList.add('tema-claro');
         localStorage.setItem('tema', 'claro');
-    } else if(document.documentElement.classList.contains('tema-claro')) {
-        document.documentElement.classList.remove('tema-claro');
-        localStorage.removeItem('tema');
     } else {
+        document.documentElement.classList.remove('tema-claro');
         document.documentElement.classList.add('tema-oscuro');
         localStorage.setItem('tema', 'oscuro');
-  }
+    }
 }
 
 botonCambiarTema.addEventListener('click', (evento) => {
