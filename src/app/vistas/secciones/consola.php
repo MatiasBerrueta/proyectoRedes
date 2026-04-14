@@ -96,9 +96,83 @@
     </div>
     <div class="actividades">
         <h2 class="font-size-6">Actividad reciente</h2>
-        <div class="contenedor-actividades">
-            <div class="actividad">
-                
+        <div class="contenedor-logs">
+            <?php
+            $logs = [
+                [
+                    'tipo' => 'info',
+                    'fecha' => '08/04/2026',
+                    'hora' => '12:30',
+                    'origen' => 'Sistema',
+                    'descripcion' => 'Servidor iniciado correctamente'
+                ],
+                [
+                    'tipo' => 'warning',
+                    'fecha' => '08/04/2026',
+                    'hora' => '12:45',
+                    'origen' => 'Panel',
+                    'descripcion' => 'Uso de RAM cercano al límite'
+                ],
+                [
+                    'tipo' => 'error',
+                    'fecha' => '08/04/2026',
+                    'hora' => '13:00',
+                    'origen' => 'API',
+                    'descripcion' => 'Error al conectar con el nodo'
+                ],
+                [
+                    'tipo' => 'debug',
+                    'fecha' => '08/04/2026',
+                    'hora' => '13:10',
+                    'origen' => 'Sistema',
+                    'descripcion' => 'Respuesta de API recibida (200 OK)'
+                ],
+            ];
+
+            function getIcono($tipo) {
+                return match($tipo) {
+                    'info' => 'ℹ️',
+                    'warning' => '⚠️',
+                    'error' => '❌',
+                    'debug' => '🐛',
+                    default => '📄'
+                };
+            }
+            ?>
+
+            <?php foreach ($logs as $log): ?>
+                <div class="log">
+                    <div>
+                        <?= getIcono($log['tipo']) ?>
+                    </div>
+                    <div class="detalles">
+                        <div class="linea-superior">
+                            <span class="fecha-hora"><?= $log['fecha'], " ", $log['hora']?></span>
+                            <span class="etiqueta-tipo <?= $log['tipo'] ?>"><?= strtoupper($log['tipo']) ?></span>
+                            <span class="etiqueta-origen"><?= $log['origen'] ?></span>
+                        </div>
+                        <div class="linea-inferior">
+                            <p><?= $log['descripcion'] ?></p>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+                <!-- <div class="log">
+                    <div>
+                        icono tipo log
+                    </div>
+                    <div class="detalles-logo">
+                        <div class="linea-superior">
+                            <span>Fecha log</span>
+                            <span>Hora log</span>
+                            <span>Tipo log</span>
+                            <span>Origen log</span>
+                        </div>
+                        <div class="linea-inferior">
+                            <p>Descripcion log</p>
+                        </div>
+                    </div>
+                </div> -->
             </div>
         </div>
     </div>
