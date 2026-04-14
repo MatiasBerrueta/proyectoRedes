@@ -16,7 +16,6 @@ require_once APP_ROOT . 'controladores/ControladorPagina.php';
 require_once APP_ROOT . 'controladores/ControladorUsuario.php';
 require_once APP_ROOT . 'controladores/ControladorServidor.php';
 
-
 $router = new router();
 
 $database = new Database();
@@ -96,9 +95,9 @@ $router->set404(function() {
     require_once APP_ROOT . 'vistas/paginas/404.php';
 });
 
-$router->delete('/testing/borrarUsuario/(.+)', function($email) {
-    RepositorioUsuario::eliminarUsuarioEmail($email);
-});
+// $router->delete('/testing/borrarUsuario/(.+)', function($email) {
+//     RepositorioUsuario::eliminarUsuarioEmail($email);
+// });
 
 $router->post('/api/websocket', function() use ($repositorioUsuario, $pterodactylCliente) {
     $idServidor = $_POST['servidor_id'];
@@ -125,8 +124,16 @@ $router->post('/api/websocket', function() use ($repositorioUsuario, $pterodacty
 //     echo json_encode($api->obtenerServidorPorId($idServidor));
 // });
 
-$router->get('/usuario/perfil', function() {
-    echo "este es el perfil";
+// No hagas require a la vista, hacelo al controlador y llama la funcion mostrarPerfil()
+// Mira como esta hecho para /login mas arriba en este archivo
+$router->get('/perfil', function() {
+    require_once APP_ROOT . '/vistas/vistaPerfil.php';
+});
+
+// Hace require al controlador y llama la funcion actualizarPerfil()
+// Mira como esta hecho para /login mas arriba en este archivo
+$router->post('/perfil', function() {
+    echo "aca va la logica";
 });
 
 $router->run();
