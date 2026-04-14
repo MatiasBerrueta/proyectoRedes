@@ -36,5 +36,4 @@ class ServicioServidor {
         $clientKey = $this->repositorioUsuario->obtenerClientKey($idUsuario);
         return $this->pterodactylCliente->obtenerRecursosServidor($id, $clientKey);
     }
-
 }

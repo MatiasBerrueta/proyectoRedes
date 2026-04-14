@@ -25,7 +25,7 @@
                 <ul>
                     <?php forEach($tabsJuego as $tab): ?>
                         <li class="<?= $tabActual === $tab['id'] ? 'activo' : '' ?>">
-                            <a href="/panel/servidor/<?= $servidor['identifier'] ?>/consola">
+                            <a href="/panel/servidor/<?= $servidor['identifier'] ?>/<?= $tab['id'] ?>">
                                 <?php include PUBLIC_ROOT . 'assets/iconos/' . $tab['id'] . '.svg' ?> <?= $tab['label'] ?>
                             </a>
                         </li>
