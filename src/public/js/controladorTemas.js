@@ -32,8 +32,8 @@ function toggleTema() {
 botonCambiarTema.addEventListener('click', (evento) => {
     if(!document.startViewTransition) { return toggleTema(); }
 
-    document.documentElement.style.setProperty("--x", evento.clientX + "px");
-    document.documentElement.style.setProperty("--y", evento.clientY + "px");
+    // document.documentElement.style.setProperty("--x", evento.clientX + "px");
+    // document.documentElement.style.setProperty("--y", evento.clientY + "px");
 
     document.startViewTransition(() => { toggleTema(); })
 });
