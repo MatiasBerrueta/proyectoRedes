@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/css/servidor-contenido.css">
     <script src="https://cdn.jsdelivr.net/npm/ansi_up@5.0.0/ansi_up.min.js"></script>
     <script src="/js/controladorTemas.js" defer></script>
+    <script> const SERVER_ID = "<?= $servidor['identifier'] ?>"; </script>
     <script src="/js/servidorWebsocket.js" defer></script>
     <title>Usuario</title>
 </head>
@@ -23,7 +24,7 @@
         <aside id="sidemenu">
             <nav>
                 <ul>
-                    <?php forEach($tabsJuego as $tab): ?>
+                    <?php forEach($tabs as $tab): ?>
                         <li class="<?= $tabActual === $tab['id'] ? 'activo' : '' ?>">
                             <a href="/panel/servidor/<?= $servidor['identifier'] ?>/<?= $tab['id'] ?>">
                                 <?php include PUBLIC_ROOT . 'assets/iconos/' . $tab['id'] . '.svg' ?> <?= $tab['label'] ?>

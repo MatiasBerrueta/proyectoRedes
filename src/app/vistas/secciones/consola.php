@@ -2,15 +2,15 @@
     <div class="titulo-acciones">
         <h1 class="font-size-6">Resumen - <?= $servidor['nombre'] ?></h1>
         <div class="acciones-servidor">
-            <button class="boton iniciar">
+            <button class="boton iniciar" onclick="iniciarServidor()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 4v16l13 -8l-13 -8" /></svg>
                 Iniciar
             </button>
-            <button class="boton detener">
+            <button class="boton detener" onclick="detenerServidor()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 7a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2l0 -10" /></svg>
                 Detener
             </button>
-            <button class="boton reiniciar">
+            <button class="boton reiniciar" onclick="reiniciarServidor()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-rotate-rectangle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.09 4.01l.496 -.495a2 2 0 0 1 2.828 0l7.071 7.07a2 2 0 0 1 0 2.83l-7.07 7.07a2 2 0 0 1 -2.83 0l-7.07 -7.07a2 2 0 0 1 0 -2.83l3.535 -3.535h-3.988" /><path d="M7.05 11.038v-3.988" /></svg>
                 Reiniciar
             </button>
@@ -128,27 +128,17 @@
                     'descripcion' => 'Respuesta de API recibida (200 OK)'
                 ],
             ];
-
-            function getIcono($tipo) {
-                return match($tipo) {
-                    'info' => 'ℹ️',
-                    'warning' => '⚠️',
-                    'error' => '❌',
-                    'debug' => '🐛',
-                    default => '📄'
-                };
-            }
             ?>
 
             <?php foreach ($logs as $log): ?>
                 <div class="log">
-                    <div>
-                        <?= getIcono($log['tipo']) ?>
+                    <div class="icono <?= $log['tipo'] ?>">
+                        <?php include PUBLIC_ROOT . "/assets/iconos/" . $log['tipo'] . '.svg' ?>
                     </div>
                     <div class="detalles">
                         <div class="linea-superior">
                             <span class="fecha-hora"><?= $log['fecha'], " ", $log['hora']?></span>
-                            <span class="etiqueta-tipo <?= $log['tipo'] ?>"><?= strtoupper($log['tipo']) ?></span>
+                            <span class="etiqueta-tipo <?= $log['tipo'] ?>"><?= ucfirst($log['tipo']) ?></span>
                             <span class="etiqueta-origen"><?= $log['origen'] ?></span>
                         </div>
                         <div class="linea-inferior">
