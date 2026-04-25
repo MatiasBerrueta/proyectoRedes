@@ -24,6 +24,20 @@ async function obtenerDatosWebSocket(serverId) {
 
 let webSocket;
 
+function actualizarChart(chart, value) {
+  const maxPoints = 10;
+
+  chart.data.labels.push('');
+  chart.data.datasets[0].data.push(value);
+
+  if (chart.data.labels.length > maxPoints) {
+    chart.data.labels.shift();
+    chart.data.datasets[0].data.shift();
+  }
+
+  chart.update();
+}
+
 async function iniciarWebSocket(serverId) {
     const datosWS = await obtenerDatosWebSocket(serverId);
 
@@ -70,30 +84,36 @@ async function iniciarWebSocket(serverId) {
             case 'stats':
                 const stats = JSON.parse(message.args[0]);
                 console.log('Resource usage:', stats);
+
+                const ram = stats.memory_bytes / (1024 ** 3);
+
+                actualizarChart(cpuChart, stats.cpu_absolute);
+                actualizarChart(ramChart, ram.toFixed(2));
                 break;
         }
     };
 }
 
-iniciarWebSocket(serverId);
+iniciarWebSocket(SERVER_ID);
+console.log(SERVER_ID);
 
-botonIniciar.addEventListener('click', () => {
+function iniciarServidor() {
     webSocket.send(JSON.stringify({
         event: 'set state',
         args: ['start']
     }));
-})
+}
 
-botonDetener.addEventListener('click', () => {
+function detenerServidor() {
     webSocket.send(JSON.stringify({
         event: 'set state',
         args: ['stop']
     }));
-})
+}
 
-botonReiniciar.addEventListener('click', () => {
+function reiniciarServidor() {
     webSocket.send(JSON.stringify({
         event: 'set state',
         args: ['restart']
     }));
-})
+}

@@ -2,13 +2,13 @@
     --slider-relleno: var(--azul-logo);
 }
 
-.ansi-red-fg { color: #ff5555; }
-.ansi-green-fg { color: #50fa7b; }
-.ansi-yellow-fg { color: #f1fa8c; }
-.ansi-blue-fg { color: #8be9fd; }
-.ansi-magenta-fg { color: #ff79c6; }
-.ansi-cyan-fg { color: #8be9fd; }
-.ansi-white-fg { color: #f8f8f2; }
+.ansi-red-fg { color: hsl(0, 100%, 60%); }
+.ansi-green-fg { color: hsl(100, 94%, 60%); }
+.ansi-yellow-fg { color: hsl(55, 92%, 60%); }
+.ansi-blue-fg { color: hsl(191, 97%, 67%); }
+.ansi-magenta-fg { color: hsl(326, 100%, 70%); }
+.ansi-cyan-fg { color: hsl(191, 97%, 70%); }
+.ansi-white-fg { color: hsl(60, 30%, 96%); }
 
 .titulo-acciones {
     display: flex;
@@ -24,7 +24,7 @@
         display: flex;
         flex: 2;
         column-gap: 1rem;
-
+        
         button {
             position: relative;
             color: white;
@@ -158,112 +158,6 @@
     svg {
         height: 100%;
     }
-}
-
-.config-section > div > div,
-.config-section > div > label {
-    margin-bottom: 1rem;
-}
-
-.switch {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    width: 50%;
-}
-
-.switch input {
-    display: none;
-}
-
-.switch input:checked + .slider {
-    background-color: var(--azul-logo);
-}
-
-.switch input:checked + .slider::before {
-    transform: translateX(1.25rem);
-}
-
-.label-text {
-    font-size: 1rem;
-    margin-right: auto;
-}
-
-.slider {
-    position: relative;
-    width: calc(2.25rem + 6px);
-    height: 22px;
-    background-color: var(--gris-300);
-    border-radius: 3px;
-    transition: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.slider::before {
-    content: "";
-    position: absolute;
-    width: 1rem;
-    height: 1rem;
-    left: 3px;
-    top: 3px;
-    background-color: white;
-    border-radius: 3px;
-    transition: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-input[type="range"] {
-    padding: 5px;
-    width: 50%;
-    height: calc(1rem + 10px);
-    background: var(--gris-300);
-    cursor: pointer;
-    border-radius: 3px;
-
-    &:hover {
-        --slider-relleno: rgb(169, 192, 207);
-    }
-}
-
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 1rem;
-    height: 1rem;
-    background: white;
-    border-radius: 3px;
-    margin-top: -5px; /* centra verticalmente */
-    transition: 0.15s cubic-bezier(0.2, 0, 0, 1);
-}
-
-input[type="range"]::-moz-range-thumb {
-    width: 1rem;
-    height: 1rem;
-    background: white;
-    border: none;
-    border-radius: 3px;
-    transition: 0.15s cubic-bezier(0.2, 0, 0, 1);
-}
-
-input[type="range"]:active::-webkit-slider-thumb {
-    transform: scale(1.1);
-}
-
-.range-wrapper {
-    position: relative;
-
-    .ticks {
-        /* position: absolute; */
-        /* top: 0; */
-        pointer-events: none;
-        color: var(--gris-500);
-    }
-}
-
-select {
-    width: 50%;
-    border-radius: 5px;
-    border: 1px solid var(--gris-400);
-    padding: 0.5rem 1rem;
-    background: white;
 }
 
 .barra-busqueda {
@@ -464,14 +358,39 @@ select {
 
 .log {
     display: flex;
-    column-gap: 1rem;
+    column-gap: 0.75rem;
     background-color: var(--color-superficie);
     border: 1px solid var(--color-borde);
     border-radius: 5px;
     padding: 1rem;
 
+    .icono {
+        svg {
+            width: 18;
+            height: 18;
+        }
+
+        &.info {
+            color: var(--color-azul-500);
+        }
+
+        &.warning {
+            color: var(--color-amarillo-500);
+
+        }
+
+        &.error {
+            color: var(--color-rojo-500);
+            padding: 0;
+        }
+
+        &.debug {
+            color: var(--gris-500);
+        }
+    }
+
     .linea-superior {
-        font-size: 13px;
+        font-size: 14px;
         color: var(--color-texto-secundario);
 
         .fecha-hora {
@@ -482,13 +401,12 @@ select {
     .linea-inferior {
         font-family: monospace;
         color: var(--color-texto);
-        font-size: 14px;
+        font-size: 16px;
         margin-top: 0.5rem;
     }
 
     .etiqueta-tipo {
-        padding: 0.2rem 0.4rem;
-        font-size: 12px;
+        padding: 0.1rem 0.5rem;
         border-radius: 3px;
         background: transparent;
         margin-inline: 0.5rem;
@@ -517,7 +435,7 @@ select {
     }
 
     .etiqueta-origen {
-        padding: 0.2rem 0.4rem;
+        padding: 0.1rem 0.5rem;
         border-radius: 3px;
         border: 1px solid var(--color-borde);
         background-color: transparent;
