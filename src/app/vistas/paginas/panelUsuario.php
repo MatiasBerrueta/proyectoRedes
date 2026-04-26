@@ -1,3 +1,5 @@
+<?php require_once APP_ROOT . "vistas/helpers/formulario.php"; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +13,7 @@
     </script>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/panelUsuario.css">
+    <link rel="stylesheet" href="/css/formulario.css">
     <script src="/js/controladorTemas.js" defer></script>
     <title>Usuario</title>
 </head>
@@ -48,27 +51,7 @@
                     <?php include PUBLIC_ROOT . 'assets/iconos/plus.svg'; ?>
                     Crear servidor
                 </button>
-                <dialog id="crearServidorModal">
-                    <form action="">
-                        <button type="button" class="boton-cerrar-crear-servidor" onclick="crearServidorModal.close()">cerrar</button>
-                        <div>
-                            <label for="input-nombre">Nombre</label>
-                            <input id="input-nombre" type="text">
-                        </div>
-                        <div>
-                            <label for="selector-juego">Juego</label>
-                            <select name="selector-juegos" id="selector-juegos">
-                                <option value="minecraft">Minecraft</option>
-                                <option value="terraria">Terraria</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="input-descripcion">Descripcion</label>
-                            <input id="input-descripcion" type="text">
-                        </div>
-                        <button type="submit" class="boton-crear-servidor">Crear</button>
-                    </form>
-                </dialog>
+                <?php require_once APP_ROOT . 'vistas/componentes/agregarServidorModal.php'; ?>
                 <script>
                     // const botonAbrirAgregarServidorModal = document.querySelector('.boton-crear-servidor');
                     // const agregarServidorModal = document.querySelector('#crearServidorModal');
@@ -103,6 +86,8 @@
             </div>
         </section>
         <script>
+            crearServidorModal.showModal();
+
             function inicializarServidor(servidor) {
                 const jugadores = parseFloat(servidor.dataset.jugadores);
                 const maxJugadores = parseFloat(servidor.dataset.maxJugadores);
