@@ -109,13 +109,17 @@
     --color-rojo-400: hsl(359, 100%, 70%);
     --color-rojo-500: hsl(357, 98%, 63%);
     --color-rojo-600: hsl(357, 96%, 58%);
+    --color-rojo-900: hsl(357, 96%, 17%);
     --color-naranja-500: hsl(25, 100%, 50%);
     --color-naranja-600: hsl(18, 100%, 48%);
     --color-amarillo-400: hsl(47, 100%, 50%);
     --color-amarillo-500: hsl(44, 100%, 47%);
     --color-amarillo-600: hsl(39, 100%, 41%);
+    --color-amarillo-900: hsl(35, 100%, 15%);
+    --color-verde-400: hsl(144, 100%, 45%);
     --color-verde-500: hsl(144, 100%, 39%);
     --color-verde-600: hsl(142, 100%, 33%);
+    --color-verde-900: hsl(142, 100%, 13%);
     --color-azul-400: hsl(212, 100%, 66%);
     --color-azul-500: hsl(216, 100%, 58%);
     --color-azul-600: hsl(221, 97%, 53%);

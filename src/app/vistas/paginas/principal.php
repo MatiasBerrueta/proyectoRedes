@@ -207,7 +207,7 @@
             </div>
         </section>
     </main>
-    <div class="pixel-separator" data-seed="150" data-direction="up" data-color="hsl(243, 35%, 18%)"></div>
+    <div class="pixel-separator" data-seed="150" data-direction="up" data-color="hsl(243, 35%, 6%)"></div>
     <?php include_once APP_ROOT . 'vistas/componentes/footer.php'; ?>
 </body>
 </html>

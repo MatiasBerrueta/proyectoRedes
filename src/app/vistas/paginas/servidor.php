@@ -35,7 +35,10 @@
             </nav>
         </aside>
         <section class="seccion-servidores">
-            <a href="/panel">Volver a lista servidores</a>
+            <a href="/panel">
+                <?php include PUBLIC_ROOT . '/assets/iconos/arrow-narrow-left.svg'; ?>
+                Volver a lista servidores
+            </a>
             <?php require_once APP_ROOT . "vistas/secciones/$tabActual.php"; ?>
         </section>
     </main>

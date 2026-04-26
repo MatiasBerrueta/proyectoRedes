@@ -1,29 +1,7 @@
-<?php 
-function renderizarInput($data = []) {
-    extract($data);
-    $tipo = ucfirst($data['tipo']);
-    include APP_ROOT . "vistas/componentes/input{$tipo}.php";
-}
-
-function agruparPorSeccion(array $configs): array {
-    $resultado = [];
-
-    foreach($configs as $config) {
-        $seccion = $config['seccion'];
-
-        if(!isset($resultado[$seccion])) {
-            $resultado[$seccion] = [];
-        }
-
-        $resultado[$seccion][] = $config;
-    }
-
-    return $resultado;
-}
-
-?>
+<?php require_once APP_ROOT . "vistas/helpers/formulario.php"; ?>
 
 <link rel="stylesheet" href="/css/tabConfiguracion.css">
+<link rel="stylesheet" href="/css/formulario.css">
 <div class="config-container">
     <h2 class="font-size-5">Configuración del Servidor</h2>
     <section class="contenedor-configuraciones">
@@ -54,7 +32,7 @@ function agruparPorSeccion(array $configs): array {
 const styles = getComputedStyle(document.documentElement);
 
 const colorRelleno = styles.getPropertyValue('--azul-logo');
-const colorSuperficie = styles.getPropertyValue('--color-superficie');
+const colorSuperficie = styles.getPropertyValue('--color-superficie-2');
 
 function buildTicks(min, max, step, svg) {
     const thumbW = 16;

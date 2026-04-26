@@ -1,6 +1,9 @@
 <div style="height: 400px;">
     <div class="titulo-acciones">
-        <h1 class="font-size-6">Resumen - <?= $servidor['nombre'] ?></h1>
+        <div>
+            <h1 class="font-size-6"><?= $servidor['nombre'] ?></h1>
+            <p style="color: var(--color-texto-secundario);"><?= $servidor['nombre_grupo'] ?> · (version) · <?= $servidor['nombre_juego'] ?> · (location) </p>
+        </div>
         <div class="acciones-servidor">
             <button class="boton iniciar" onclick="iniciarServidor()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 4v16l13 -8l-13 -8" /></svg>
@@ -68,6 +71,25 @@
             </div>
             <div class="contenedor-estadistica">
                 <div>
+                    <small>Recursos</small>
+                    <div class="contenedor-recursos">
+                        <div>
+                            <p><span>CPU</span><span>34%</span></p>
+                            <div class="barra-recurso">
+                                <div class="barra-recurso-relleno"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p><span>RAM</span><span>3.2GB</span></p>
+                            <div class="barra-recurso">
+                                <div class="barra-recurso-relleno"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contenedor-estadistica">
+                <div>
                     <small>Uptime</small>
                     <?php
                     function formatearMilisegundos($milisegundos) {
@@ -90,7 +112,7 @@
                     ?>
                     <span><span class="texto-ip font-size-4"> <?= formatearMilisegundos($servidor['upTime']); ?> </span></span>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plug"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9.785 6l8.215 8.215l-2.054 2.054a5.81 5.81 0 1 1 -8.215 -8.215l2.054 -2.054" /><path d="M4 20l3.5 -3.5" /><path d="M15 4l-3.5 3.5" /><path d="M20 9l-3.5 3.5" /></svg>
+                <?php include PUBLIC_ROOT . '/assets/iconos/clock.svg'; ?>
             </div>
         </div>
     </div>
