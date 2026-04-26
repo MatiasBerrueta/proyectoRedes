@@ -11,6 +11,7 @@ require_once APP_ROOT . 'repositorios/RepositorioPlan.php';
 
 require_once APP_ROOT . 'servicios/ServicioUsuario.php';
 require_once APP_ROOT . 'servicios/ServicioServidor.php';
+require_once APP_ROOT . 'servicios/ServicioJuego.php';
 
 require_once APP_ROOT . 'controladores/ControladorPagina.php';
 require_once APP_ROOT . 'controladores/ControladorUsuario.php';
@@ -32,10 +33,11 @@ $repositorioPlan = new RepositorioPlan($database->getConexion());
 
 $servicioUsuario = new ServicioUsuario($repositorioUsuario, $pterodactylApp);
 $servicioServidor = new ServicioServidor($pterodactylCliente, $repositorioServidor, $repositorioUsuario);
+$servicioJuego = new ServicioJuego($repositorioUsuario, $pterodactylCliente);
 
 $controladorPagina = new ControladorPagina($repositorioPlan);
 $controladorUsuario = new ControladorUsuario($servicioUsuario);
-$controladorServidor = new ControladorServidor($servicioServidor);
+$controladorServidor = new ControladorServidor($servicioServidor, $servicioJuego);
 
 $router->before('GET|POST', '/usuario/.*', function() {
     if (!isset($_SESSION['usuario'])) {
@@ -127,13 +129,18 @@ $router->post('/api/websocket', function() use ($repositorioUsuario, $pterodacty
 // No hagas require a la vista, hacelo al controlador y llama la funcion mostrarPerfil()
 // Mira como esta hecho para /login mas arriba en este archivo
 $router->get('/perfil', function() {
-    require_once APP_ROOT . '/vistas/vistaPerfil.php';
+    require_once APP_ROOT . 'vistas/paginas/vistaPerfil.php';
 });
 
 // Hace require al controlador y llama la funcion actualizarPerfil()
 // Mira como esta hecho para /login mas arriba en este archivo
 $router->post('/perfil', function() {
     echo "aca va la logica";
+});
+
+
+$router->post('/api/servidor/{([a-zA-Z0-9]+)}/accion/{([a-zA-Z0-9]+)}', function($idServidor, $accion) use ($controladorServidor) {
+    $controladorServidor->ejecutarAccion($idServidor, $accion);
 });
 
 $router->run();

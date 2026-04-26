@@ -1,0 +1,230 @@
+{
+  "name": "minecraft",
+  "config": {
+    "file": "/server.properties",
+    "format": "properties"
+  },
+  "ui": {
+    "tabs": [
+      {
+        "id": "consola",
+        "label": "Consola",
+        "type": "log",
+        "path": "logs/latest.log"
+      },
+      {
+        "id": "monitor",
+        "label": "Monitor",
+        "type": "pterodactyl"
+      },
+      {
+        "id": "configuracion",
+        "label": "Configuración",
+        "type": "config"
+      },
+      {
+        "id": "mundos",
+        "label": "Mundos",
+        "type": "directory",
+        "path": "worlds/"
+      },
+      {
+        "id": "archivos",
+        "label": "Archivos",
+        "type": "directory",
+        "path": "/"
+      },
+      {
+        "id": "user",
+        "label": "Jugadores",
+        "type": "players"
+      },
+      {
+        "id": "mods",
+        "label": "Mods",
+        "type": "directory",
+        "path": "mods/"
+      },
+      {
+        "id": "backups",
+        "label": "Backups",
+        "type": "pterodactyl_backups"
+      },
+      {
+        "id": "logs",
+        "label": "Logs",
+        "type": "directory",
+        "path": "logs/"
+      },
+      {
+        "id": "control_acceso",
+        "label": "Control de acceso",
+        "type": "permissions"
+      }
+    ],
+    "settings": [
+      {
+        "clave": "view_distance",
+        "etiqueta": "Distancia de renderizado",
+        "descripcion": "Define cuántos chunks alrededor de cada jugador se cargan. Valores altos aumentan el consumo de RAM y pueden generar lag.",
+        "seccion": "rendimiento",
+        "tipo": "slider",
+        "min": 2,
+        "max": 32,
+        "default": 10,
+        "fileKey": "view-distance",
+        "requiere_reinicio": true
+      },
+      {
+        "clave": "simulation_distance",
+        "etiqueta": "Distancia de simulación",
+        "descripcion": "Controla hasta qué distancia se actualizan entidades y redstone. Bajarlo mejora el rendimiento del servidor.",
+        "seccion": "rendimiento",
+        "tipo": "slider",
+        "min": 2,
+        "max": 32,
+        "default": 10,
+        "fileKey": "simulation-distance",
+        "requiere_reinicio": true
+      },
+      {
+        "clave": "pvp",
+        "etiqueta": "PVP",
+        "descripcion": "Permite o bloquea el combate entre jugadores.",
+        "seccion": "jugabilidad",
+        "tipo": "checkbox",
+        "default": true,
+        "fileKey": "pvp",
+        "requiere_reinicio": true
+      },
+      {
+        "clave": "difficulty",
+        "etiqueta": "Dificultad",
+        "descripcion": "Define qué tan difíciles son los mobs y mecánicas del juego.",
+        "seccion": "jugabilidad",
+        "tipo": "select",
+        "opciones": ["peaceful", "easy", "normal", "hard"],
+        "default": "easy",
+        "fileKey": "difficulty",
+        "requiere_reinicio": true
+      },
+      {
+        "clave": "gamemode",
+        "etiqueta": "Modo de juego",
+        "descripcion": "Modo de juego predeterminado para los jugadores nuevos.",
+        "seccion": "jugabilidad",
+        "tipo": "select",
+        "opciones": ["survival", "creative", "adventure", "spectator"],
+        "default": "survival",
+        "fileKey": "gamemode",
+        "requiere_reinicio": true
+      },
+      {
+        "clave": "hardcore",
+        "etiqueta": "Modo hardcore",
+        "descripcion": "Activa la dificultad máxima y elimina a los jugadores permanentemente al morir.",
+        "seccion": "jugabilidad",
+        "tipo": "checkbox",
+        "default": false,
+        "fileKey": "hardcore",
+        "warning": "No se puede desactivar fácilmente después de activarlo.",
+        "requiere_reinicio": true
+      },
+      {
+        "clave": "allow_flight",
+        "etiqueta": "Permitir vuelo",
+        "descripcion": "Evita que el servidor expulse jugadores por volar (útil para mods o creativo).",
+        "seccion": "jugabilidad",
+        "tipo": "checkbox",
+        "default": false,
+        "fileKey": "allow-flight",
+        "requiere_reinicio": true
+      },
+      {
+        "clave": "max_players",
+        "etiqueta": "Máximo de jugadores",
+        "descripcion": "Cantidad máxima de jugadores que pueden conectarse al servidor al mismo tiempo.",
+        "seccion": "jugadores",
+        "tipo": "number",
+        "min": 1,
+        "max": 200,
+        "default": 20,
+        "fileKey": "max-players",
+        "requiere_reinicio": true
+      },
+      {
+        "clave": "white_list",
+        "etiqueta": "Lista blanca",
+        "descripcion": "Solo los jugadores autorizados podrán entrar al servidor.",
+        "seccion": "jugadores",
+        "tipo": "checkbox",
+        "default": false,
+        "fileKey": "white-list",
+        "requiere_reinicio": true
+      },
+      {
+        "clave": "online_mode",
+        "etiqueta": "Modo online (premium)",
+        "descripcion": "Verifica cuentas oficiales de Minecraft. Desactivarlo permite jugadores no premium pero reduce la seguridad.",
+        "seccion": "jugadores",
+        "tipo": "checkbox",
+        "default": true,
+        "fileKey": "online-mode",
+        "warning": "Desactivarlo permite suplantación de identidad y puede ser inseguro.",
+        "requiere_reinicio": true
+      },
+      {
+        "clave": "allow_nether",
+        "etiqueta": "Permitir Nether",
+        "descripcion": "Activa o desactiva el acceso a la dimensión Nether.",
+        "seccion": "mundo",
+        "tipo": "checkbox",
+        "default": true,
+        "fileKey": "allow-nether",
+        "requiere_reinicio": true
+      },
+      {
+        "clave": "generate_structures",
+        "etiqueta": "Generar estructuras",
+        "descripcion": "Permite que se generen aldeas, templos y otras estructuras en el mundo.",
+        "seccion": "mundo",
+        "tipo": "checkbox",
+        "default": true,
+        "fileKey": "generate-structures",
+        "requiere_reinicio": true
+      },
+      {
+        "clave": "level_name",
+        "etiqueta": "Nombre del mundo",
+        "descripcion": "Nombre de la carpeta donde se guarda el mundo del servidor.",
+        "seccion": "mundo",
+        "tipo": "text",
+        "default": "world",
+        "fileKey": "level-name",
+        "warning": "Cambiar esto puede hacer que el servidor cargue un mundo diferente o cree uno nuevo.",
+        "requiere_reinicio": true
+      },
+      {
+        "clave": "level_seed",
+        "etiqueta": "Semilla del mundo",
+        "descripcion": "Semilla usada para generar el mundo. Déjalo vacío para generación aleatoria.",
+        "seccion": "mundo",
+        "tipo": "text",
+        "default": "",
+        "fileKey": "level-seed",
+        "warning": "Solo afecta mundos nuevos. No cambia mundos ya generados.",
+        "requiere_reinicio": true
+      },
+      {
+        "clave": "motd",
+        "etiqueta": "Mensaje del servidor (MOTD)",
+        "descripcion": "Texto que aparece en la lista de servidores de Minecraft.",
+        "seccion": "general",
+        "tipo": "text",
+        "default": "Un servidor de Minecraft",
+        "fileKey": "motd",
+        "requiere_reinicio": false
+      }
+    ]
+  }
+}

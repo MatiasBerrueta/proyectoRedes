@@ -1,12 +1,14 @@
 <?php
 require_once APP_ROOT . 'controladores/Controlador.php';
-require_once APP_ROOT . 'factories/JuegoFactory.php';
+// require_once APP_ROOT . 'factories/JuegoFactory.php';
 
 class ControladorServidor extends Controlador {
-    private $servicio;
+    private $servicioServidor;
+    private $servicioJuego;
 
-    public function __construct($servicio) {
-        $this->servicio = $servicio;
+    public function __construct(ServicioServidor $servicioServidor, ServicioJuego $servicioJuego) {
+        $this->servicioServidor = $servicioServidor;
+        $this->servicioJuego = $servicioJuego;
     }
 
     // Funcion solo para pruebas sin levantar pterodactyl, no usar en produccion
@@ -63,25 +65,93 @@ class ControladorServidor extends Controlador {
         // $url = 'panel/panel' . $rol === 'CLIENTE' ? 'Usuario' : 'Administrador';
         $url = '/paginas/panelUsuario';
 
-        $servidores = $this->servicio->obtenerServidoresPterodactyl($_SESSION['usuario']['id']);
+        $servidores = $this->servicioServidor->obtenerServidoresPterodactyl($_SESSION['usuario']['id']);
         // $servidores = $this->obtenerServidores();
 
         $this->renderizar($url, ['servidores' => $servidores]);
     }
 
-    public function mostrarServidor($idServidor, $tab = 'consola') {
+    // public function ejecutarAccion($juego, $accion) {
+    //     $driver = JuegoFactory::crear($juego);
+
+    //     $datos = array_merge($_GET, $_POST);
+    //     $resultado = $driver->$accion($datos);
+
+    //     header('Content-Type: application/json');
+    //     echo json_encode($resultado);
+    // }
+
+    // public function mostrarServidor($idServidor, $tab = 'consola') {
+    //     $this->requiereLogin();
+    //     $idUsuario = $_SESSION['usuario']['id'];
+
+    //     $servidor = $this->servicioServidor->obtenerServidorPterodactyl($idServidor, $idUsuario);
+    //     $driver = JuegoFactory::crear($servidor['nombre_grupo']);
+    //     $tabs = $driver->obtenerTabs();
+    //     $tabActual = array_find($tabs, fn($tab) => $tab['id'] === $tab);
+    //     $datosTab = $driver->$tabActual['init']();
+
+    //     echo "<script>console.log(" . json_encode($servidor) . ")</script>";
+
+    //     $this->renderizar('paginas/servidor', [
+    //         'servidor' => $servidor,
+    //         'tabs' => $tabs,
+    //         'tabActual' => $tabActual,
+    //         'datosTab' => $datosTab,
+    //     ]);
+    // }
+
+    // prueba de sistema
+    private $tabHandlers = [
+        'log' => 'handleLog',
+        'file' => 'handleFile',
+        'directory' => 'handleDirectory',
+        'config' => 'obtenerConfiguracion',
+        'pterodactyl' => 'handlePterodactyl',
+        'directory' => 'obtenerArchivos',
+    ];
+
+    private function resolverTab($tab, $servidor) {
+        $type = $tab['type'];
+
+        if (!isset($this->tabHandlers[$type])) {
+            return null;
+        }
+
+        $method = $this->tabHandlers[$type];
+        echo "<script>console.log(" . json_encode($method) . ")</script>";
+
+        $idUsuario = $_SESSION['usuario']['id'];
+        return $this->servicioJuego->$method($servidor, $idUsuario);
+    }
+
+    public function mostrarServidor($idServidor, $tabId = 'consola') {
         $this->requiereLogin();
         $idUsuario = $_SESSION['usuario']['id'];
 
-        $servidor = $this->servicio->obtenerServidorPterodactyl($idServidor, $idUsuario);
-        $driver = JuegoFactory::crear($servidor['nombre_grupo']);
+        $servidor = $this->servicioServidor->obtenerServidorPterodactyl($idServidor, $idUsuario);
+        $juego = $servidor['nombre_grupo'];
+        // $driver = JuegoFactory::crear($juego);
+        $tabs = $this->servicioJuego->getTabs(strtolower($juego));
 
-        echo "<script>console.log(" . json_encode($servidor) . ")</script>";
+        // Indexa los tabs por id
+        $tabsPorId = [];
+
+        foreach ($tabs as $tab) {
+            $tabsPorId[$tab['id']] = $tab;
+        }
+
+        $tabActual = $tabsPorId[$tabId] ?? null;
+        $datosTab = $this->resolverTab($tabActual, $servidor);
+
+        echo "<script>console.log(" . json_encode($tabActual) . ")</script>";
 
         $this->renderizar('paginas/servidor', [
             'servidor' => $servidor,
-            'tabActual' => $tab,
-            'tabsJuego' => $driver->obtenerTabs(),
+            'tabs' => $tabsPorId,
+            'tabActual' => $tabActual['id'],
+            'datosTab' => $datosTab,
         ]);
     }
+
 }
