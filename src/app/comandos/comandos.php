@@ -21,9 +21,14 @@ class SincronizarJuegos {
             foreach ($eggs as $egg) {
                 try {
                     $query = "INSERT INTO VIDEOJUEGO 
-                        (egg_id, nest_id, nombre, nombre_grupo, descripcion)
-                        VALUES 
-                        (:egg_id, :nest_id, :nombre, :nombre_grupo, :descripcion)";
+                                (egg_id, nest_id, nombre, nombre_grupo, descripcion)
+                            VALUES 
+                                (:egg_id, :nest_id, :nombre, :nombre_grupo, :descripcion)
+                            ON DUPLICATE KEY UPDATE
+                                nest_id = VALUES(nest_id),
+                                nombre = VALUES(nombre),
+                                nombre_grupo = VALUES(nombre_grupo),
+                                descripcion = VALUES(descripcion);";
 
                     $stmt = $this->conexion->prepare($query);
 
