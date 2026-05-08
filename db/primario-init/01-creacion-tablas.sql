@@ -57,7 +57,7 @@ FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario)
 );
 
 CREATE TABLE VIDEOJUEGO (
-id_juego INT AUTO_INCREMENT PRIMARY KEY,
+id_juego INT AUTO_INCREMENT,
 egg_id INT NOT NULL,
 nest_id INT NOT NULL,
 nombre VARCHAR(100) NOT NULL,
@@ -65,6 +65,8 @@ nombre_grupo VARCHAR(100) DEFAULT NULL,
 descripcion VARCHAR(255) DEFAULT NULL,
 imagen VARCHAR(255) DEFAULT NULL,
 estado ENUM('ACTIVO', 'INACTIVO') DEFAULT 'ACTIVO',
+PRIMARY KEY (id_juego)
+UNIQUE KEY 'unique_egg_nest' ('egg_id', 'nest_id')
 );
 
 CREATE TABLE SERVIDOR (
