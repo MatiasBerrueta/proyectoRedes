@@ -1,4 +1,15 @@
+<link rel="stylesheet" href="/css/paginas/servidor/tabs/mods.css">
+
 <div class="mods-tab">
+	<nav>
+		<ul>
+			<li><a class="seleccionado" href="">Mods instalados</a></li>
+			<li><a href="">Navegar</a></li>
+		</ul>
+	</nav>
+	<div class="mods-instalados">
+		
+	</div>
 	<div class="barra-busqueda">
 		<input type="text" id="query" placeholder="Buscar mods...">
 		<select id="loader">
@@ -28,8 +39,9 @@
 		try {
 			const facets = JSON.stringify([
 				["project_type:mod"],
-				[`categories:${loader}`]
-				// ["server_side:required", "server_side:optional"]
+				[`categories:${loader}`],
+				["versions:26.1.2"],
+				["server_side:required", "server_side:optional"]
 			]);
 			const url = `https://api.modrinth.com/v2/search?query=${encodeURIComponent(query)}&limit=12&facets=${encodeURIComponent(facets)}`;
 			const res = await fetch(url);
@@ -53,7 +65,7 @@
 				</div>
 				</div>
 				<div class="categories">
-				${mod.categories.slice(0,3).map(categoria => `<span class="badge ${categoria}">${categoria}</span>`).join('')}
+				${mod.categories.slice(0,3).map(categoria => `<span class="badge-mod badge-mod--${categoria}">${categoria}</span>`).join('')}
 				</div>
 				<div class="card-footer">
 				<div class="stats">
@@ -75,8 +87,23 @@
 		}
 	}
 
-	function instalar(slug, nombre) {
-		alert(`por hacer`);
+	async function instalar(slug, nombre) {
+		console.log(slug);
+
+		const url = `https://api.modrinth.com/v2/project/${slug}/version`;
+		const respuesta = await fetch(url);
+		const modDetails = await respuesta.json();
+
+		const version = modDetails.find(v =>
+			v.loaders.includes("fabric") &&
+			v.game_versions.includes("26.1.2")
+		);
+
+		if(!version) return null;
+
+		const archivo = version.files.find(file => file.primary);
+		console.log(archivo.url);
+		alert('Url de descarga: ', archivo.url);
 	}
 
 	buscar();

@@ -1,7 +1,9 @@
+ <?php if(!isset($plan)) return; ?>
  <div class='plan'>
-    <p class="font-size-4 flex-align-items" style="justify-content: space-between"><b><?= $plan['nombre'] ?></b><?php include PUBLIC_ROOT . 'assets/iconos/plan' . ($i + 1) . '.svg'; ?></p>
-    <p><span class="font-size-6"><b><?= $plan['costo'] ?></span> usd / mes</b></p>
-    <p>Pensado para hasta <?= $plan['max_jugadores'] ?> jugadores</p>
+    <p class="texto-g flex-align-items flex--space-between"><span class="plan-titulo"><?= $plan['nombre'] ?></span><?php include PUBLIC_ROOT . 'assets/iconos/plan' . (1) . '.svg'; ?></p>
+    <p><span class="plan-precio texto-g"><b>$<span class="texto-2xl texto-principal"><?= $plan['costo'] ?></span></b> usd / mes</p>
+    <p class="plan-descripcion">Pensado para hasta <?= $plan['max_jugadores'] ?> jugadores</p>
+    <div class="separador"></div>
     <ul>
         <?php foreach($plan['prestaciones'] as $prestacion) : ?>
             <li>

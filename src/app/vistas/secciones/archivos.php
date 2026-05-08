@@ -1,6 +1,6 @@
-<link rel="stylesheet" href="/css/tabArchivos.css">
+<link rel="stylesheet" href="/css/paginas/servidor/tabs/archivos.css">
 <div>
-    <h2 class="font-size-5">Directorio de archivos</h2 class="font-size-6">
+    <h2 class="texto-g">Directorio de archivos</h2 class="texto-xl">
 
     <!-- <pre>c -->
     <!-- <?= print_r($datosTab['data']) ?> -->

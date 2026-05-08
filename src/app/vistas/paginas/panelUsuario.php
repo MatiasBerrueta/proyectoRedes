@@ -12,15 +12,16 @@
     })();
     </script>
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/panelUsuario.css">
-    <link rel="stylesheet" href="/css/formulario.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/componentes.css">
+    <link rel="stylesheet" href="/css/paginas/panel.css">
     <script src="/js/controladorTemas.js" defer></script>
     <title>Usuario</title>
 </head>
-<body>
+<body class="layout-panel">
     <?php include_once APP_ROOT . 'vistas/componentes/header.php'; ?>
     <main>
-        <aside>
+        <aside id="sidemenu">
             <nav>
                 <ul>
                     <li class="activo">
@@ -46,8 +47,8 @@
         </aside>
         <section class="seccion-servidores">
             <div class="contenedor-acciones">
-                <h2 class="font-size-6">Mis servidores</h2>
-                <button class="boton-crear-servidor" onclick="crearServidorModal.showModal()">
+                <h2 class="texto-xl">Mis servidores</h2>
+                <button class="boton boton--primario" onclick="crearServidorModal.showModal()">
                     <?php include PUBLIC_ROOT . 'assets/iconos/plus.svg'; ?>
                     Crear servidor
                 </button>
@@ -67,7 +68,7 @@
                 // Posted by Leo, modified by community. See post 'Timeline' for change history
                 // Retrieved 2026-02-16, License - CC BY-SA 4.0
 
-                function formatBytes($bytes, $precision = 2) { 
+                function formatBytes(int $bytes, $precision = 2) { 
                     $units = ['B', 'KB', 'MB', 'GB', 'TB']; 
                 
                     $bytes = max($bytes, 0); 
@@ -79,14 +80,16 @@
                     return round($bytes, $precision) . $units[$pow]; 
                 }
 
-                foreach($servidores as $servidor) {
-                    include APP_ROOT . 'vistas/componentes/componenteServidor.php';
+                if(isset($servidores)) {
+                    foreach($servidores as $servidor) {
+                        include APP_ROOT . 'vistas/componentes/componenteServidor.php';
+                    }
                 }
                 ?>
             </div>
         </section>
         <script>
-            crearServidorModal.showModal();
+            // crearServidorModal.showModal();
 
             function inicializarServidor(servidor) {
                 const jugadores = parseFloat(servidor.dataset.jugadores);

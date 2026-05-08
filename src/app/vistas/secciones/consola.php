@@ -1,8 +1,49 @@
-<div style="height: 400px;">
+<?php
+function cleanLog(int $line) {
+    if (preg_match('/\[(.*?)\] \[(.*?)\/(.*?)\]: (.*)/', $line, $matches)) {
+        return "[{$matches[1]} {$matches[3]}]: {$matches[4]}";
+    }
+
+    return $line;
+}
+
+function formatearMilisegundos(float $milisegundos) {
+    $segundos = floor($milisegundos / 1000);
+    $dias     = floor($segundos / 86400);
+    $horas    = floor(($segundos % 86400) / 3600);
+    $minutos  = floor(($segundos % 3600) / 60);
+    $segundos = $segundos % 60;
+
+    if ($dias > 0) {
+        return "{$dias}d {$horas}h {$minutos}m";
+    } else if ($horas > 0) {
+        return "{$horas}h {$minutos}m";
+    } else if ($minutos > 0) {
+        return "{$minutos}m {$segundos}s";
+    } else {
+        return "{$segundos}s";
+    }
+}
+
+$estadosMap = [
+    "undefined" => "-",
+    "running" => "Activo",
+    "starting" => "Iniciando",
+    "stopping" => "Deteniendo",
+    "offline" => "Inactivo"
+];
+
+$estado = $servidor['estado'] ?? 'undefined';
+$estadoFormateado = $estadosMap[$estado] ?? 'Desconocido';
+?>
+
+<link rel="stylesheet" href="/css/paginas/servidor/tabs/consola.css">
+
+<div class="altura-consola">
     <div class="titulo-acciones">
         <div>
-            <h1 class="font-size-6"><?= $servidor['nombre'] ?></h1>
-            <p style="color: var(--color-texto-secundario);"><?= $servidor['nombre_grupo'] ?> · (version) · <?= $servidor['nombre_juego'] ?> · (location) </p>
+            <h1 class="texto-xl"><?= $servidor['nombre'] ?></h1>
+            <p class="texto-secundario"><?= $servidor['nombre_grupo'] ?> · (version) · <?= $servidor['nombre_juego'] ?> · (location) </p>
         </div>
         <div class="acciones-servidor">
             <button class="boton iniciar" onclick="iniciarServidor()">
@@ -24,13 +65,7 @@
         <div class="consola">
             <div class="contenido-consola">
                 <?php
-                    function cleanLog($line) {
-                        if (preg_match('/\[(.*?)\] \[(.*?)\/(.*?)\]: (.*)/', $line, $matches)) {
-                            return "[{$matches[1]} {$matches[3]}]: {$matches[4]}";
-                        }
 
-                        return $line;
-                    }
 
                     foreach (explode("\n", $servidor['ultimoLog']) as $line) {
                         $line = trim($line);
@@ -51,21 +86,21 @@
             <div class="contenedor-estadistica">
                 <div>
                     <small>Estado</small>
-                    <span class="texto-estado font-size-4"><?= $servidor['estado'] ?? 'Online' ?>
+                    <span class="texto-estado texto-m"><?= $estadoFormateado ?>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-server"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3" /><path d="M3 15a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3l0 -2" /><path d="M7 8l0 .01" /><path d="M7 16l0 .01" /></svg>
             </div>
              <div class="contenedor-estadistica">
                 <div>
                     <small>Jugadores</small>
-                    <span class="texto-estado font-size-4"><?= $servidor['cantidadJugadores']  ?? '10/20'?>
+                    <span class="texto-estado texto-m"><?= $servidor['cantidadJugadores']  ?? '10/20'?>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-users"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 7a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /><path d="M21 21v-2a4 4 0 0 0 -3 -3.85" /></svg>
             </div>
             <div class="contenedor-estadistica">
                 <div>
                     <small>Ip</small>
-                    <span><span class="texto-ip font-size-4"><?= $servidor['ip'] . ':' . $servidor['puerto'] ?></span></span>
+                    <span><span class="texto-ip texto-m"><?= $servidor['ip'] . ':' . $servidor['puerto'] ?></span></span>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plug"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9.785 6l8.215 8.215l-2.054 2.054a5.81 5.81 0 1 1 -8.215 -8.215l2.054 -2.054" /><path d="M4 20l3.5 -3.5" /><path d="M15 4l-3.5 3.5" /><path d="M20 9l-3.5 3.5" /></svg>
             </div>
@@ -76,13 +111,13 @@
                         <div>
                             <p><span>CPU</span><span>34%</span></p>
                             <div class="barra-recurso">
-                                <div class="barra-recurso-relleno"></div>
+                                <div class="barra-recurso__relleno"></div>
                             </div>
                         </div>
                         <div>
                             <p><span>RAM</span><span>3.2GB</span></p>
                             <div class="barra-recurso">
-                                <div class="barra-recurso-relleno"></div>
+                                <div class="barra-recurso__relleno"></div>
                             </div>
                         </div>
                     </div>
@@ -91,33 +126,14 @@
             <div class="contenedor-estadistica">
                 <div>
                     <small>Uptime</small>
-                    <?php
-                    function formatearMilisegundos($milisegundos) {
-                        $segundos = floor($milisegundos / 1000);
-                        $dias     = floor($segundos / 86400);
-                        $horas    = floor(($segundos % 86400) / 3600);
-                        $minutos  = floor(($segundos % 3600) / 60);
-                        $segundos = $segundos % 60;
-
-                        if ($dias > 0) {
-                            return "{$dias}d {$horas}h {$minutos}m";
-                        } else if ($horas > 0) {
-                            return "{$horas}h {$minutos}m";
-                        } else if ($minutos > 0) {
-                            return "{$minutos}m {$segundos}s";
-                        } else {
-                            return "{$segundos}s";
-                        }
-                    }
-                    ?>
-                    <span><span class="texto-ip font-size-4"> <?= formatearMilisegundos($servidor['upTime']); ?> </span></span>
+                    <span><span class="texto-ip texto-m" data-uptime> <?= formatearMilisegundos($servidor['upTime']); ?> </span></span>
                 </div>
                 <?php include PUBLIC_ROOT . '/assets/iconos/clock.svg'; ?>
             </div>
         </div>
     </div>
     <div class="actividades">
-        <h2 class="font-size-6">Actividad reciente</h2>
+        <h2 class="texto-g">Actividad reciente</h2>
         <div class="contenedor-logs">
             <?php
             $logs = [
@@ -160,7 +176,7 @@
                     <div class="detalles">
                         <div class="linea-superior">
                             <span class="fecha-hora"><?= $log['fecha'], " ", $log['hora']?></span>
-                            <span class="etiqueta-tipo <?= $log['tipo'] ?>"><?= ucfirst($log['tipo']) ?></span>
+                            <span class="badge-tipo badge-tipo--<?= $log['tipo'] ?>"><?= ucfirst($log['tipo']) ?></span>
                             <span class="etiqueta-origen"><?= $log['origen'] ?></span>
                         </div>
                         <div class="linea-inferior">

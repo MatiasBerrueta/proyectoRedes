@@ -1,7 +1,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link rel="stylesheet" href="/css/tabMonitor.css">
+<link rel="stylesheet" href="/css/paginas/servidor/tabs/monitor.css">
 <div>
-    <h2 class="font-size-5">Monitor de recursos</h2>
+    <h2 class="texto-g">Monitor de recursos</h2>
     <div class="contenedor-graficos">
         <div class="contenedor-grafico">
             <div class="grafico-header">

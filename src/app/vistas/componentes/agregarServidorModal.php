@@ -1,7 +1,7 @@
  <dialog id="crearServidorModal">
     <form action="">
         <div class="form-header">
-            <h2 class="font-size-5">Crear servidor</h2>
+            <h2 class="texto-xl">Crear servidor</h2>
             <button type="button" class="boton-cerrar-crear-servidor" onclick="crearServidorModal.close()">
                 <?php include PUBLIC_ROOT . 'assets/iconos/x.svg'; ?>
             </button>

@@ -1,9 +1,9 @@
 <?php require_once APP_ROOT . "vistas/helpers/formulario.php"; ?>
 
-<link rel="stylesheet" href="/css/tabConfiguracion.css">
-<link rel="stylesheet" href="/css/formulario.css">
+<link rel="stylesheet" href="/css/paginas/servidor/tabs/configuracion.css">
+<link rel="stylesheet" href="/css/componentes.css">
 <div class="config-container">
-    <h2 class="font-size-5">Configuración del Servidor</h2>
+    <h2 class="texto-g">Configuración del Servidor</h2>
     <section class="contenedor-configuraciones">
         <?php
         $agrupados = agruparPorSeccion($datosTab);
@@ -23,8 +23,8 @@
         ?>
     </section>
     <section class="acciones-config">
-        <button class="boton-guardar">Guardar cambios</button>
-        <button class="boton-restablecer">Restablecer</button>
+        <button class="boton boton--primario">Guardar cambios</button>
+        <button class="boton boton--peligro">Restablecer</button>
     </section>
 </div>
 

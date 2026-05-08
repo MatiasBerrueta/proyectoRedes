@@ -1,3 +1,9 @@
+<?php
+if (!isset($servidor) || !is_array($servidor)) {
+    return;
+}
+?>
+
 <a class='servidor' 
     href="/panel/servidor/<?= $servidor['identifier'] ?>"
     data-jugadores="<?= $servidor['numeroJugadores'] ?>"
@@ -8,7 +14,7 @@
     data-max-ram="<?= $servidor['maximoUsoRam'] ?>">
     <div class="informacion-juego" style="--banner:url('/assets/banners/<?= $servidor['imagen'] ?>')">
         <div class="misma-linea">
-            <h3 class='font-size-5'><?= $servidor['nombre'] ?></h3>
+            <h3 class='texto-xl'><?= $servidor['nombre'] ?></h3>
             <span class='ip-servidor'><?= $servidor['ip'] ?>:<?= $servidor['puerto'] ?></span>
         </div>
         <span class="estado <?= strtolower($servidor['estado']) ?>">
@@ -19,7 +25,7 @@
     <div class="informacion-servidor flex-align-items">
         <div class='contenedor-metrica'>
             <div class='metricas'>
-                <p><?php include PUBLIC_ROOT . 'assets/iconos/users.svg'; ?>Players</p>
+                <p><?php include PUBLIC_ROOT . 'assets/iconos/users.svg'; ?>Jugadores</p>
                 <div>
                     <span class='jugadores-actuales'><?= $servidor['numeroJugadores'] ?></span> / <span class="jugadores-maximos"><?= $servidor['maximoNumeroJugadores'] ?></span>
                 </div>

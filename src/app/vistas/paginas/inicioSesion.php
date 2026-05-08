@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="assets/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/registro.css">
+    <link rel="stylesheet" href="css/componentes.css">
+    <link rel="stylesheet" href="css/paginas/registro.css">
     <title>Login - Voxel Hosting</title>
 </head>
-<body>
-    <div class="form-container">
+<body class="layout-auth">
+    <div class="auth-form">
         <a href="/">
             <?php include PUBLIC_ROOT . 'assets/iconos/logo.svg'; ?>
         </a>
@@ -28,7 +29,7 @@
                 </button>
             </div>
             <small class="mensaje-form"><a href="/recuperarContrasena">Olvide mi contrasena</a></small>
-            <button class="boton-subir boton-azul" type="submit">Ingresar</button>
+            <button class="boton boton--primario boton--bloque" type="submit">Ingresar</button>
             <?php if(!empty($datos['error'])): ?>
                 <p class="mensaje-input"><?= $datos['error'] ?> </p>
             <?php endif; ?>
@@ -38,10 +39,10 @@
             <small>O con</small>
             <hr class="linea">
         </div>
-         <div class="contenedor-otras-opciones">
-            <button class="boton-subir">
+             <div class="contenedor-otras-opciones">
+            <button class="boton boton--secundario boton--bloque">
                 <div class="gsi-material-button-icon">
-                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: block;">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-block">
                         <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
                         <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
                         <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
@@ -51,7 +52,7 @@
                 </div>
                 Continuar con Google
             </button>
-            <button class="boton-subir boton-negro">
+            <button class="boton boton--peligro boton--bloque">
                 <img src="/assets/iconos/github-mark-white.svg" alt="Icono Github" class="icono-github">                
                 Continuar con Github
             </button>
