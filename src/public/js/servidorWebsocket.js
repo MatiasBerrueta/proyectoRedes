@@ -3,6 +3,34 @@ const botonIniciar = document.querySelector('.boton.iniciar');
 const botonDetener = document.querySelector('.boton.detener');
 const botonReiniciar = document.querySelector('.boton.reiniciar');
 const textoEstado = document.querySelector('.texto-estado');
+const textoUptime = document.querySelector('[data-uptime]');
+
+function formatearMilisegundos(milisegundos) {
+    let segundos = Math.floor(milisegundos / 1000);
+    const dias   = Math.floor(segundos / 86400);
+    const horas  = Math.floor((segundos % 86400) / 3600);
+    const minutos= Math.floor((segundos % 3600) / 60);
+    segundos     = segundos % 60;
+
+    if (dias > 0) {
+        return `${dias}d ${horas}h ${minutos}m`;
+    } else if (horas > 0) {
+        return `${horas}h ${minutos}m`;
+    } else if (minutos > 0) {
+        return `${minutos}m ${segundos}s`;
+    } else {
+        return `${segundos}s`;
+    }
+}
+
+console.log(textoUptime);
+
+const estadosMap = {
+    running: "Activo",
+    starting: "Iniciando",
+    stopping: "Deteniendo",
+    offline: "Inactivo"
+};
 
 const pathName = window.location.pathname;
 const serverId = pathName.split('/').at(-2);
@@ -79,16 +107,19 @@ async function iniciarWebSocket(serverId) {
                 break;
             case 'status':
                 console.log('Status changed:', message.args[0]);
-                textoEstado.innerText = message.args[0];
+                const estado = message.args[0];
+                textoEstado.innerText = estadosMap[estado] || "Desconocido";
                 break;
             case 'stats':
                 const stats = JSON.parse(message.args[0]);
                 console.log('Resource usage:', stats);
 
                 const ram = stats.memory_bytes / (1024 ** 3);
-
+                
+                textoUptime.innerText = formatearMilisegundos(stats.uptime);
                 actualizarChart(cpuChart, stats.cpu_absolute);
                 actualizarChart(ramChart, ram.toFixed(2));
+
                 break;
         }
     };
