@@ -1,0 +1,76 @@
+.layout-auth {
+  display: grid;
+  place-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+  border-radius: 10px;
+
+  form > div {
+    position: relative;
+    margin: 1rem 0;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: var(--texto-2xl);
+    margin: 0.75rem 0;
+    font-family: "Pixelify Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+
+  > a {
+    margin-inline: auto;
+
+    svg {
+      width: 96px;
+      height: 96px;
+      fill: var(--azul-logo);
+    }
+  }
+}
+
+.layout-auth > div {
+  margin: 1.5rem 0;
+  width: 50ch;
+
+  label {
+    font-size: var(--texto-xs);
+    color: var(--color-fondo);
+    font-weight: 600;
+    margin-bottom: 0.5em;
+  }
+}
+
+.auth-form input {
+  width: 100%;
+  padding-left: 40px;
+  padding-right: 40px;
+  height: 40px;
+  border: 1px solid var(--color-borde);
+  border-radius: 5px;
+
+  &:hover, &:focus {
+    border-color: var(--color-borde-hover);
+  }
+}
+
+.contenedor-otras-opciones {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.75rem;
+  margin: 0;
+}
+
+.gsi-material-button-icon, .icono-github {
+  height: 20px;
+  margin-right: 12px;
+  min-width: 20px;
+  width: 20px;
+}
