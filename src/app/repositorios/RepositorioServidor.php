@@ -46,7 +46,7 @@ class RepositorioServidor {
         }
     }
 
-    public function obtenerJuegoServidor($idUsuario, $idServidor) {
+    public function obtenerJuegoServidor($idUsuario, $idPterodactyl) {        
         try {
             $query = "SELECT s.id_pterodactyl as identifier, 
                     v.nombre as nombre_juego, 
@@ -56,13 +56,18 @@ class RepositorioServidor {
                     v.nombre_grupo,
                     v.imagen
                     FROM SERVIDOR s JOIN VIDEOJUEGO v ON s.id_videojuego = v.id_videojuego 
-                    WHERE s.id_usuario = :id_usuario AND s.id_servidor = :id_servidor";
+                    WHERE s.id_usuario = :id_usuario AND s.id_pterodactyl = :id_pterodactyl";
             $stmt = $this->conexion->prepare($query);
 
             $stmt->bindParam(':id_usuario', $idUsuario, PDO::PARAM_INT);
-            $stmt->bindParam(':id_servidor', $idServidor, PDO::PARAM_INT);
-
+            $stmt->bindParam(':id_pterodactyl', $idPterodactyl, PDO::PARAM_INT);   
+            
             $stmt->execute();
+            
+            if ($stmt->rowCount() === 0) {
+                error_log("No se encontró el juego");
+                return null;
+            }
 
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $exception) {
