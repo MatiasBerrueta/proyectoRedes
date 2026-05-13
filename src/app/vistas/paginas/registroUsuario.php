@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="assets/logo.svg" type="image/x-icon">
+    <script>
+    (function() {
+        const temaGuardado = localStorage.getItem('tema');
+        if (temaGuardado === 'oscuro') document.documentElement.classList.add('tema-oscuro');
+    })();
+    </script>
+    <link rel="shortcut icon" href="assets/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/componentes.css">
     <link rel="stylesheet" href="css/paginas/registro.css">
@@ -11,59 +17,75 @@
     <title>Registro - Voxel Hosting</title>
 </head>
 <body class="layout-auth">
-    <div class="auth-form">
-        <a href="/">
-            <?php include PUBLIC_ROOT . 'assets/logo.svg'; ?>
+    <div class="auth-fondo">
+        <a href="/" class="logo">
+            <?php include PUBLIC_ROOT . "assets/iconos/logo.svg"; ?>
+            <h1>Voxel Hosting</h1>
         </a>
+    </div>
+    <div class="auth-form">
+        <div class="auth-navegacion">
+            <a class="boton" href="/login">Iniciar Sesion</a>
+            <a class="boton boton--primario" href="/registroUsuario">Crear cuenta</a>
+        </div>
+        <div class="auth-titulo">
+            <h1>Crea tu cuenta</h1>
+            <p>Ingresa tus datos para registrarte.</p>
+        </div>
         <form id="formulario-registro" action="/registrarCliente" method="POST">
-            <div>
+            <div class="auth-input-group">
                 <label for="input-nombre">Nombre</label>
-                <img src="/assets/iconoUsuario.svg" alt="Icono usuario" class="icon">
-                <input id="input-nombre" type="text" placeholder="Nombre" name="nombre" value="<?php if(isset($_POST['nombre'])) echo $_POST['nombre']?>" required>
+                <div>
+                    <?php include PUBLIC_ROOT . "assets/iconos/user.svg"; ?>
+                    <input id="input-nombre" type="text" placeholder="Nombre" name="nombre" value="<?php if (isset($_POST["nombre"])) { echo $_POST["nombre"]; } ?>" required>
+                </div>
                 <p class="mensaje-input"></p>
             </div>
-            <div>
-                <!-- <label for="input-email">Email</label> -->
-                <img src="/assets/iconoEmail.svg" alt="Icono email" class="icon">
-                <input id="input-email" type="text" placeholder="email@gmail.com" name="email" value="<?php if(isset($_POST['email'])) echo $_POST['email']?>" required>
-                <?php if(!empty($resultado['emailError'])): ?>
-                    <p id="mensaje-error-email" class="mensaje-input"><?= $resultado['emailError'] ?></p>
+            <div class="auth-input-group">
+                <label for="input-email">Email</label>
+                <div>
+                    <?php include PUBLIC_ROOT . "assets/iconos/mail.svg"; ?>
+                    <input id="input-email" type="text" placeholder="email@gmail.com" name="email" value="<?php if (isset($_POST["email"])) { echo $_POST["email"]; } ?>" required>
+                </div>
+                <?php if (!empty($resultado["emailError"])): ?>
+                    <p id="mensaje-error-email" class="mensaje-input"><?= $resultado["emailError"] ?></p>
                 <?php endif; ?>
             </div>
-            <div>
-                <!-- <label for="input-contrasena">Contraseña</label> -->
-                <img src="/assets/iconoContrasena.svg" alt="Icono contrasena" class="icon">
-                <input id="input-contrasena" type="password" placeholder="Contrasena" name="contrasena" value="<?php if(isset($_POST['contrasena'])) echo $_POST['contrasena']?>" required>
-                <button id="boton-toggle-contrasena" class="boton-toggle-contrasena" type="button" onClick="toggleContrasena(this, 'input-contrasena')">
-                    <img src="/assets/iconoVerContrasena.svg" alt="Icono ver contrasena" class="icon">
-                </button>
-                <?php if(!empty($resultado['contrasenaError'])): ?>
-                    <p id="mensaje-error-contrasena" class="mensaje-input"><?= $resultado['contrasenaError'] ?></p>
+            <div class="auth-input-group">
+                <label for="input-contrasena">Contraseña</label>
+                <div>
+                    <?php include PUBLIC_ROOT . "assets/iconos/lock.svg"; ?>
+                    <input id="input-contrasena" type="password" placeholder="Contrasena" name="contrasena" value="<?php if (isset($_POST["contrasena"])) { echo $_POST["contrasena"]; } ?>" required>
+                    <button id="boton-toggle-contrasena" class="boton-toggle-contrasena" type="button" onClick="toggleContrasena(this, 'input-contrasena')">
+                        <svg class="activo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye-off"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.585 10.587a2 2 0 0 0 2.829 2.828" /><path d="M16.681 16.673a8.717 8.717 0 0 1 -4.681 1.327c-3.6 0 -6.6 -2 -9 -6c1.272 -2.12 2.712 -3.678 4.32 -4.674m2.86 -1.146a9.055 9.055 0 0 1 1.82 -.18c3.6 0 6.6 2 9 6c-.666 1.11 -1.379 2.067 -2.138 2.87" /><path d="M3 3l18 18" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+                    </button>
+                </div>
+                <?php if (!empty($resultado["contrasenaError"])): ?>
+                    <p id="mensaje-error-contrasena" class="mensaje-input"><?= $resultado["contrasenaError"] ?></p>
                 <?php endif; ?>
-                <p  class="mensaje-input"></p>
             </div>
-            <div>
-                <!-- <label for="input-confirmar-contrasena">Confirmar contraseña</label> -->
-                <img src="/assets/iconoContrasena.svg" alt="Icono contrasena" class="icon">
-                <input id="input-confirmar-contrasena" type="password" placeholder="Confirmar contrasena" name="confirmarContrasena" value="<?php if(isset($_POST['confirmarContrasena'])) echo $_POST['confirmarContrasena']?>" required>
-                <button id="boton-toggle-confirmar-contrasena" class="boton-toggle-contrasena" type="button" onClick="toggleContrasena(this, 'input-confirmar-contrasena')">
-                    <img src="/assets/iconoVerContrasena.svg" alt="Icono ver contrasena" class="icon">
-                </button>
-                <?php if(!empty($resultado['confirmarContrasenaError'])): ?>
-                    <p id="mensaje-error-confirmar-contrasena" class="mensaje-input"><?= $resultado['confirmarContrasenaError'] ?></p>
+            <div class="auth-input-group">
+                <label for="input-confirmar-contrasena">Confirmar contraseña</label>
+                <div>
+                    <?php include PUBLIC_ROOT . "assets/iconos/lock.svg"; ?>
+                    <input id="input-confirmar-contrasena" type="password" placeholder="Confirmar contrasena" name="confirmarContrasena" value="<?php if (isset($_POST["confirmarContrasena"])) { echo $_POST["confirmarContrasena"]; } ?>" required>
+                    <button id="boton-toggle-confirmar-contrasena" class="boton-toggle-contrasena" type="button" onClick="toggleContrasena(this, 'input-confirmar-contrasena')">
+                        <svg class="activo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye-off"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.585 10.587a2 2 0 0 0 2.829 2.828" /><path d="M16.681 16.673a8.717 8.717 0 0 1 -4.681 1.327c-3.6 0 -6.6 -2 -9 -6c1.272 -2.12 2.712 -3.678 4.32 -4.674m2.86 -1.146a9.055 9.055 0 0 1 1.82 -.18c3.6 0 6.6 2 9 6c-.666 1.11 -1.379 2.067 -2.138 2.87" /><path d="M3 3l18 18" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+                    </button>
+                </div>
+                <?php if (!empty($resultado["confirmarContrasenaError"])): ?>
+                    <p id="mensaje-error-confirmar-contrasena" class="mensaje-input"><?= $resultado["confirmarContrasenaError"] ?></p>
                 <?php endif; ?>
-                <p  class="mensaje-input"></p>
             </div>
             <button class="boton boton--primario boton--bloque" type="submit">Crear cuenta</button>
-             <?php if(!empty($resultdao['mensaje'])): ?>
-                <p id="mensaje-error-general" class="mensaje-input"><?= $resultado['mensaje'] ?></p>
+            <?php if (!empty($resultado["mensaje"])): ?>
+                <p id="mensaje-error-general" class="mensaje-input"><?= $resultado["mensaje"] ?></p>
             <?php endif; ?>
-            <p  class="mensaje-input"></p>
         </form>
-        <div class="separador">
-            <hr class="linea">
-            <small>O con</small>
-            <hr class="linea">
+        <div class="separador-login">
+            <small>O</small>
         </div>
         <div class="contenedor-otras-opciones">
             <button class="boton boton--secundario boton--bloque">
@@ -78,23 +100,23 @@
                 </div>
                 Continuar con Google
             </button>
-            <button class="boton boton--peligro boton--bloque">
-                <img src="/assets/github-mark-white.svg" alt="Icono Github" class="icono-github">                
+            <button class="boton boton--negro boton--bloque">
+                <img src="/assets/iconos/github-mark-white.svg" alt="Icono Github" class="icono-github">
                 Continuar con Github
             </button>
         </div>
-        <small class="mensaje-form">Ya tenes una cuenta? <a href="/login">Iniciar sesion</a></small>
     </div>
     <script>
         function toggleContrasena(boton, targetId) {
             const targetInput = document.getElementById(targetId);
-
             if (targetInput.type === "password") {
+                boton.children[1].classList.add("activo");
+                boton.children[0].classList.remove("activo");
                 targetInput.type = "text";
-                boton.innerHTML = '<img src="/assets/iconoOcultarContrasena.svg" alt="Icono ocultar contrasena" class="icon">';
             } else {
+                boton.children[0].classList.add("activo");
+                boton.children[1].classList.remove("activo");
                 targetInput.type = "password";
-                boton.innerHTML = '<img src="/assets/iconoVerContrasena.svg" alt="Icono ver contrasena" class="icon">';
             }
         }
     </script>

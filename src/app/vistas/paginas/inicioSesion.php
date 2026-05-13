@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    (function() {
+        const temaGuardado = localStorage.getItem('tema');
+        if (temaGuardado === 'oscuro') document.documentElement.classList.add('tema-oscuro');
+    })();
+    </script>
     <link rel="shortcut icon" href="assets/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/componentes.css">
@@ -10,36 +16,18 @@
     <title>Login - Voxel Hosting</title>
 </head>
 <body class="layout-auth">
-    <div class="auth-form">
-        <a href="/">
-            <?php include PUBLIC_ROOT . 'assets/iconos/logo.svg'; ?>
+    <div class="auth-fondo">
+        <a href="/" class="logo">
+            <?php include PUBLIC_ROOT . "assets/iconos/logo.svg"; ?>
+            <h1>Voxel Hosting</h1>
         </a>
-        <form action="" method="POST">
-            <div>
-                <!-- <label for="input-email">Email</label> -->
-                <img src="/assets/iconos/iconoEmail.svg" alt="Icono email" class="icon">
-                <input id="input-email" type="text" placeholder="email@gmail.com" name="email">
-            </div>
-            <div>
-                <!-- <label for="input-contrasena">Contraseña</label> -->
-                <img src="/assets/iconos/iconoContrasena.svg" alt="Icono contrasena" class="icon">
-                <input id="input-contrasena" type="password" placeholder="contraseña" name="contrasena">
-                <button id="boton-toggle-confirmar-contrasena" class="boton-toggle-contrasena" type="button" onClick="toggleContrasena(this, 'input-contrasena')">
-                    <img src="/assets/iconos/iconoVerContrasena.svg" alt="Icono ver contrasena" class="icon">
-                </button>
-            </div>
-            <small class="mensaje-form"><a href="/recuperarContrasena">Olvide mi contrasena</a></small>
-            <button class="boton boton--primario boton--bloque" type="submit">Ingresar</button>
-            <?php if(!empty($datos['error'])): ?>
-                <p class="mensaje-input"><?= $datos['error'] ?> </p>
-            <?php endif; ?>
-        </form>
-        <div class="separador">
-            <hr class="linea">
-            <small>O con</small>
-            <hr class="linea">
+    </div>
+    <div class="auth-form">
+        <div class="auth-titulo">
+            <h1>Empezá ahora</h1>
+            <p>Ingresá o creá tu cuenta en segundos.</p>
         </div>
-             <div class="contenedor-otras-opciones">
+        <div class="contenedor-otras-opciones">
             <button class="boton boton--secundario boton--bloque">
                 <div class="gsi-material-button-icon">
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-block">
@@ -50,25 +38,55 @@
                         <path fill="none" d="M0 0h48v48H0z"></path>
                     </svg>
                 </div>
-                Continuar con Google
+                Continua con Google
             </button>
-            <button class="boton boton--peligro boton--bloque">
-                <img src="/assets/iconos/github-mark-white.svg" alt="Icono Github" class="icono-github">                
-                Continuar con Github
+            <button class="boton boton--secundario boton--bloque">
+                <img src="/assets/iconos/github-mark-white.svg" alt="Icono Github" class="icono-github">
+                Continua con Github
             </button>
         </div>
-        <small class="mensaje-form">No tenes una cuenta? <a href="/registrarCliente">Crear una cuenta</a></small>
+        <div class="separador-registro">
+            <div class="separador"></div>
+            <span>o usá tu email</span>
+            <div class="separador"></div>
+        </div>
+        <form action="" method="POST">
+            <div class="auth-input-group">
+                <label for="input-email">Email</label>
+                <div>
+                    <?php include PUBLIC_ROOT . "assets/iconos/mail.svg"; ?>
+                    <input id="input-email" type="text" placeholder="email@gmail.com" name="email">
+                </div>
+            </div>
+            <div class="auth-input-group">
+                <a class="contrasena-olvidada" href="/recuperarContrasena"><small class="texto-s">Olvide mi contrasena</small></a>
+                <label for="input-contrasena">Contraseña</label>
+                <div>
+                    <?php include PUBLIC_ROOT . "assets/iconos/lock.svg"; ?>
+                    <input id="input-contrasena" type="password" placeholder="contraseña" name="contrasena">
+                    <button id="boton-toggle-confirmar-contrasena" class="boton-toggle-contrasena" type="button" onClick="toggleContrasena(this, 'input-contrasena')">
+                        <svg class="activo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye-off"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.585 10.587a2 2 0 0 0 2.829 2.828" /><path d="M16.681 16.673a8.717 8.717 0 0 1 -4.681 1.327c-3.6 0 -6.6 -2 -9 -6c1.272 -2.12 2.712 -3.678 4.32 -4.674m2.86 -1.146a9.055 9.055 0 0 1 1.82 -.18c3.6 0 6.6 2 9 6c-.666 1.11 -1.379 2.067 -2.138 2.87" /><path d="M3 3l18 18" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+                    </button>
+                </div>
+            </div>
+            <button class="boton boton--primario boton--bloque" type="submit">Ingresar</button>
+            <?php if (!empty($datos["error"])): ?>
+                <p class="mensaje-input"><?= $datos["error"] ?> </p>
+            <?php endif; ?>
+        </form>
     </div>
     <script>
         function toggleContrasena(boton, targetId) {
             const targetInput = document.getElementById(targetId);
-
             if (targetInput.type === "password") {
+                boton.children[1].classList.add("activo")
+                boton.children[0].classList.remove("activo")
                 targetInput.type = "text";
-                boton.innerHTML = '<img src="/assets/iconos/iconoOcultarContrasena.svg" alt="Icono ocultar contrasena" class="icon">';
             } else {
+                boton.children[0].classList.add("activo")
+                boton.children[1].classList.remove("activo")
                 targetInput.type = "password";
-                boton.innerHTML = '<img src="/assets/iconos/iconoVerContrasena.svg" alt="Icono ver contrasena" class="icon">';
             }
         }
     </script>

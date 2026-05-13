@@ -151,8 +151,8 @@
   --color-borde-hover: hsl(221, 17%, 27%);
   --color-header: hsl(221, 17%, 10%, 0.7);
 
-  --color-blanco: hsl(221, 15%, 14%);
-  --color-blanco-puro: hsl(221, 15%, 18%);
+  /*--color-blanco: hsl(221, 15%, 14%);
+  --color-blanco-puro: hsl(221, 15%, 18%);*/
 
   --color-superficie: hsl(221, 15%, 12%);
   --color-superficie-2: hsl(221, 15%, 11%);
@@ -178,8 +178,8 @@
     --color-borde-hover: hsl(221, 17%, 27%);
     --color-header: hsl(221, 17%, 10%, 0.7);
 
-    --color-blanco: hsl(221, 15%, 14%);
-    --color-blanco-puro: hsl(221, 15%, 18%);
+    /*--color-blanco: hsl(221, 15%, 14%);
+    --color-blanco-puro: hsl(221, 15%, 18%);*/
 
     --color-superficie: hsl(221, 17%, 12%);
     --color-superficie-2: hsl(221, 18%, 11%);
@@ -203,7 +203,12 @@
 }
 
 :where(textarea),
-:where(input[type="text"], input[type="search"], input[type="password"], input[type="url"]) {
+:where(
+  input[type="text"],
+  input[type="search"],
+  input[type="password"],
+  input[type="url"]
+) {
   appearance: none;
   border-style: solid;
   outline: none;
