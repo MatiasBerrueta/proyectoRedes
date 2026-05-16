@@ -1,7 +1,7 @@
 <?php
 
 class pterodactylClientApi {
-    private function request($endpoint, $clientKey) {
+    private function request(string $endpoint, string $clientKey) {
         $curl = curl_init("http://172.17.0.1/api/client" . $endpoint);
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -16,19 +16,19 @@ class pterodactylClientApi {
         return $response;
     }
 
-    public function obtenerLogs($serverId, $clientKey) {
+    public function obtenerLogs(int $serverId, string $clientKey) {
         $pathArchivo = '/logs/latest.log';
         $url = "/servers/{$serverId}/files/contents?" . http_build_query(['file' => $pathArchivo]);
         return $this->request($url, $clientKey);
     }
 
-    public function obtenerRecursosServidor($id, $clientKey) {
+    public function obtenerRecursosServidor(int $id, string $clientKey) {
         $respuesta = $this->request('/servers/' . $id . '/resources', $clientKey);
 
         return json_decode($respuesta, true);
     }
 
-    public function obtenerServidores($clientKey) {
+    public function obtenerServidores(string $clientKey) {
         $respuesta = json_decode($this->request('/', $clientKey), true);
 
         return array_map(function($servidor) use ($clientKey) {
@@ -51,7 +51,7 @@ class pterodactylClientApi {
     }, $respuesta['data']);
     }
 
-    public function obtenerServidor($id, $clientKey) {
+    public function obtenerServidor(int $id, string $clientKey) {
         $servidor = json_decode($this->request('/servers/' . $id, $clientKey), true);
         $recursos = $this->obtenerRecursosServidor($id, $clientKey);
         $ultimoLog = $this->obtenerLogs($id, $clientKey);
@@ -75,7 +75,7 @@ class pterodactylClientApi {
         ];
     }
 
-    public function obtenerWebSocket($id, $clientKey) {
+    public function obtenerWebSocket(int $id, string $clientKey) {
         $resultado = $this->request('/servers/'. $id . '/websocket', $clientKey);
         // echo "<script>console.log(" . json_encode($resultado) . ")</script>";
 
@@ -83,7 +83,7 @@ class pterodactylClientApi {
     }
 
     // Devuelve una lista de los archivos y directorios que hay en la ruta especificada
-    public function obtenerDirectorios($idServidor, $rutaDirectorio, $clientKey) {
+    public function obtenerDirectorios(int $idServidor, string $rutaDirectorio, string $clientKey) {
         $url = "/servers/{$idServidor}/files/list?" . http_build_query(['directory' => $rutaDirectorio]);
         echo "<script>console.log(" . json_encode($url) . ")</script>";
         
@@ -92,7 +92,7 @@ class pterodactylClientApi {
     }
 
     // Devuelve el contenido del archivo en la ruta especificada
-    public function leerArchivo($idServidor, $rutaArchivo, $clientKey) {
+    public function leerArchivo(int $idServidor, string $rutaArchivo, string $clientKey) {
         $url = "/servers/{$idServidor}/files/contents?" . http_build_query(['file' => $rutaArchivo]);
         echo "<script>console.log(" . json_encode($url) . ")</script>";
         
@@ -100,13 +100,13 @@ class pterodactylClientApi {
         return $this->request($url, $clientKey);
     }
 
-    public function escribirArchivo($idServidor, $rutaArchivo, $clientKey) {
+    public function escribirArchivo(int $idServidor, string $rutaArchivo, string $clientKey) {
         $url = "/servers/{$idServidor}/files/write?{$rutaArchivo}";
 
         return $this->request($url, $clientKey);
     }
 
-    public function subirArchivo($idServidor, $rutaArchivo, $clientKey) {
+    public function subirArchivo(int $idServidor, string $rutaArchivo, string $clientKey) {
         $url = "/servers/{$idServidor}/files/contents?" . http_build_query(['file' => $rutaArchivo]);
         
 
