@@ -140,7 +140,7 @@
         <div class="form-footer">
             <p>Rellena los datos para crear el servidor</p>
             <div>
-                <button type="submit" class="boton-cancelar-servidor">Cancelar</button>
+                <button type="button" class="boton-cancelar-servidor" onclick="crearServidorModal.close()">Cancelar</button>
                 <button type="submit" class="boton-crear-servidor" disabled>Crear</button>
             </div>
         </div>
