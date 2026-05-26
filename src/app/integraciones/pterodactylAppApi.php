@@ -5,7 +5,15 @@ class pterodactylAppApi {
     }
 
     private function request($endpoint, $data, $metodo) {
-        $curl = curl_init("http://172.17.0.1/api/application" . $endpoint);
+        $logger = ServicioLogger::obtenerLogger();
+        
+        $url = "http://172.17.0.1/api/application" . $endpoint;
+        $logger->info('App API Request', [
+            'method' => $metodo,
+            'endpoint' => $endpoint
+        ]);
+
+        $curl = curl_init($url);
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, [
@@ -24,7 +32,14 @@ class pterodactylAppApi {
         }
 
         $response = curl_exec($curl);
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
+        
+        $logger->debug('App API Response', [
+            'http_code' => $httpCode,
+            'endpoint' => $endpoint
+        ]);
+
         return json_decode($response, true);
     }
 
@@ -96,6 +111,13 @@ class pterodactylAppApi {
     }
 
     public function crearUsuario($nombre, $email, $contrasena) {
+        $logger = ServicioLogger::obtenerLogger();
+        
+        $logger->info('Creando usuario en Pterodactyl', [
+            'email' => $email,
+            'username' => $nombre
+        ]);
+        
         $userData = [
             'email' => $email,
             'username' => $nombre,
@@ -108,10 +130,17 @@ class pterodactylAppApi {
         $usuarioPterodactyl = $this->request('/users', $userData, 'POST');
 
         if (!isset($usuarioPterodactyl['attributes'])) {
-            error_log('Error creando usuario: ' . json_encode($usuarioPterodactyl));
+            $logger->error('Error creando usuario en Pterodactyl', [
+                'email' => $email,
+                'response' => $usuarioPterodactyl
+            ]);
             return null;
         }
 
+        $logger->info('Usuario creado correctamente', [
+            'pterodactyl_user_id' => $usuarioPterodactyl['attributes']['id']
+        ]);
+        
         $this->crearClientApiKey($usuarioPterodactyl['attributes']['id']);
     }
 
