@@ -1,4 +1,4 @@
-<?php require_once APP_ROOT . "vistas/helpers/formulario.php"; ?>
+<?php require_once APP_ROOT . "vistas/componentes/formulario.php"; ?>
 
 <link rel="stylesheet" href="/css/paginas/servidor/tabs/configuracion.css">
 <link rel="stylesheet" href="/css/componentes.css">

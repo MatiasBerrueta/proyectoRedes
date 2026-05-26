@@ -1,4 +1,4 @@
-<?php require_once APP_ROOT . "vistas/helpers/formulario.php"; ?>
+<?php require_once APP_ROOT . "vistas/componentes/formulario.php"; ?>
 
 <!DOCTYPE html>
 <html lang="en">

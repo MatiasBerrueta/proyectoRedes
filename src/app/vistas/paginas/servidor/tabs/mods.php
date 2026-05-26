@@ -4,7 +4,7 @@
 	<nav>
 		<ul>
 			<li><a class="seleccionado" href="">Mods instalados</a></li>
-			<li><a href="">Navegar</a></li>
+			<li><a href="">Descubrir</a></li>
 		</ul>
 	</nav>
 	<div class="mods-instalados">
@@ -41,7 +41,7 @@
 				["project_type:mod"],
 				[`categories:${loader}`],
 				["versions:26.1.2"],
-				["server_side:required", "server_side:optional"]
+				// ["server_side:required", "server_side:optional"]
 			]);
 			const url = `https://api.modrinth.com/v2/search?query=${encodeURIComponent(query)}&limit=12&facets=${encodeURIComponent(facets)}`;
 			const res = await fetch(url);
@@ -102,8 +102,24 @@
 		if(!version) return null;
 
 		const archivo = version.files.find(file => file.primary);
-		console.log(archivo.url);
-		alert('Url de descarga: ', archivo.url);
+		const modUrl = archivo.url;
+
+		const pathParts = window.location.pathname.split('/').filter(p => p);
+		const serverId = pathParts[pathParts.length - 2];
+
+		const formData = new URLSearchParams();
+		formData.append('servidor_id', serverId);
+		formData.append('mod_url', modUrl);
+
+		const res = await fetch('/api/servidor/subirMod', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			body: formData
+		});
+
+		const result = await res.json();
+		console.log(result);
+		alert(result.success ? 'Mod instalado' : 'Error al instalar mod');
 	}
 
 	buscar();

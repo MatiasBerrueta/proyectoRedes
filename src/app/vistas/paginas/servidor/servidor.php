@@ -46,7 +46,7 @@ $servidorId = $servidor['identifier'] ?? null;
                 <?php include PUBLIC_ROOT . '/assets/iconos/arrow-narrow-left.svg'; ?>
                 Volver a lista servidores
             </a>
-            <?php require_once APP_ROOT . "vistas/secciones/$tabActual.php"; ?>
+            <?php require_once APP_ROOT . "vistas/paginas/servidor/tabs/$tabActual.php"; ?>
         </section>
     </main>
 </body>

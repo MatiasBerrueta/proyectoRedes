@@ -1,5 +1,5 @@
 <?php
-function cleanLog(int $line) {
+function cleanLog(string $line) {
     if (preg_match('/\[(.*?)\] \[(.*?)\/(.*?)\]: (.*)/', $line, $matches)) {
         return "[{$matches[1]} {$matches[3]}]: {$matches[4]}";
     }
@@ -24,6 +24,8 @@ function formatearMilisegundos(float $milisegundos) {
         return "{$segundos}s";
     }
 }
+
+if(!isset($servidor)) return null;  
 
 $estadosMap = [
     "undefined" => "-",
