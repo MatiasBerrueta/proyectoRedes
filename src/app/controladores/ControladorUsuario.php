@@ -3,12 +3,12 @@ require_once APP_ROOT . 'controladores/Controlador.php';
 require_once APP_ROOT . 'utils/Validar.php';
 
 class ControladorUsuario extends Controlador {
-    private $servicio;
+    private ServicioUsuario $servicio;
 
     public function __construct(ServicioUsuario $servicio) {
         $this->servicio = $servicio;
     }
-
+    
     public function mostrarLogin($datos = []) {
         $this->renderizar('paginas/inicioSesion', $datos);
     }
@@ -17,7 +17,7 @@ class ControladorUsuario extends Controlador {
         $this->renderizar('paginas/registroUsuario');
     }
 
-    public function mostrarServidor($idServidor) {
+    public function mostrarServidor(int $idServidor) {
         $this->requiereLogin();
         $this->renderizar('/paginas/servidor', ['id_servidor' => $idServidor]);
     }
