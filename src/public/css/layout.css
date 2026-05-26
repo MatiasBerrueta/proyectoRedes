@@ -23,14 +23,14 @@ header {
     opacity: 0.3;
   }
 
-    .contenedor-logo::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: var(--color-blanco-puro);
-      opacity: 0;
-      pointer-events: none;
-    }
+  .contenedor-logo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--color-blanco-puro);
+    opacity: 0;
+    pointer-events: none;
+  }
 
   .nombre-logo {
     font-size: var(--texto-xl);
@@ -104,9 +104,9 @@ header {
   }
 
   .boton-menu-usuario,
-  a[href="/login"] {
+  a[href="/auth"] {
     font-size: inherit;
-    padding: 0.35rem 0.5rem;
+    padding: 0.35rem 1rem;
     display: flex;
     align-items: center;
     column-gap: 0.5rem;

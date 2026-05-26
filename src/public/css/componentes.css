@@ -72,11 +72,7 @@
 .boton:disabled {
   pointer-events: none;
   color: var(--color-texto-secundario);
-  background-color: color-mix(
-    in srgb,
-    var(--azul-logo) 50%,
-    hsl(0, 0%, 0%, 0.5)
-  );
+  background-color: color-mix(in srgb, var(--azul-logo) 50%, hsl(0, 0%, 0%, 0.5));
 }
 
 .separador {
@@ -134,6 +130,10 @@ select {
   border-radius: 5px;
   background-color: var(--color-superficie);
   border: 1px solid var(--color-borde);
+
+  &:hover {
+    border-color: var(--color-borde-hover);
+  }
 }
 
 input::placeholder {

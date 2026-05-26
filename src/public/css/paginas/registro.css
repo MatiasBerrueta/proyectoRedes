@@ -37,13 +37,13 @@
 .auth-fondo {
   width: 100%;
   height: 100vh;
-  background-color: var(--azul-logo);
+  /* background-color: var(--azul-logo); */
   /*background-color: var(--color-fondo);*/
 
-  --color-linea: color-mix(in srgb, var(--color-blanco) 10%, transparent);
+  --color-linea: color-mix(in srgb, var(--color-borde) 50%, transparent);
   background-image:
     linear-gradient(var(--color-linea) 1px, transparent 1px),
-    linear-gradient(90deg, var(--color-linea) 1px, transparent 1px);
+    linear-gradient(270deg, var(--color-linea) 1px, transparent 1px);
   background-size: 32px 32px;
   /*background-image: radial-gradient(var(--color-linea) 1px, transparent 1px);*/
   /*background-size: 24px 24px;*/

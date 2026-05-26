@@ -5,8 +5,7 @@ html {
 
 .layout-landing main > section {
   width: 100%;
-  padding-inline: 5rem clamp(1rem, 5vw, 4rem);
-  padding-block: 4rem;
+  padding-inline: clamp(1rem, 5vw, 4rem);
   padding-top: 2rem;
 }
 
@@ -353,7 +352,7 @@ section {
     padding: 0.5rem 1rem;
     width: max-content;
     margin-bottom: 0.5rem;
-    background: var(--color-blanco);
+    background: var(--color-superficie);
     margin-left: auto;
   }
 }
@@ -362,7 +361,7 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: var(--color-blanco);
+  background: var(--color-superficie);
   border: 1px solid var(--color-borde);
   padding: 1rem 2rem;
   border-radius: 5px;
@@ -395,7 +394,7 @@ section {
   border-radius: 5px;
   align-items: center;
   width: 100%;
-  background-color: var(--color-blanco);
+  background-color: var(--color-superficie);
   text-align: left;
 
   .cta-tutorial__titulo {
@@ -415,7 +414,8 @@ section {
 
 .seccion-final {
   background-color: var(--azul-logo);
-  /* margin-bottom: 10rem; */
+  margin-bottom: -10rem;
+  padding-bottom: 10rem;
   z-index: -1;
 
   .seccion-final__contenido {
