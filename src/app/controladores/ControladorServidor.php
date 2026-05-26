@@ -3,8 +3,8 @@ require_once APP_ROOT . 'controladores/Controlador.php';
 // require_once APP_ROOT . 'factories/JuegoFactory.php';
 
 class ControladorServidor extends Controlador {
-    private $servicioServidor;
-    private $servicioJuego;
+    private ServicioServidor $servicioServidor;
+    private ServicioJuego $servicioJuego;
 
     public function __construct(ServicioServidor $servicioServidor, ServicioJuego $servicioJuego) {
         $this->servicioServidor = $servicioServidor;
@@ -105,7 +105,6 @@ class ControladorServidor extends Controlador {
     private $tabHandlers = [
         'log' => 'handleLog',
         'file' => 'handleFile',
-        'directory' => 'handleDirectory',
         'config' => 'obtenerConfiguracion',
         'pterodactyl' => 'handlePterodactyl',
         'directory' => 'obtenerArchivos',
@@ -119,22 +118,19 @@ class ControladorServidor extends Controlador {
         }
 
         $method = $this->tabHandlers[$type];
-        echo "<script>console.log(" . json_encode($method) . ")</script>";
 
         $idUsuario = $_SESSION['usuario']['id'];
         return $this->servicioJuego->$method($servidor, $idUsuario);
     }
 
-    public function mostrarServidor($idServidor, $tabId = 'consola') {
+    public function mostrarServidor(string $idServidorPterodactyl, string $tabId = 'consola') {
         $this->requiereLogin();
         $idUsuario = $_SESSION['usuario']['id'];
 
-        $servidor = $this->servicioServidor->obtenerServidorPterodactyl($idServidor, $idUsuario);
+        $servidor = $this->servicioServidor->obtenerServidorPterodactyl($idServidorPterodactyl, $idUsuario);
         $juego = $servidor['nombre_grupo'];
-        // $driver = JuegoFactory::crear($juego);
         $tabs = $this->servicioJuego->getTabs(strtolower($juego));
 
-        // Indexa los tabs por id
         $tabsPorId = [];
 
         foreach ($tabs as $tab) {
@@ -144,14 +140,43 @@ class ControladorServidor extends Controlador {
         $tabActual = $tabsPorId[$tabId] ?? null;
         $datosTab = $this->resolverTab($tabActual, $servidor);
 
-        echo "<script>console.log(" . json_encode($tabActual) . ")</script>";
-
-        $this->renderizar('paginas/servidor', [
+        $this->renderizar('paginas/servidor/servidor', [
             'servidor' => $servidor,
             'tabs' => $tabsPorId,
             'tabActual' => $tabActual['id'],
             'datosTab' => $datosTab,
         ]);
+    }
+
+    public function subirMod() {
+        $logger = ServicioLogger::obtenerLogger();
+        $this->requiereLogin();
+        
+        $idServidor = $_POST['servidor_id'] ?? null;
+        $modUrl = $_POST['mod_url'] ?? null;
+        $idUsuario = $_SESSION['usuario']['id'];
+
+        $logger->info('Subir mod solicitado', [
+            'user_id' => $idUsuario,
+            'server_id' => $idServidor
+        ]);
+
+        if (!$idServidor || !$modUrl) {
+            $logger->warning('Subir mod llamado sin parámetros requeridos', [
+                'user_id' => $idUsuario
+            ]);
+            http_response_code(400);
+            return;
+        }
+
+        $resultado = $this->servicioServidor->subirMod($idServidor, $idUsuario, $modUrl);
+        
+        $logger->debug('Subir mod resultado', [
+            'user_id' => $idUsuario,
+            'result' => $resultado
+        ]);
+        
+        header('Content-Type: application/json');
     }
 
 }
