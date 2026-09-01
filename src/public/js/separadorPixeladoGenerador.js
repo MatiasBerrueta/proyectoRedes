@@ -2,7 +2,7 @@ function initSeparator(canvas, options = {}) {
   const CONFIG = {
     height: 80,
     px: 8,
-    color: 'hsl(243, 35%, 18%)',
+    color: "hsl(243, 35%, 18%)",
     mainBarY: 40,
     mainBarH: 40,
     floatChance: 0.15,
@@ -26,10 +26,10 @@ function initSeparator(canvas, options = {}) {
     const H = CONFIG.height;
 
     const dpr = window.devicePixelRatio || 1;
-    canvas.width  = W * dpr;
+    canvas.width = W * dpr;
     canvas.height = H * dpr;
-    canvas.style.height = H + 'px';
-    const ctx = canvas.getContext('2d');
+    canvas.style.height = H + "px";
+    const ctx = canvas.getContext("2d");
     ctx.scale(dpr, dpr);
 
     ctx.fillStyle = CONFIG.color;
@@ -54,25 +54,25 @@ function initSeparator(canvas, options = {}) {
       prevTopOffset += deltaTop;
       prevBotOffset += deltaBot;
 
-      const topOffset = CONFIG.direction === 'down' ? 0 : prevTopOffset;
-      const botOffset = CONFIG.direction === 'up'   ? 0 : prevBotOffset;
+      const topOffset = CONFIG.direction === "down" ? 0 : prevTopOffset;
+      const botOffset = CONFIG.direction === "up" ? 0 : prevBotOffset;
 
-      const barTop = CONFIG.mainBarY * `${CONFIG.direction === 'up' ? 1 : 0}` + topOffset;
-      const barBot = CONFIG.mainBarY * `${CONFIG.direction === 'up' ? 1 : 0}` + CONFIG.mainBarH + botOffset;
-      const barH   = barBot - barTop;
+      const barTop = CONFIG.mainBarY * `${CONFIG.direction === "up" ? 1 : 0}` + topOffset;
+      const barBot = CONFIG.mainBarY * `${CONFIG.direction === "up" ? 1 : 0}` + CONFIG.mainBarH + botOffset;
+      const barH = barBot - barTop;
 
       if (barH > 0) {
         ctx.fillRect(x, barTop, CONFIG.px, barH);
       }
 
-      if (CONFIG.direction === 'up' && r2 < CONFIG.floatChance) {
+      if (CONFIG.direction === "up" && r2 < CONFIG.floatChance) {
         const floatY = barTop - CONFIG.px - CONFIG.px;
         if (floatY >= 0) {
           ctx.fillRect(x, floatY, CONFIG.px, CONFIG.px);
         }
       }
 
-      if (CONFIG.direction === 'down' && r3 < CONFIG.floatChance) {
+      if (CONFIG.direction === "down" && r3 < CONFIG.floatChance) {
         const floatY = barBot + CONFIG.px;
         if (floatY + CONFIG.px <= H) {
           ctx.fillRect(x, floatY, CONFIG.px, CONFIG.px);
@@ -82,27 +82,24 @@ function initSeparator(canvas, options = {}) {
   }
 
   draw();
-  window.addEventListener('resize', draw);
+  window.addEventListener("resize", draw);
 }
 
-document.querySelectorAll('.pixel-separator').forEach(el => {
-    const color = el.dataset.color || 
-    getComputedStyle(document.documentElement)
-      .getPropertyValue('--azul-logo').trim();
+document.querySelectorAll(".pixel-separator").forEach((el) => {
+  const color = el.dataset.color || getComputedStyle(document.documentElement).getPropertyValue("--azul-logo").trim();
 
+  const canvas = document.createElement("canvas");
+  canvas.style.display = "block";
+  canvas.style.width = "100%";
+  canvas.style.imageRendering = "pixelated";
+  canvas.style[el.dataset.direction === "up" ? "marginTop" : "marginBottom"] = "5rem";
 
-    const canvas = document.createElement('canvas');
-    canvas.style.display = 'block';
-    canvas.style.width = '100%';
-    canvas.style.imageRendering = 'pixelated';
-    canvas.style[el.dataset.direction === 'up' ? 'marginTop' : 'marginBottom'] = '5rem';
+  el.appendChild(canvas);
 
-    el.appendChild(canvas);
-
-    initSeparator(canvas, {
-        seed: Number(el.dataset.seed ?? 0),
-        color: color,
-        height: Number(el.dataset.height ?? 80),
-        direction: el.dataset.direction ?? 'down',
-    });
+  initSeparator(canvas, {
+    seed: Number(el.dataset.seed ?? 0),
+    color: color,
+    height: Number(el.dataset.height ?? 80),
+    direction: el.dataset.direction ?? "down",
+  });
 });
