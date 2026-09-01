@@ -5,7 +5,7 @@ if (!isset($servidor) || !is_array($servidor)) {
 ?>
 
 <a class='servidor' 
-    href="/panel/servidor/<?= $servidor['identifier'] ?>"
+    href="/servidores/<?= $servidor['identifier'] ?>"
     data-jugadores="<?= $servidor['numeroJugadores'] ?>"
     data-max-jugadores="<?= $servidor['maximoNumeroJugadores'] ?>"
     data-cpu="<?= $servidor['usoCpu'] ?>"

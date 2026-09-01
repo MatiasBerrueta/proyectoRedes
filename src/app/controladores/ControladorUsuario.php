@@ -19,7 +19,7 @@ class ControladorUsuario extends Controlador {
 
     public function mostrarServidor(int $idServidor) {
         $this->requiereLogin();
-        $this->renderizar('/paginas/servidor', ['id_servidor' => $idServidor]);
+        $this->renderizar('paginas/servidor', ['id_servidor' => $idServidor]);
     }
 
     public function registrarUsuario() {

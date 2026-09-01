@@ -11,10 +11,15 @@
         </div>
         <div class="botones-cuentas">
             <?php if (isset($_SESSION['usuario'])): ?>
-                <?php if(htmlspecialchars($_SESSION['usuario']['rol']) === 'ADMIN') echo 'Eres un admin'; ?>
-                <a class="boton-panel" href="/panel">
+                <?php if(htmlspecialchars($_SESSION['usuario']['rol']) === 'ADMIN'): ?>
+                    <a class="boton-panel" href="/admin">
+                        <?php include PUBLIC_ROOT . 'assets/iconos/panel.svg' ?>
+                        Admin
+                    </a>
+                <?php endif; ?>
+                <a class="boton-panel" href="/servidores">
                     <?php include PUBLIC_ROOT . 'assets/iconos/panel.svg' ?>   
-                    Panel
+                    Mis Servidores
                 </a>
                 <div class="menu-usuario">
                     <button id="boton-menu-usuario" class="boton-menu-usuario" aria-expanded="false">
@@ -22,9 +27,9 @@
                         <?= htmlspecialchars($_SESSION['usuario']['nombre']) ?>
                     </button>
                     <div id="menu-dropdown" class="menu-dropdown" hidden>
-                        <a href="/perfil">
+                        <a href="/cuenta">
                             <?php include PUBLIC_ROOT . 'assets/iconos/configuracion.svg' ?>   
-                            Ver perfil
+                            Mi cuenta
                         </a>
                         <button id="boton-cambiar-tema">
                             <?php include PUBLIC_ROOT . 'assets/iconos/sun.svg' ?>   
@@ -38,7 +43,7 @@
                     </div>
                 </div>
             <?php else: ?>
-                <a href="/registroUsuario">Crear cuenta</a>
+                <a href="/registro">Crear cuenta</a>
                 <a href="/login">Iniciar sesión</a>
             <?php endif; ?>
         </div>

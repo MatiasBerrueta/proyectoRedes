@@ -22,7 +22,7 @@ class RepositorioServidor {
         }
     }
 
-    public function obtenerJuegosServidores($idUsuario) {
+    public function obtenerJuegosServidores(int $idUsuario) {
         try {
             $query = "SELECT s.id_pterodactyl as identifier, 
                     v.nombre as nombre_juego, 
@@ -46,7 +46,7 @@ class RepositorioServidor {
         }
     }
 
-    public function obtenerJuegoServidor($idUsuario, $idPterodactyl) {        
+    public function obtenerJuegoServidor(int $idUsuario, string $idPterodactyl) {        
         try {
             $query = "SELECT s.id_pterodactyl as identifier, 
                     v.nombre as nombre_juego, 

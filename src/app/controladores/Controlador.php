@@ -1,19 +1,19 @@
 <?php
 
 class Controlador {
-    protected function renderizar($vista, $datos = []) {
+    protected function renderizar(string $vista, $datos = []) {
         extract($datos);
         include APP_ROOT . 'vistas/' . $vista . '.php';
     }
 
-    protected function redirigir($url) {
+    protected function redirigir(string $url) {
         header("Location: {$url}");
         exit;
     }
 
     protected function requiereLogin() {
-    if (!isset($_SESSION['usuario'])) {
-        $this->redirigir('/login');
+        if (!isset($_SESSION['usuario'])) {
+            $this->redirigir('/login');
+        }
     }
-}
 }
