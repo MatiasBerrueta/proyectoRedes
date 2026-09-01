@@ -208,7 +208,7 @@
       {
         "clave": "level_seed",
         "etiqueta": "Semilla del mundo",
-        "descripcion": "Semilla usada para generar el mundo. Déjalo vacío para generación aleatoria.",
+        "descripcion": "Semilla usada para generar el mundo. Dejar vacío para generación aleatoria.",
         "seccion": "mundo",
         "tipo": "text",
         "default": "",

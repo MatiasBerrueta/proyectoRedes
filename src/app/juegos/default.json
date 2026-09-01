@@ -1,0 +1,36 @@
+{
+  "name": "default",
+  "config": null,
+  "ui": {
+    "tabs": [
+      {
+        "id": "consola",
+        "label": "Consola",
+        "type": "log",
+        "path": "logs/latest.log"
+      },
+      {
+        "id": "monitor",
+        "label": "Monitor",
+        "type": "pterodactyl"
+      },
+      {
+        "id": "archivos",
+        "label": "Archivos",
+        "type": "directory",
+        "path": "/"
+      },
+      {
+        "id": "backups",
+        "label": "Backups",
+        "type": "pterodactyl_backups"
+      },
+      {
+        "id": "control_acceso",
+        "label": "Control de acceso",
+        "type": "permissions"
+      }
+    ],
+    "settings": []
+  }
+}
