@@ -1,7 +1,7 @@
 <?php
+$servidor = $servidor ?? [];
 $tabs = $tabs ?? [];
 $tabActual = $tabActual ?? null;
-$servidorId = $servidor['identifier'] ?? null;
 ?>
 
 <!DOCTYPE html>
@@ -19,10 +19,9 @@ $servidorId = $servidor['identifier'] ?? null;
     <link rel="stylesheet" href="/css/componentes.css">
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/paginas/servidor/servidor.css">
-    <script src="https://cdn.jsdelivr.net/npm/ansi_up@5.0.0/ansi_up.min.js"></script>
+    <script type="module" src="/js/servidor/cambiarTabs.js"></script>
+    <script type="module" src="/js/servidor/servidorWebsocket.js"></script>
     <script src="/js/controladorTemas.js" defer></script>
-    <script> const SERVER_ID = "<?= $servidorId ?>"; </script>
-    <script src="/js/servidorWebsocket.js" defer></script>
     <title>Usuario</title>
 </head>
 <body class="layout-panel">
@@ -32,22 +31,33 @@ $servidorId = $servidor['identifier'] ?? null;
             <nav>
                 <ul>
                     <?php forEach($tabs as $tab): ?>
-                        <li class="<?= $tabActual === $tab['id'] ? 'activo' : '' ?>">
-                            <a href="/panel/servidor/<?= $servidorId ?>/<?= $tab['id'] ?>">
+                        <li class="<?= $tabActual === $tab['id'] ? 'activo' : '' ?>" data-tab="<?= $tab['id'] ?>">
+                            <!-- <a href="/servidores/<?= $servidor['id'] ?>/<?= $tab['id'] ?>"> -->
                                 <?php include PUBLIC_ROOT . 'assets/iconos/' . $tab['id'] . '.svg' ?> <?= $tab['label'] ?>
-                            </a>
+                            <!-- </a> -->
                         </li>
                     <?php endforeach; ?>
                 </ul>
             </nav>
         </aside>
         <section class="tab-contenido">
-            <a href="/panel">
+            <a href="/servidores">
                 <?php include PUBLIC_ROOT . '/assets/iconos/arrow-narrow-left.svg'; ?>
                 Volver a lista servidores
             </a>
-            <?php require_once APP_ROOT . "vistas/paginas/servidor/tabs/$tabActual.php"; ?>
+            <div id="tab-contenido">
+                <?php include APP_ROOT . 'vistas/paginas/servidor/tabs/' . $tabActual . '.php'?>
+            </div>
         </section>
     </main>
+    <script>
+        window.estadoInicial = {
+            servidor: <?= json_encode($servidor, false) ?>,
+            tabActual: "<?= $tabActual ?>"
+        };
+
+        let { servidor, tabActual } = window.estadoInicial;
+        let moduloTabActivo = tabActual;
+    </script>
 </body>
 </html>

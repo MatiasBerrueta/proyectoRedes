@@ -1,6 +1,5 @@
 <?php
 require_once APP_ROOT . 'controladores/Controlador.php';
-// require_once APP_ROOT . 'factories/JuegoFactory.php';
 
 class ControladorServidor extends Controlador {
     private ServicioServidor $servicioServidor;
@@ -71,56 +70,50 @@ class ControladorServidor extends Controlador {
         $this->renderizar($url, ['servidores' => $servidores]);
     }
 
-    // public function ejecutarAccion($juego, $accion) {
-    //     $driver = JuegoFactory::crear($juego);
+    private function resolverTab(string $idServidorPterodactyl, string $tabId, array $params) {
+        $idUsuario = $_SESSION['usuario']['id'];
 
-    //     $datos = array_merge($_GET, $_POST);
-    //     $resultado = $driver->$accion($datos);
-
-    //     header('Content-Type: application/json');
-    //     echo json_encode($resultado);
-    // }
-
-    // public function mostrarServidor($idServidor, $tab = 'consola') {
-    //     $this->requiereLogin();
-    //     $idUsuario = $_SESSION['usuario']['id'];
-
-    //     $servidor = $this->servicioServidor->obtenerServidorPterodactyl($idServidor, $idUsuario);
-    //     $driver = JuegoFactory::crear($servidor['nombre_grupo']);
-    //     $tabs = $driver->obtenerTabs();
-    //     $tabActual = array_find($tabs, fn($tab) => $tab['id'] === $tab);
-    //     $datosTab = $driver->$tabActual['init']();
-
-    //     echo "<script>console.log(" . json_encode($servidor) . ")</script>";
-
-    //     $this->renderizar('paginas/servidor', [
-    //         'servidor' => $servidor,
-    //         'tabs' => $tabs,
-    //         'tabActual' => $tabActual,
-    //         'datosTab' => $datosTab,
-    //     ]);
-    // }
-
-    // prueba de sistema
-    private $tabHandlers = [
-        'log' => 'handleLog',
-        'file' => 'handleFile',
-        'config' => 'obtenerConfiguracion',
-        'pterodactyl' => 'handlePterodactyl',
-        'directory' => 'obtenerArchivos',
-    ];
-
-    private function resolverTab($tab, $servidor) {
-        $type = $tab['type'];
-
-        if (!isset($this->tabHandlers[$type])) {
-            return null;
+        // Obtenemos el servidor de forma segura (valida ownership e identifica el juego)
+        $servidor = $this->servicioServidor->obtenerServidorPterodactyl($idServidorPterodactyl, $idUsuario);
+        if (!$servidor) {
+            throw new Exception("Servidor no encontrado o no autorizado.", 404);
         }
 
-        $method = $this->tabHandlers[$type];
+        $juego = $servidor['nombre_grupo'] ?? 'default';
 
-        $idUsuario = $_SESSION['usuario']['id'];
-        return $this->servicioJuego->$method($servidor, $idUsuario);
+        switch ($tabId) {
+            case 'consola':
+                return $this->servicioJuego->obtenerDatosConsola($idServidorPterodactyl, $idUsuario);
+
+            case 'configuracion':
+                return $this->servicioJuego->obtenerConfiguracion($idServidorPterodactyl, $idUsuario, $juego);
+
+            case 'archivos':
+                $path = $params['path'] ?? '';
+                
+                $basename = basename($path);
+    
+                $extension = pathinfo($path, PATHINFO_EXTENSION);
+                $filename = pathinfo($path, PATHINFO_FILENAME);
+
+                // es un elemento oculto tipo '.cache' si el filename esta vacio
+                $esOcultoSinExtension = str_starts_with($basename, '.') && empty($filename);
+                
+                $esArchivo = !empty($extension) && !$esOcultoSinExtension;
+
+                if ($esArchivo) {
+                    try {
+                        return $this->servicioJuego->obtenerArchivoContenido($idServidorPterodactyl, $path, $idUsuario);
+                    } catch (\Exception $e) {
+                        return "No se pudo leer el contenido de este archivo.";
+                    }
+                }
+
+                return $this->servicioJuego->obtenerArchivos($idServidorPterodactyl, $idUsuario, $path);
+
+            default:
+                return [];
+        }
     }
 
     public function mostrarServidor(string $idServidorPterodactyl, string $tabId = 'consola') {
@@ -129,22 +122,38 @@ class ControladorServidor extends Controlador {
 
         $servidor = $this->servicioServidor->obtenerServidorPterodactyl($idServidorPterodactyl, $idUsuario);
         $juego = $servidor['nombre_grupo'];
+        
         $tabs = $this->servicioJuego->getTabs(strtolower($juego));
+        $tabsPorId = array_column($tabs, null, 'id');
 
-        $tabsPorId = [];
-
-        foreach ($tabs as $tab) {
-            $tabsPorId[$tab['id']] = $tab;
-        }
-
-        $tabActual = $tabsPorId[$tabId] ?? null;
-        $datosTab = $this->resolverTab($tabActual, $servidor);
+        $tabActualId = isset($tabsPorId[$tabId]) ? $tabId : 'consola';
+        
+        $datosTab = $this->resolverTab($idServidorPterodactyl, $tabActualId, ['path' => $_GET['path'] ?? '/']);
 
         $this->renderizar('paginas/servidor/servidor', [
-            'servidor' => $servidor,
-            'tabs' => $tabsPorId,
-            'tabActual' => $tabActual['id'],
-            'datosTab' => $datosTab,
+            'servidor'  => $servidor,
+            'tabs'      => $tabsPorId,
+            'tabActual' => $tabActualId,
+            'datosTab'  => $datosTab,
+        ]);
+    }
+
+    public function obtenerTabPanel(string $idServidorPterodactyl, string $tabId) {
+        $this->requiereLogin();
+
+        $params = [
+            'path' => $_GET['path'] ?? '/'
+        ];
+
+        $logger = ServicioLogger::obtenerLogger();
+        $logger->info('GET', [
+            'path' => $_GET['path'],
+        ]);
+
+        $datosTab = $this->resolverTab($idServidorPterodactyl, $tabId, $params);
+
+        $this->renderizar("paginas/servidor/tabs/$tabId", [
+            'datosTab' => $datosTab
         ]);
     }
 
