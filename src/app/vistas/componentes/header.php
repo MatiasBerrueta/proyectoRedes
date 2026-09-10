@@ -5,7 +5,7 @@
             <h1 class="nombre-logo">Voxel Hosting</h1>
         </a>
         <div class="botones-navegacion">
-            <a href="/juegos">Planes</a>
+            <a href="/planes">Planes</a>
             <a href="/juegos">Juegos</a>
             <a href="/soporte">Soporte</a>
         </div>

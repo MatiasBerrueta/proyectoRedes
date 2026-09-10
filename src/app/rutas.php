@@ -34,7 +34,7 @@ $repositorioPlan = new RepositorioPlan($database->getConexion());
 
 $servicioUsuario = new ServicioUsuario($repositorioUsuario, $pterodactylApp);
 $servicioServidor = new ServicioServidor($pterodactylCliente, $repositorioServidor, $repositorioUsuario);
-$servicioJuego = new ServicioJuego($repositorioUsuario, $pterodactylCliente);
+$servicioJuego = new ServicioJuego($repositorioUsuario, $servicioServidor, $pterodactylCliente);
 
 $controladorPagina = new ControladorPagina($repositorioPlan);
 $controladorUsuario = new ControladorUsuario($servicioUsuario);
@@ -104,6 +104,18 @@ $router->post('/registro', function() use ($controladorUsuario) {
     $controladorUsuario->registrarUsuario();
 });
 
+$router->get('/planes', function() use ($controladorUsuario) {
+    require_once APP_ROOT . 'vistas/paginas/planes.php';
+});
+
+$router->get('/juegos', function() use ($controladorUsuario) {
+    require_once APP_ROOT . 'vistas/paginas/juegos.php';
+});
+
+$router->get('/soporte', function() use ($controladorUsuario) {
+    require_once APP_ROOT . 'vistas/paginas/soporte.php';
+});
+
 $router->get('/recuperar-contrasena', function() {
     require_once APP_ROOT . 'vistas/paginas/recuperarContrasena.php';
 });
@@ -115,38 +127,6 @@ $router->post('/recuperar-contrasena', function() use ($controladorUsuario) {
 
 $router->get('/logout', function() use ($controladorUsuario) {
     $controladorUsuario->cerrarSesion();
-});
-
-// ------------------
-// Redirecciones de rutas antiguas
-// ------------------
-
-$router->get('/registroUsuario', function() {
-    header('Location: /registro');
-});
-$router->post('/registroUsuario', function() {
-    header('Location: /registro');
-});
-
-$router->get('/panel', function() {
-    header('Location: /servidores');
-});
-$router->get('/panel/servidor/([a-zA-Z0-9]+)', function($id) {
-    header("Location: /servidores/$id");
-});
-$router->get('/panel/servidor/([a-zA-Z0-9]+)/([a-zA-Z]+)', function($id, $tab) {
-    header("Location: /servidores/$id/$tab");
-});
-
-$router->get('/perfil', function() {
-    header('Location: /cuenta');
-});
-$router->post('/perfil', function() {
-    header('Location: /cuenta');
-});
-
-$router->get('/recuperarContrasena', function() {
-    header('Location: /recuperar-contrasena');
 });
 
 // ------------------
