@@ -1,5 +1,6 @@
 <?php
 use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Formatter\LineFormatter;
 
@@ -18,10 +19,22 @@ class ServicioLogger {
             $formatter = new LineFormatter($format, "Y-m-d H:i:s");
             $handler->setFormatter($formatter);
 
+            
             self::$logger = new Logger('hosting');
             self::$logger->pushHandler($handler);
+            
+            $stderr = new StreamHandler('php://stderr', Logger::DEBUG);
+            $stderr->setFormatter($formatter);
+            self::$logger->pushHandler($stderr);
 
             self::vincularErroresPHP(self::$logger);
+        }
+
+        if (!is_dir($logDir) && !mkdir($logDir, 0755, true) && !is_dir($logDir)) {
+            error_log("ServicioLogger: no se pudo crear $logDir");
+        }
+        if (is_dir($logDir) && !is_writable($logDir)) {
+            error_log("ServicioLogger: $logDir no tiene permisos de escritura");
         }
 
         return self::$logger;
@@ -48,19 +61,33 @@ class ServicioLogger {
             return true;
         });
 
-        set_exception_handler(function(Throwable $ex) use ($logger) {
+        set_exception_handler(function (Throwable $ex) use ($logger) {
             $logger->critical('Excepción no atrapada: ' . $ex->getMessage(), [
                 'clase' => get_class($ex),
                 'file'  => $ex->getFile(),
                 'line'  => $ex->getLine(),
-                'trace' => $ex->getTraceAsString()
+                'trace' => $ex->getTraceAsString(),
             ]);
+
+            if (!headers_sent()) {
+                http_response_code(500);
+            }
+
+            // solo en desarrollo
+            echo '<pre>' . htmlspecialchars((string) $ex) . '</pre>';   
+            // include APP_ROOT . 'vistas/paginas/500.php';
         });
 
-       register_shutdown_function(function() {
+       register_shutdown_function(function () use ($logger) {
             $error = error_get_last();
-            if ($error && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR])) {
-                http_response_code(500);
+            if ($error && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR])) {
+                $logger->critical('Error fatal: ' . $error['message'], [
+                    'file' => $error['file'],
+                    'line' => $error['line'],
+                ]);
+                if (!headers_sent()) {
+                    http_response_code(500);
+                }
             }
         });
     }
