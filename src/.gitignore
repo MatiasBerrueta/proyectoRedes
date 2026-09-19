@@ -1,4 +1,6 @@
-/logs/*.log
+/logs/*
+!logs/.gitkeep
+
 vendor/
 
 # Playwright
