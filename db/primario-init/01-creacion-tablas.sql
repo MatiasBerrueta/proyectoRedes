@@ -1,4 +1,4 @@
-CREATE DATABASE Voxel_Hosting;
+CREATE DATABASE IF NOT EXISTS Voxel_Hosting;
 USE Voxel_Hosting;
 
 CREATE TABLE USUARIO (
@@ -57,7 +57,7 @@ FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario)
 );
 
 CREATE TABLE VIDEOJUEGO (
-id_juego INT AUTO_INCREMENT,
+id_videojuego INT AUTO_INCREMENT,
 egg_id INT NOT NULL,
 nest_id INT NOT NULL,
 nombre VARCHAR(100) NOT NULL,
@@ -65,13 +65,15 @@ nombre_grupo VARCHAR(100) DEFAULT NULL,
 descripcion VARCHAR(255) DEFAULT NULL,
 imagen VARCHAR(255) DEFAULT NULL,
 estado ENUM('ACTIVO', 'INACTIVO') DEFAULT 'ACTIVO',
-PRIMARY KEY (id_juego)
-UNIQUE KEY 'unique_egg_nest' ('egg_id', 'nest_id')
+PRIMARY KEY (id_videojuego),
+UNIQUE KEY unique_egg_nest (egg_id, nest_id)
 );
 
 CREATE TABLE SERVIDOR (
 id_servidor INT PRIMARY KEY AUTO_INCREMENT,
 nombre VARCHAR(1000),
+descripcion VARCHAR(200),
+version_juego VARCHAR(50),
 dominio VARCHAR(100),
 puerto INT,
 estado ENUM('REINICIANDO', 'ACTIVO', 'DETENIDO', 'PARANDO'),
