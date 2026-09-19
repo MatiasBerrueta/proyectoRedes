@@ -8,16 +8,17 @@ class RepositorioPlan {
     }
 
     public function obtenerPlanes() {
-        $query = "SELECT id_plan, nombre, costo, max_jugadores, duracion FROM PLAN";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->execute();
+        try {
+            $query = "SELECT id_plan, nombre, costo, max_jugadores, duracion FROM PLAN";
+            $stmt = $this->conexion->prepare($query);
+            $stmt->execute();
+    
+            $datosPlanes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $datosPlanes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        if($datosPlanes) {
             return $datosPlanes;
-        } else {
-            return null;
+        } catch (PDOException $exception) {
+            error_log($exception->getMessage());
+            throw $exception;
         }
     }
 }

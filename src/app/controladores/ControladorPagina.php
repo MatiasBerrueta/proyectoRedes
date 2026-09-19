@@ -2,18 +2,22 @@
 require_once APP_ROOT . 'controladores/Controlador.php';
 
 class ControladorPagina extends Controlador {
-    private $repositorio;
+    private RepositorioPlan $repositorio;
 
-    public function __construct($repositorio) {
+    public function __construct(RepositorioPlan $repositorio) {
         $this->repositorio = $repositorio;
     }
 
     public function mostrarPrincipal() {
         $planes = $this->repositorio->obtenerPlanes();
-        $planes[0]['prestaciones'] = ['bajo precio', '8GB de RAM'];
-        $planes[1]['prestaciones'] = ['bajo precio', '8GB de RAM'];
-        $planes[2]['prestaciones'] = ['bajo precio', '8GB de RAM'];
+
+        foreach ($planes as &$plan) {
+            $plan['prestaciones'] = ['bajo precio', '8GB de RAM'];
+        }
+
+        unset($plan);
 
         $this->renderizar('paginas/principal', ['planes' => $planes]);
+        // $this->renderizar('paginas/principal');
     }
 }

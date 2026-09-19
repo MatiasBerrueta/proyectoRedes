@@ -32,7 +32,7 @@
             <h1>Crea tu cuenta</h1>
             <p>Ingresa tus datos para registrarte.</p>
         </div>
-        <form id="formulario-registro" action="/registrarCliente" method="POST">
+        <form id="formulario-registro" action="/registro" method="POST">
             <div class="auth-input-group">
                 <label for="input-nombre">Nombre</label>
                 <div>
