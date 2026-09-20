@@ -51,6 +51,7 @@ class RepositorioServidor {
             $query = "SELECT s.id_pterodactyl as identifier, 
                     v.nombre as nombre_juego, 
                     v.descripcion as descripcion_juego, 
+                    s.version_juego,
                     v.egg_id, 
                     v.nest_id, 
                     v.nombre_grupo,
