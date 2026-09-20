@@ -11,12 +11,17 @@ if (empty($datosTab)) {
 <div class="altura-consola">
     <div class="titulo-acciones">
         <div>
-            <h1 class="texto-xl"><?= htmlspecialchars($datosTab['nombre']) ?></h1>
+            <div style="display: flex; align-items: center; column-gap: 1rem;">
+                <h1 class="texto-xl"><?= htmlspecialchars($datosTab['nombre']) ?></h1>
+                <span class="texto-estado"><?= htmlspecialchars($datosTab['estadoFormateado']) ?></span>
+            </div>
             <p class="texto-secundario">
                 <?= htmlspecialchars($datosTab['juego']) ?> · 
                 <?= htmlspecialchars($datosTab['version']) ?> · 
-                <?= htmlspecialchars($datosTab['nombreJuego']) ?> · 
-                <?= htmlspecialchars($datosTab['location']) ?>
+                <?= htmlspecialchars($datosTab['nombreJuego']) ?>
+            </p>
+            <p>
+                <?= htmlspecialchars($datosTab['descripcion']) ?>
             </p>
         </div>
         <div class="acciones-servidor">
@@ -51,55 +56,54 @@ if (empty($datosTab)) {
 
         <div class="estadisticas">
             <div class="contenedor-estadistica">
-                <div>
-                    <small>Estado</small>
-                    <span class="texto-estado texto-m"><?= htmlspecialchars($datosTab['estadoFormateado']) ?></span>
+                <div class="contenedor-svg">
+                    <?php include PUBLIC_ROOT . '/assets/iconos/user.svg'; ?>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-server"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3" /><path d="M3 15a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3l0 -2" /><path d="M7 8l0 .01" /><path d="M7 16l0 .01" /></svg>
-            </div>
-
-            <div class="contenedor-estadistica">
                 <div>
                     <small>Jugadores</small>
-                    <span class="texto-estado texto-m"><?= htmlspecialchars($datosTab['jugadores']) ?></span>
+                    <span class="texto-m"><?= htmlspecialchars($datosTab['jugadores']) ?>/<?= htmlspecialchars($datosTab['maxJugadores']) ?></span>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-users"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 7a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /><path d="M21 21v-2a4 4 0 0 0 -3 -3.85" /></svg>
             </div>
 
             <div class="contenedor-estadistica">
+                <div class="contenedor-svg">
+                    <?php include PUBLIC_ROOT . '/assets/iconos/clock.svg'; ?>
+                </div>
                 <div>
-                    <small>IP</small>
+                    <small>Direccion</small>
                     <span class="texto-ip texto-m"><?= htmlspecialchars($datosTab['ip'] . ':' . $datosTab['puerto']) ?></span>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-plug"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9.785 6l8.215 8.215l-2.054 2.054a5.81 5.81 0 1 1 -8.215 -8.215l2.054 -2.054" /><path d="M4 20l3.5 -3.5" /><path d="M15 4l-3.5 3.5" /><path d="M20 9l-3.5 3.5" /></svg>
             </div>
 
             <div class="contenedor-estadistica">
+                <div class="contenedor-svg">
+                    <?php include PUBLIC_ROOT . '/assets/iconos/cpu.svg'; ?>
+                </div>
                 <div>
-                    <small>Recursos</small>
-                    <div class="contenedor-recursos">
-                        <div>
-                            <p><span>CPU</span><span><?= $datosTab['cpuUso'] ?>%</span></p>
-                            <div class="barra-recurso">
-                                <div class="barra-recurso__relleno" style="width: <?= $datosTab['cpuUso'] ?>%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <p><span>RAM</span><span><?= $datosTab['ramUso'] ?></span></p>
-                            <div class="barra-recurso">
-                                <div class="barra-recurso__relleno"></div>
-                            </div>
-                        </div>
-                    </div>
+                    <small>Uso de CPU</small>
+                    <span class="texto-m"><?= $datosTab['usoCpu'] ?>%</span>
                 </div>
             </div>
 
             <div class="contenedor-estadistica">
+                <div class="contenedor-svg">
+                    <?php include PUBLIC_ROOT . '/assets/iconos/device-floppy.svg'; ?>
+                </div>
+
+                <div>
+                    <small>Uso de RAM</small>
+                    <span class="texto-m"><?= $datosTab['usoRam'] ?>MB / <?= $datosTab['maximoUsoRam'] ?>MB</span>
+                </div>
+            </div>
+
+            <div class="contenedor-estadistica">
+                <div class="contenedor-svg">
+                    <?php include PUBLIC_ROOT . '/assets/iconos/clock.svg'; ?>
+                </div>
                 <div>
                     <small>Uptime</small>
-                    <span class="texto-ip texto-m" data-uptime><?= htmlspecialchars($datosTab['uptimeFormateado']) ?></span>
+                    <span class="texto-m" data-uptime><?= htmlspecialchars($datosTab['uptime']) ?></span>
                 </div>
-                <?php include PUBLIC_ROOT . '/assets/iconos/clock.svg'; ?>
             </div>
         </div>
     </div>

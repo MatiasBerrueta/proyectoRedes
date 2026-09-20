@@ -41,10 +41,6 @@ $tabActual = $tabActual ?? null;
             </nav>
         </aside>
         <section class="tab-contenido">
-            <a href="/servidores">
-                <?php include PUBLIC_ROOT . '/assets/iconos/arrow-narrow-left.svg'; ?>
-                Volver a lista servidores
-            </a>
             <div id="tab-contenido">
                 <?php include APP_ROOT . 'vistas/paginas/servidor/tabs/' . $tabActual . '.php'?>
             </div>
