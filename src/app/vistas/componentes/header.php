@@ -12,12 +12,12 @@
         <div class="botones-cuentas">
             <?php if (isset($_SESSION['usuario'])): ?>
                 <?php if(htmlspecialchars($_SESSION['usuario']['rol']) === 'ADMIN'): ?>
-                    <a class="boton-panel" href="/admin">
-                        <?php include PUBLIC_ROOT . 'assets/iconos/panel.svg' ?>
+                    <a class="boton-admin" href="/admin">
+                        <?php include PUBLIC_ROOT . 'assets/iconos/shield.svg' ?>
                         Admin
                     </a>
                 <?php endif; ?>
-                <a class="boton-panel" href="/servidores">
+                <a class="boton-servidores" href="/servidores">
                     <?php include PUBLIC_ROOT . 'assets/iconos/panel.svg' ?>   
                     Mis Servidores
                 </a>
