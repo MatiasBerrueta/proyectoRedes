@@ -3,9 +3,11 @@
 class ServicioJuego {
     private RepositorioUsuario $repositorio;
     private PterodactylClientApi $pterodactyl;
+    private ServicioServidor $servicioServidor;
 
-    public function __construct(RepositorioUsuario $repositorio, PterodactylClientApi $pterodactyl) {
+    public function __construct(RepositorioUsuario $repositorio, ServicioServidor $servicioServidor, PterodactylClientApi $pterodactyl) {
         $this->repositorio = $repositorio;
+        $this->servicioServidor = $servicioServidor;
         $this->pterodactyl = $pterodactyl;
     }
 
@@ -114,8 +116,10 @@ class ServicioJuego {
     }
 
     public function obtenerDatosConsola(string $idServidorPterodactyl, int $idUsuario): array {
-        $clientKey = $this->repositorio->obtenerClientKey($idUsuario);
-        $servidor = $this->pterodactyl->obtenerServidor($idServidorPterodactyl, $clientKey);
+        $servidor = $this->servicioServidor->obtenerServidorPterodactyl($idServidorPterodactyl, $idUsuario);
+
+        $logger = ServicioLogger::obtenerLogger();
+        $logger->info("Servidor datos", $servidor);
 
         if (!$servidor) {
             return [];
@@ -142,19 +146,23 @@ class ServicioJuego {
         }
 
         return [
-            'nombre'           => $servidor['nombre'] ?? 'Servidor',
-            'juego'            => $servidor['nombre_grupo'] ?? 'Juego',
-            'nombreJuego'      => $servidor['nombre_juego'] ?? '',
-            'version'          => $servidor['version'] ?? 'v1.0',
+            'nombre'           => $servidor['nombre'] ?? 'Servidor sin nombre',
+            'juego'            => $servidor['nombre_grupo'] ?? 'Juego sin nombre',
+            'descripcion'      => $servidor['descripcion_juego'] ?? 'Sin descripcion',
+            'nombreJuego'      => $servidor['nombre_juego'] ?? 'Juego sin nombre',
+            'version'          => $servidor['version_juego'] ?? 'No se pudo encontrar version',
             'location'         => $servidor['ip'] ?? 'N/A',
             'estado'           => $estado,
             'estadoFormateado' => $estadosMap[$estado] ?? 'Desconocido',
             'ip'               => $servidor['ip'] ?? '0.0.0.0',
             'puerto'           => $servidor['puerto'] ?? '25565',
-            'jugadores'        => $servidor['cantidadJugadores'] ?? '0/0',
-            'uptimeFormateado' => $this->formatearMilisegundos($servidor['upTime'] ?? 0),
-            'cpuUso'           => $servidor['cpu'] ?? 0,
-            'ramUso'           => $servidor['ram'] ?? '0 MB',
+            'jugadores'        => $servidor['cantidadJugadores'] ?? '0',
+            'maxJugadores'     => $servidor['maximoNumeroJugadores'] ?? '0',
+            'uptime' => $this->formatearMilisegundos($servidor['upTime'] ?? 0),
+            'usoCpu'           => $servidor['usoCpu'] ?? 'null',
+            'maximoUsoCpu'     => $servidor['maximoUsoCpu'] ?? 'null',
+            'usoRam'           => $servidor['usoRam'] ?? 'null',
+            'maximoUsoRam'     => $servidor['maximoUsoRam'] ?? 'null',
             'logsConsola'      => $logsProcesados,
             'actividadReciente'=> null
         ];
