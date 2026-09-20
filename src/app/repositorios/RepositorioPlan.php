@@ -9,7 +9,7 @@ class RepositorioPlan {
 
     public function obtenerPlanes() {
         try {
-            $query = "SELECT id_plan, nombre, costo, max_jugadores, duracion FROM PLAN";
+            $query = "SELECT * FROM PLAN";
             $stmt = $this->conexion->prepare($query);
             $stmt->execute();
     

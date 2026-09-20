@@ -11,12 +11,6 @@ class ControladorPagina extends Controlador {
     public function mostrarPrincipal() {
         $planes = $this->repositorio->obtenerPlanes();
 
-        foreach ($planes as &$plan) {
-            $plan['prestaciones'] = ['bajo precio', '8GB de RAM'];
-        }
-
-        unset($plan);
-
         $this->renderizar('paginas/principal', ['planes' => $planes]);
         // $this->renderizar('paginas/principal');
     }
