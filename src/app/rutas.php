@@ -9,6 +9,7 @@ require_once APP_ROOT . 'integraciones/pterodactylClientApi.php';
 require_once APP_ROOT . 'repositorios/RepositorioUsuario.php';
 require_once APP_ROOT . 'repositorios/RepositorioServidor.php';
 require_once APP_ROOT . 'repositorios/RepositorioPlan.php';
+require_once APP_ROOT . 'repositorios/RepositorioJuego.php';
 
 require_once APP_ROOT . 'servicios/ServicioUsuario.php';
 require_once APP_ROOT . 'servicios/ServicioServidor.php';
@@ -31,12 +32,13 @@ $comandos = new SincronizarJuegos($pterodactylApp, $database->getConexion());
 $repositorioUsuario = new RepositorioUsuario($database->getConexion());
 $repositorioServidor = new RepositorioServidor($database->getConexion());
 $repositorioPlan = new RepositorioPlan($database->getConexion());
+$repositorioJuego = new RepositorioJuego($database->getConexion());
 
 $servicioUsuario = new ServicioUsuario($repositorioUsuario, $pterodactylApp);
 $servicioServidor = new ServicioServidor($pterodactylCliente, $repositorioServidor, $repositorioUsuario);
 $servicioJuego = new ServicioJuego($repositorioUsuario, $servicioServidor, $pterodactylCliente);
 
-$controladorPagina = new ControladorPagina($repositorioPlan);
+$controladorPagina = new ControladorPagina($repositorioPlan, $repositorioJuego);
 $controladorUsuario = new ControladorUsuario($servicioUsuario);
 $controladorServidor = new ControladorServidor($servicioServidor, $servicioJuego);
 
@@ -108,8 +110,8 @@ $router->get('/planes', function() use ($controladorUsuario) {
     require_once APP_ROOT . 'vistas/paginas/planes.php';
 });
 
-$router->get('/juegos', function() use ($controladorUsuario) {
-    require_once APP_ROOT . 'vistas/paginas/juegos.php';
+$router->get('/juegos', function() use ($controladorPagina) {
+    $controladorPagina->mostrarJuegos();
 });
 
 $router->get('/soporte', function() use ($controladorUsuario) {
