@@ -85,25 +85,42 @@
   }
 }
 
+.indicador-estado {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background-color: var(--color-estado);
+}
+
 .texto-estado {
   --color-estado: var(--gris-600);
-  padding: 0.1rem 0.5rem;
+
+  display: flex;
+  column-gap: 0.45rem;
+  align-items: center;
+  font-weight: bold;
+  padding: 0.1rem 0.35rem;
   border-radius: 3px;
   background-color: color-mix(in srgb, var(--color-estado) 25%, transparent);
   color: var(--color-estado);
-  font-size: var(--text-s);
+  font-size: var(--texto-s);
+}
 
-  .texto-estado--activo {
-    --color-estado: var(--color-verde-500);
-  }
+.texto-estado--activo {
+  --color-estado: var(--color-verde-500);
+}
 
-  .texto-estado--reiniciando {
-    --color-estado: var(--color-amarillo-500);
-  }
+.texto-estado--iniciando {
+  --color-estado: var(--color-amarillo-500);
+}
 
-  .text-estado--deteniendo {
-    --color-estado: var(--color-rojo-500);
-  }
+.texto-estado--reiniciando {
+  --color-estado: var(--color-amarillo-500);
+}
+
+.texto-estado--deteniendo {
+  --color-estado: var(--color-rojo-500);
 }
 
 .consola-estadisticas-contenedor {

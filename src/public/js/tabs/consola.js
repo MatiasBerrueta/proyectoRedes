@@ -6,6 +6,18 @@ import {
   suscribir,
 } from "/js/servidor/servidorWebsocket.js";
 
+function formatBytes(bytes, decimals = 2) {
+  if (!+bytes) return "0 Bytes";
+
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ["Bytes", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"];
+
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
+}
+
 const ansi_up = new AnsiUp();
 ansi_up.use_classes = true;
 
@@ -40,7 +52,9 @@ export function init() {
   const formComando = document.getElementById("form-comando");
   const inputComando = document.getElementById("comando-input");
   const logsContenedor = document.getElementById("logs-contenedor");
-  const textoEstado = document.querySelector(".texto-estado");
+  const textoEstado = document.querySelector("[data-estado]");
+  const textoCPU = document.querySelector("[data-cpu]");
+  const textoRAM = document.querySelector("[data-ram]");
   const textoUptime = document.querySelector("[data-uptime]");
 
   if (logsContenedor) {
@@ -83,15 +97,15 @@ export function init() {
       logsContenedor.scrollTop = logsContenedor.scrollHeight;
     }),
     suscribir("status", (estado) => {
-      if (textoEstado) {
-        textoEstado.innerText = estadosMap[estado] || "Desconocido";
-      }
+      textoEstado.innerText = estadosMap[estado] || "Desconocido";
+      textoEstado.parentElement.classList = `texto-estado texto-estado--${estadosMap[estado].toLowerCase()}`;
     }),
     suscribir("stats", (raw) => {
       const stats = JSON.parse(raw);
-      if (textoUptime) {
-        textoUptime.innerText = formatearMilisegundos(stats.uptime);
-      }
+
+      textoCPU.innerText = stats.cpu_absolute;
+      textoRAM.innerText = formatBytes(stats.memory_bytes);
+      textoUptime.innerText = formatearMilisegundos(stats.uptime);
     }),
   );
 }

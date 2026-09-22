@@ -1,8 +1,5 @@
 <?php
-// Si no hay datosTab, abortamos
-if (empty($datosTab)) {
-    return;
-}
+/** @var array $datosTab */
 ?>
 
 <link rel="stylesheet" href="/css/paginas/servidor/tabs/consola.css">
@@ -13,12 +10,15 @@ if (empty($datosTab)) {
         <div>
             <div style="display: flex; align-items: center; column-gap: 1rem;">
                 <h1 class="texto-xl"><?= htmlspecialchars($datosTab['nombre']) ?></h1>
-                <span class="texto-estado"><?= htmlspecialchars($datosTab['estadoFormateado']) ?></span>
+                <span class="texto-estado">
+                    <span class="indicador-estado"></span>
+                    <span data-estado><?= htmlspecialchars($datosTab['estadoFormateado']) ?></span>
+                </span>
             </div>
             <p class="texto-secundario">
                 <?= htmlspecialchars($datosTab['juego']) ?> · 
                 <?= htmlspecialchars($datosTab['version']) ?> · 
-                <?= htmlspecialchars($datosTab['nombreJuego']) ?>
+                <?= htmlspecialchars($datosTab['nombreVariacion']) ?>
             </p>
             <p>
                 <?= htmlspecialchars($datosTab['descripcion']) ?>
@@ -81,7 +81,9 @@ if (empty($datosTab)) {
                 </div>
                 <div>
                     <small>Uso de CPU</small>
-                    <span class="texto-m"><?= $datosTab['usoCpu'] ?>%</span>
+                    <div>
+                        <span class="texto-m" data-cpu><?= $datosTab['usoCpu'] ?></span>%
+                    </div>
                 </div>
             </div>
 
@@ -92,7 +94,10 @@ if (empty($datosTab)) {
 
                 <div>
                     <small>Uso de RAM</small>
-                    <span class="texto-m"><?= $datosTab['usoRam'] ?>MB / <?= $datosTab['maximoUsoRam'] ?>MB</span>
+                    <div class="texto-m">
+                        <span data-ram><?= $datosTab['usoRam'] ?></span> 
+                        <span>/ <?= $datosTab['maximoUsoRam'] ?>MB</span>
+                    </div>
                 </div>
             </div>
 
