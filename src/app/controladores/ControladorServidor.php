@@ -79,7 +79,7 @@ class ControladorServidor extends Controlador {
             throw new Exception("Servidor no encontrado o no autorizado.", 404);
         }
 
-        $juego = $servidor['nombre_grupo'] ?? 'default';
+        $juego = $servidor['nombre_juego'] ?? 'default';
 
         switch ($tabId) {
             case 'consola':
@@ -121,7 +121,7 @@ class ControladorServidor extends Controlador {
         $idUsuario = $_SESSION['usuario']['id'];
 
         $servidor = $this->servicioServidor->obtenerServidorPterodactyl($idServidorPterodactyl, $idUsuario);
-        $juego = $servidor['nombre_grupo'];
+        $juego = $servidor['nombre_juego'];
         
         $tabs = $this->servicioJuego->getTabs(strtolower($juego));
         $tabsPorId = array_column($tabs, null, 'id');

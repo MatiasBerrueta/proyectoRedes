@@ -56,32 +56,42 @@ id_usuario INT,
 FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario)
 );
 
-CREATE TABLE VIDEOJUEGO (
-id_videojuego INT AUTO_INCREMENT,
-egg_id INT NOT NULL,
-nest_id INT NOT NULL,
-nombre VARCHAR(100) NOT NULL,
-nombre_grupo VARCHAR(100) DEFAULT NULL,
-descripcion VARCHAR(255) DEFAULT NULL,
-imagen VARCHAR(255) DEFAULT NULL,
-estado ENUM('ACTIVO', 'INACTIVO') DEFAULT 'ACTIVO',
-PRIMARY KEY (id_videojuego),
-UNIQUE KEY unique_egg_nest (egg_id, nest_id)
+CREATE TABLE JUEGO (
+  id_juego INT AUTO_INCREMENT,
+  nest_id INT NOT NULL,
+  nombre VARCHAR(100) NOT NULL,
+  descripcion VARCHAR(255) DEFAULT NULL,
+  imagen VARCHAR(255) DEFAULT NULL,
+  estado ENUM('ACTIVO', 'INACTIVO') DEFAULT 'ACTIVO',
+  PRIMARY KEY (id_juego),
+  UNIQUE KEY unique_nest_id (nest_id)
+);
+
+CREATE TABLE VARIACION_JUEGO (
+  id_variacion INT AUTO_INCREMENT,
+  id_juego INT NOT NULL,
+  nombre_variacion VARCHAR(100) NOT NULL,
+  descripcion_variacion VARCHAR(255),
+  egg_id INT NOT NULL,
+  PRIMARY KEY (id_variacion),
+  UNIQUE KEY unique_egg_id (egg_id),
+  FOREIGN KEY (id_juego) REFERENCES JUEGO(id_juego) ON DELETE CASCADE
 );
 
 CREATE TABLE SERVIDOR (
-id_servidor INT PRIMARY KEY AUTO_INCREMENT,
-nombre VARCHAR(1000),
-descripcion VARCHAR(200),
-version_juego VARCHAR(50),
-dominio VARCHAR(100),
-puerto INT,
-estado ENUM('REINICIANDO', 'ACTIVO', 'DETENIDO', 'PARANDO'),
-id_pterodactyl VARCHAR(100),
-id_videojuego INT,
-id_usuario INT,
-FOREIGN KEY (id_videojuego) REFERENCES VIDEOJUEGO(id_videojuego),
-FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario)
+  id_servidor INT AUTO_INCREMENT,
+  nombre VARCHAR(1000),
+  descripcion VARCHAR(200),
+  version_juego VARCHAR(50),
+  dominio VARCHAR(100),
+  puerto INT,
+  estado ENUM('REINICIANDO', 'ACTIVO', 'DETENIDO', 'PARANDO'),
+  id_pterodactyl VARCHAR(100),
+  id_variacion INT,
+  id_usuario INT,
+  PRIMARY KEY (id_servidor),
+  FOREIGN KEY (id_variacion) REFERENCES VARIACION_JUEGO(id_variacion),
+  FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario)
 );
 
 CREATE TABLE LOG (
@@ -137,12 +147,14 @@ H.estado
 FROM HISTORIAL_PAGO H 
 JOIN USUARIO U ON H.id_usuario = U.id_usuario;
 
-CREATE VIEW VISTA_SERVIDOR_VIDEOJUEGO AS SELECT 
-V.nombre AS videojuego,
-COUNT(S.id_servidor) AS cantidad_servidores
-FROM VIDEOJUEGO V
-LEFT JOIN SERVIDOR S ON V.id_videojuego = S.id_videojuego
-GROUP BY V.nombre;
+CREATE VIEW VISTA_SERVIDOR_JUEGO AS 
+SELECT 
+    J.nombre AS juego,
+    COUNT(S.id_servidor) AS cantidad_servidores
+FROM JUEGO J
+LEFT JOIN VARIACION_JUEGO V ON J.id_juego = V.id_juego
+LEFT JOIN SERVIDOR S ON V.id_variacion = S.id_variacion
+GROUP BY J.id_juego, J.nombre;
 
 CREATE VIEW VISTA_TICKET_ABIERTO AS SELECT
 T.id_ticket,

@@ -24,15 +24,18 @@ class RepositorioServidor {
 
     public function obtenerJuegosServidores(int $idUsuario) {
         try {
-            $query = "SELECT s.id_pterodactyl as identifier, 
-                    v.nombre as nombre_juego, 
-                    v.descripcion as descripcion_juego, 
-                    v.egg_id, 
-                    v.nest_id, 
-                    v.nombre_grupo,
-                    v.imagen
-                    FROM SERVIDOR s JOIN VIDEOJUEGO v ON s.id_videojuego = v.id_videojuego 
-                    WHERE s.id_usuario = :id_usuario";
+            $query = "SELECT 
+                        s.id_pterodactyl AS identifier, 
+                        j.nombre AS nombre_juego,
+                        v.nombre_variacion AS nombre_variacion,
+                        j.descripcion AS descripcion_juego, 
+                        v.egg_id, 
+                        j.nest_id, 
+                        j.imagen
+                    FROM SERVIDOR s 
+                    JOIN VARIACION_JUEGO v ON s.id_variacion = v.id_variacion 
+                    JOIN JUEGO j ON v.id_juego = j.id_juego
+                    WHERE s.id_usuario = :id_usuario;";
             $stmt = $this->conexion->prepare($query);
 
             $stmt->bindParam(':id_usuario', $idUsuario, PDO::PARAM_INT);
@@ -48,16 +51,19 @@ class RepositorioServidor {
 
     public function obtenerJuegoServidor(int $idUsuario, string $idPterodactyl) {        
         try {
-            $query = "SELECT s.id_pterodactyl as identifier, 
-                    v.nombre as nombre_juego, 
-                    v.descripcion as descripcion_juego, 
-                    s.version_juego,
-                    v.egg_id, 
-                    v.nest_id, 
-                    v.nombre_grupo,
-                    v.imagen
-                    FROM SERVIDOR s JOIN VIDEOJUEGO v ON s.id_videojuego = v.id_videojuego 
-                    WHERE s.id_usuario = :id_usuario AND s.id_pterodactyl = :id_pterodactyl";
+            $query = "SELECT s.id_pterodactyl AS identifier, 
+                            j.nombre AS nombre_juego, 
+                            vj.nombre_variacion AS nombre_variacion,
+                            j.descripcion AS descripcion_juego, 
+                            s.version_juego,
+                            vj.egg_id, 
+                            j.nest_id, 
+                            j.imagen
+                        FROM SERVIDOR s 
+                        JOIN VARIACION_JUEGO vj ON s.id_variacion = vj.id_variacion 
+                        JOIN JUEGO j ON vj.id_juego = j.id_juego
+                        WHERE s.id_usuario = :id_usuario 
+                        AND s.id_pterodactyl = :id_pterodactyl;";
             $stmt = $this->conexion->prepare($query);
 
             $stmt->bindParam(':id_usuario', $idUsuario, PDO::PARAM_INT);
@@ -67,13 +73,12 @@ class RepositorioServidor {
             
             if ($stmt->rowCount() === 0) {
                 error_log("No se encontró el juego");
-                return null;
             }
 
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $exception) {
             error_log($exception->getMessage());
-            return null;
+            throw $exception;
         }
     }
 
