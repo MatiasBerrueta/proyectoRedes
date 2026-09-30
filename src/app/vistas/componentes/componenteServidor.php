@@ -49,7 +49,7 @@ if (!isset($servidor) || !is_array($servidor)) {
             <div class='metricas'>
                 <p><?php include PUBLIC_ROOT . 'assets/iconos/device-floppy.svg'; ?>RAM</p>
                 <div>
-                    <span class='ram-actual'><?= formatBytes($servidor['usoRam']) ?></span> / <span class="limite-ram"><?= formatBytes($servidor['maximoUsoRam'] * 1024 * 1024) ?></span>
+                    <span class='ram-actual'><?= Formatear::formatBytes($servidor['usoRam']) ?></span> / <span class="limite-ram"><?= Formatear::formatBytes($servidor['maximoUsoRam'] * 1024 * 1024) ?></span>
                 </div>
             </div>
             <div class='barra'>

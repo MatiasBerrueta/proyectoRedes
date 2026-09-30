@@ -64,22 +64,6 @@
             </div>
             <div class="contenedor-servidores">
                 <?php
-                // Source - https://stackoverflow.com/a/2510459
-                // Posted by Leo, modified by community. See post 'Timeline' for change history
-                // Retrieved 2026-02-16, License - CC BY-SA 4.0
-
-                function formatBytes(int $bytes, $precision = 2) { 
-                    $units = ['B', 'KB', 'MB', 'GB', 'TB']; 
-                
-                    $bytes = max($bytes, 0); 
-                    $pow = floor(($bytes ? log($bytes) : 0) / log(1024)); 
-                    $pow = min($pow, count($units) - 1); 
-                
-                    $bytes /= pow(1024, $pow);
-                
-                    return round($bytes, $precision) . $units[$pow]; 
-                }
-
                 if(isset($servidores)) {
                     foreach($servidores as $servidor) {
                         include APP_ROOT . 'vistas/componentes/componenteServidor.php';
@@ -109,18 +93,6 @@
             document.querySelectorAll('.servidor').forEach(inicializarServidor);
 
             const contenedorServidores = document.querySelector('.seccion-servidores');
-
-            function formatBytes(bytes, decimals = 2) {
-                if (!+bytes) return '0 Bytes'
-
-                const k = 1024
-                const dm = decimals < 0 ? 0 : decimals
-                const sizes = ['Bytes', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
-
-                const i = Math.floor(Math.log(bytes) / Math.log(k))
-
-                return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
-            }
         </script>
     </main>
 </body>
