@@ -1,0 +1,131 @@
+.perfil-container {
+  width: min(320px, 90%);
+  margin: 5rem auto;
+}
+
+.perfil-card {
+  width: 100%;
+  text-align: center;
+}
+
+.perfil-logo {
+  width: 80px;
+  height: 80px;
+
+  margin: 0 auto 1.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--azul-logo);
+  border-radius: 15px;
+}
+
+.perfil-logo img {
+  width: 52px;
+  height: 52px;
+
+  object-fit: contain;
+}
+
+.perfil-card h1 {
+  margin: 0 0 1.5rem;
+
+  color: var(--color-texto);
+
+  font-size: var(--texto-xl);
+}
+
+.perfil-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.perfil-input-group {
+  position: relative;
+  width: 100%;
+}
+
+.perfil-input-group input {
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 42px;
+
+  padding: 0.75rem 0.75rem 0.75rem 2.75rem;
+
+  border: 1px solid var(--color-borde);
+  border-radius: 5px;
+
+  background-color: var(--color-superficie);
+  color: var(--color-texto);
+
+  font-family: inherit;
+  font-size: var(--texto-base);
+}
+
+.perfil-input-group input:hover,
+.perfil-input-group input:focus {
+  border-color: var(--color-borde-hover);
+  outline: none;
+}
+
+.perfil-input-group input:focus {
+  box-shadow: 0 0 0 2px var(--azul-transparente);
+}
+
+.perfil-input-group svg {
+  position: absolute;
+
+  left: 12px;
+  top: 50%;
+
+  width: 20px;
+  height: 20px;
+
+  transform: translateY(-50%);
+
+  object-fit: contain;
+
+  pointer-events: none;
+}
+
+.perfil-boton {
+  width: 100%;
+  height: 42px;
+
+  margin-top: 0.5rem;
+
+  border: none;
+  border-radius: 5px;
+
+  background-color: var(--azul-logo);
+  color: var(--color-blanco-puro);
+
+  font-family: inherit;
+  font-size: var(--texto-base);
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.perfil-boton:hover {
+  background-color: var(--azul-logo-oscuro);
+}
+
+.perfil-mensaje,
+.perfil-error {
+  margin-bottom: 1rem;
+
+  font-size: var(--texto-s);
+}
+
+.perfil-mensaje {
+  color: var(--color-verde-600);
+}
+
+.perfil-error {
+  color: var(--color-rojo-600);
+}
