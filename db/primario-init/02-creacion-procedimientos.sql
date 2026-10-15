@@ -13,7 +13,9 @@ CREATE PROCEDURE ESC_AGREGAR_USUARIO (
 BEGIN
     INSERT INTO USUARIO (nombre, email, contrasena, rol, estado, pais)
     VALUES (p_nombre, p_email, p_contrasena, 'CLIENTE', 'ACTIVO', p_pais);
-END //
+
+    SELECT LAST_INSERT_ID() AS id_usuario;
+END // 
 
 CREATE PROCEDURE ESC_ACTUALIZAR_ROL_USUARIO (
     IN p_id_usuario INT,
