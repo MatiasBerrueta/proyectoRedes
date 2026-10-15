@@ -19,6 +19,10 @@ require_once APP_ROOT . 'controladores/ControladorPagina.php';
 require_once APP_ROOT . 'controladores/ControladorUsuario.php';
 require_once APP_ROOT . 'controladores/ControladorServidor.php';
 
+require_once APP_ROOT . 'modelos/ModeloUsuario.php';
+
+require_once APP_ROOT . 'utils/Formeatear.php';
+
 $router = new router();
 
 $database = new Database();
@@ -39,7 +43,7 @@ $servicioServidor = new ServicioServidor($pterodactylCliente, $repositorioServid
 $servicioJuego = new ServicioJuego($repositorioUsuario, $servicioServidor, $pterodactylCliente);
 
 $controladorPagina = new ControladorPagina($repositorioPlan, $repositorioJuego);
-$controladorUsuario = new ControladorUsuario($servicioUsuario);
+$controladorUsuario = new ControladorUsuario($servicioUsuario, $repositorioUsuario);
 $controladorServidor = new ControladorServidor($servicioServidor, $servicioJuego);
 
 // ------------------
@@ -151,14 +155,12 @@ $router->get('/servidores/([a-zA-Z0-9]+)/([a-zA-Z]+)', function($idServidor, $ta
 // Cuenta usuario
 // ------------------
 
-$router->get('/cuenta', function() {
-    // TODO: migrar a ControladorUsuario y usar servicio/repositorio
-    require_once APP_ROOT . 'vistas/paginas/vistaPerfil.php';
+$router->get('/cuenta', function() use ($controladorUsuario) {
+    $controladorUsuario->mostrarPerfil();
 });
 
-$router->post('/cuenta', function() use ($controladorUsuario) {
-    // TODO: implementar actualización de perfil con servicio
-    $controladorUsuario->modificarUsuario();
+$router->post('/perfil', function() use ($controladorUsuario) {
+    $controladorUsuario->actualizarPerfil();
     header('Location: /cuenta');
 });
 
