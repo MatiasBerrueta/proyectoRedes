@@ -9,25 +9,25 @@ TRUNCATE TABLE USUARIO;
 
 INSERT INTO USUARIO (id_usuario, nombre, email, contrasena, rol, estado, pais, client_key, id_pterodactyl) VALUES
 -- ID 1 | Password: 12345
-(1, 'Juan Pérez', 'juanp@example.com', '$2y$10$w09uA4yR5R4Zk3gG1y/vNuT7S.aYvR5O8R4L0d9K2.u9m5R6M7O.y', 'CLIENTE', 'ACTIVO', 'Uruguay', NULL, NULL),
+(1, 'Juan Pérez', 'juanp@example.com', '$2y$10$W3fyY7vynzW.zjgMB2aD3u4VT4AEmn4WhgaVAbIOFbPS.KNvM9DeK', 'CLIENTE', 'ACTIVO', 'Uruguay', NULL, NULL),
 
 -- ID 2 | Password: abcde
-(2, 'María López', 'marial@example.com', '$2y$10$1Hk8L8N.w4d5A2c3J2x1OuO2T2R2E2L2I2A2B2C2D2E2F2G2H2I2J', 'CLIENTE', 'INACTIVO', 'Argentina', NULL, NULL),
+(2, 'María López', 'marial@example.com', '$2y$10$EwW/yth2WSrtrEuKHRF5BO3aDXG/1bPBwUgVASzaRyosHZYP8S7HO', 'CLIENTE', 'INACTIVO', 'Argentina', NULL, NULL),
 
 -- ID 3 | Password: pass123
-(3, 'Carlos Gómez', 'cgomez@example.com', '$2y$10$8mK2O0L5P9s1A2B3C4D5Eu.A1B2C3D4E5F6G7H8I9J0K1L2M3N4O5', 'CLIENTE', 'ACTIVO', 'Chile', NULL, NULL),
+(3, 'Carlos Gómez', 'cgomez@example.com', '$2y$10$ox8SuponEiGTd/x7T9JnJ.EFuBY21A6O33c92ZmOCD61fTa1LnsSS', 'CLIENTE', 'ACTIVO', 'Chile', NULL, NULL),
 
 -- ID 4 | Password: nombre123
-(4, 'nombre', 'nombre@gmail.com', '$2y$10$G4A5B6C7D8E9F0G1H2I3J4e5F6G7H8I9J0K1L2M3N4O5P6Q7R8S9T', 'CLIENTE', 'ACTIVO', 'Uruguay', NULL, NULL),
+(4, 'nombre', 'nombre@gmail.com', '$2y$10$xIS4xOJSFGo7YzCuB71REOOcJA.qn8ckIiwRlc7PkcTIWOZ3ysB5G', 'CLIENTE', 'ACTIVO', 'Uruguay', NULL, NULL),
 
 -- ID 5 | Password: matias123
-(5, 'matias', 'matias@gmail.com', '$2y$10$H5B6C7D8E9F0G1H2I3J4K5f6G7H8I9J0K1L2M3N4O5P6Q7R8S9T0U', 'CLIENTE', 'ACTIVO', 'Uruguay', NULL, NULL),
+(5, 'matias', 'matias@gmail.com', '$2y$10$kBLpXmpLcDuiMYU1iISkSOyQX6l/aJeE/v6bdGA3PWRHvvSxFxF6G', 'CLIENTE', 'ACTIVO', 'Uruguay', NULL, NULL),
 
 -- ID 6 | Password: admin123
-(6, 'admin', 'admin@gmail.com', '$2y$10$I6C7D8E9F0G1H2I3J4K5L6g7H8I9J0K1L2M3N4O5P6Q7R8S9T0U1V', 'ADMIN', 'ACTIVO', 'Uruguay', 'ptlc_aUGNsV1gQyu9o0O2sQQzjY4vCvc0KHrujPNIqfFAu5I', NULL),
+(6, 'admin', 'admin@gmail.com', '$2y$10$EcBrXrLBVPiwSYnvSLO3TuZhaancgahQl9GLlo8SeipqHAHDkvZDO', 'ADMIN', 'ACTIVO', 'Uruguay', 'ptlc_aUGNsV1gQyu9o0O2sQQzjY4vCvc0KHrujPNIqfFAu5I', NULL),
 
 -- ID 11 | Password: usuario123
-(11, 'usuario', 'pterodactyl_user@example.com', '$2y$10$J7D8E9F0G1H2I3J4K5L6M7h8I9J0K1L2M3N4O5P6Q7R8S9T0U1V2W', 'CLIENTE', 'ACTIVO', 'Uruguay', NULL, NULL);
+(11, 'usuario', 'pterodactyl_user@example.com', '$2y$10$C0Po9bL2TrYOP7MzEqB6JeF.r783DXphNlr0yUTxZC.cDq6YZ0i0u', 'CLIENTE', 'ACTIVO', 'Uruguay', NULL, NULL);
 
 -- ---------------------------------------------------------
 -- 2. TABLA: JUEGO
