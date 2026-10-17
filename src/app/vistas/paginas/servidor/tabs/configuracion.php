@@ -1,3 +1,7 @@
+<?php
+/** @var array $datosTab */
+?>
+
 <?php require_once APP_ROOT . "vistas/componentes/formulario.php"; ?>
 
 <link rel="stylesheet" href="/css/paginas/servidor/tabs/configuracion.css">

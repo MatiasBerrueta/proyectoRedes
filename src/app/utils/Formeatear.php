@@ -1,6 +1,6 @@
 <?php
 class Formatear {
-  public static function formatBytes(int $bytes, $precision = 2) { 
+  public static function formatBytes(int $bytes, int $precision = 2) { 
     $units = ['B', 'KB', 'MB', 'GB', 'TB']; 
 
     $bytes = max($bytes, 0); 
@@ -12,6 +12,11 @@ class Formatear {
     return round($bytes, $precision) . $units[$pow]; 
   }
 
+  public static function formatearFechaIso(string $fechaIso): string {
+    $fecha = new DateTime($fechaIso);
+    return $fecha->format('d/m/Y');
+  }
+ 
   public static function obtenerTiempoTranscurrido(string $fechaIso): string {
     $ultimaFecha = new DateTime($fechaIso);
     $ahora = new DateTime();

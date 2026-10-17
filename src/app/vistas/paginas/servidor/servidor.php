@@ -22,7 +22,7 @@ $tabActual = $tabActual ?? null;
     <script type="module" src="/js/servidor/cambiarTabs.js"></script>
     <script type="module" src="/js/servidor/servidorWebsocket.js"></script>
     <script src="/js/controladorTemas.js" defer></script>
-    <title>Usuario</title>
+    <title>Servidor - Voxel Hosting</title>
 </head>
 <body class="layout-panel">
     <?php include_once APP_ROOT . 'vistas/componentes/header.php'; ?>
@@ -32,9 +32,7 @@ $tabActual = $tabActual ?? null;
                 <ul>
                     <?php forEach($tabs as $tab): ?>
                         <li class="<?= $tabActual === $tab['id'] ? 'activo' : '' ?>" data-tab="<?= $tab['id'] ?>">
-                            <!-- <a href="/servidores/<?= $servidor['id'] ?>/<?= $tab['id'] ?>"> -->
-                                <?php include PUBLIC_ROOT . 'assets/iconos/' . $tab['id'] . '.svg' ?> <?= $tab['label'] ?>
-                            <!-- </a> -->
+                            <?php include PUBLIC_ROOT . 'assets/iconos/' . $tab['id'] . '.svg' ?> <?= $tab['label'] ?>
                         </li>
                     <?php endforeach; ?>
                 </ul>

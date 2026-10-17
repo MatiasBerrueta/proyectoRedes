@@ -22,18 +22,17 @@
     <main>
         <section class="seccion-presentacion">
             <div class="contenedor">
-                <p class="eyebrow">No te compliques</p>
-                <h1 class="hero-copy">
-                    Crea tu servidor en minutos,
-                    <br>disfruta con amigos.
-                </h1>
-                <p class="hero-subtexto">Tú eliges el juego y el tamaño de tu comunidad, nosotros nos ocupamos de la 
-                <br>configuración, el rendimiento y el soporte para que disfrutes sin complicaciones.</p>
-                <a href="#" class="boton texto-g flex-align-items">
-                    Empieza tu prueba gratuita
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M15 16l4 -4" /><path d="M15 8l4 4" /></svg>
-                </a>
-                <p class="cta-subtexto">Sin tarjeta de credito. 1 dia gratis.</p>
+                <!-- <p class="eyebrow">No te compliques</p> -->
+                <div style="display: flex; flex-direction: column; align-items: left; width: max-content;">
+                    <h1 class="hero-copy">Crea tu servidor en minutos,<br>disfruta con amigos.</h1>
+                    <p class="hero-subtexto">Tú eliges el juego y el tamaño de tu comunidad, nosotros nos ocupamos de la 
+                    <br>configuración, el rendimiento y el soporte para que disfrutes sin complicaciones.</p>
+                    <a href="#" class="boton texto-g flex-align-items">
+                        Empieza tu prueba gratuita
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M15 16l4 -4" /><path d="M15 8l4 4" /></svg>
+                    </a>
+                    <p class="cta-subtexto">Sin tarjeta de credito. 1 dia gratis.</p>
+                 </div>
                 <?php include PUBLIC_ROOT . 'assets/ilustracion.svg'; ?>
             </div>
         </section>
@@ -160,7 +159,7 @@
                         </div>
                     </div>
                     <script>
-                        const slider = document.querySelector('.slider');
+                        const slider = document.querySelector('.slider-juegos');
                         slider.innerHTML += slider.innerHTML;
                     </script>
                 </div>

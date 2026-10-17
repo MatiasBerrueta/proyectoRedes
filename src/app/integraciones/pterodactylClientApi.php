@@ -115,7 +115,6 @@ class pterodactylClientApi {
 
     public function obtenerWebSocket(string $id, string $clientKey) {
         $resultado = $this->request('/servers/'. $id . '/websocket', $clientKey);
-        // echo "<script>console.log(" . json_encode($resultado) . ")</script>";
 
         return json_decode($resultado, true);
     }
@@ -123,18 +122,19 @@ class pterodactylClientApi {
     // Devuelve una lista de los archivos y directorios que hay en la ruta especificada
     public function obtenerDirectorios(string $idServidor, string $rutaDirectorio, string $clientKey) {
         $url = "/servers/{$idServidor}/files/list?" . http_build_query(['directory' => $rutaDirectorio]);
-        echo "<script>console.log(" . json_encode($url) . ")</script>";
         
         $respuesta = $this->request($url, $clientKey);
+
+        $logger = ServicioLogger::obtenerLogger();
+        $logger->info($respuesta);
+        
         return json_decode($respuesta, true);
     }
 
     // Devuelve el contenido del archivo en la ruta especificada
     public function leerArchivo(string $idServidor, string $rutaArchivo, string $clientKey) {
         $url = "/servers/{$idServidor}/files/contents?" . http_build_query(['file' => $rutaArchivo]);
-        echo "<script>console.log(" . json_encode($url) . ")</script>";
         
-
         return $this->request($url, $clientKey);
     }
 

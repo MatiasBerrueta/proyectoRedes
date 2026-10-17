@@ -103,28 +103,38 @@ class pterodactylAppApi {
         return $this->request("servers", $serverData, 'POST');
     }
 
-    private function crearClientApiKey($pterodactylIdUsuario) {
+    private function crearClientApiKey(string $pterodactylIdUsuario) {
         $memo = json_encode([
             'memo' => 'Generada automaticamente',
         ]);
-        return $this->request("/users/$pterodactylIdUsuario/api-keys", $memo, 'POST');
+        // return $this->request("/users/$pterodactylIdUsuario/api-keys", $memo, 'POST');
+        $clientKeyGlobal = 'ptlc_aUGNsV1gQyu9o0O2sQQzjY4vCvc0KHrujPNIqfFAu5I';
+        return $clientKeyGlobal;
     }
 
-    public function crearUsuario($nombre, $email, $contrasena) {
+    // Esta funcion genera un username apartir de email, elimina y limpia simbolos basados en el regex propio de pterodactyl para usernames
+    private function generarUsername(string $email): string {
+        $base = mb_strtolower(explode('@', $email)[0]);
+        $base = explode('+', $base)[0];
+        $base = preg_replace('/[^a-z0-9_.-]/', '', $base);
+        $base = trim($base, '._-');
+     
+        if (mb_strlen($base) < 3) {
+            $base = 'u' . substr(hash('sha256', $email), 0, 6);
+        }
+
+        return $base;
+    }
+
+    public function crearUsuario(string $email, string $contrasena) {
         $logger = ServicioLogger::obtenerLogger();
-        
-        $logger->info('Creando usuario en Pterodactyl', [
-            'email' => $email,
-            'username' => $nombre
-        ]);
         
         $userData = [
             'email' => $email,
-            'username' => $nombre,
-            'first_name' => $nombre,
-            'last_name' => '',
+            'username' => 'user' . substr(hash('sha256', $email), 0, 6),
+            'first_name' => 'first_name',
+            'last_name' => 'last_name',
             'password' => $contrasena,
-            'external_id' => uniqid('app_', true),
         ];
 
         $usuarioPterodactyl = $this->request('/users', $userData, 'POST');
@@ -137,11 +147,22 @@ class pterodactylAppApi {
             return null;
         }
 
+        $pterodactylIdUsuario = $usuarioPterodactyl['attributes']['uuid'];
+
         $logger->info('Usuario creado correctamente', [
-            'pterodactyl_user_id' => $usuarioPterodactyl['attributes']['id']
+            'pterodactyl_user_id' => $pterodactylIdUsuario
         ]);
         
-        $this->crearClientApiKey($usuarioPterodactyl['attributes']['id']);
+        $clientKey = $this->crearClientApiKey($pterodactylIdUsuario);
+
+        $logger->info('ClientKey generada', [
+            'client_key' => $clientKey
+        ]);
+
+        return [
+            'pterodactyl_id' => $pterodactylIdUsuario,
+            'client_key' => $clientKey,
+        ];
     }
 
     public function listarServidores() {
