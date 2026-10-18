@@ -1,6 +1,15 @@
+// Tabs cuyo modulo vive en una carpeta con varios archivos en lugar de un unico .js
+const MODULOS_TABS = {
+  archivos: "/js/tabs/archivos/index.js",
+};
+
+function rutaModuloTab(tabNombre) {
+  return MODULOS_TABS[tabNombre] ?? `/js/tabs/${tabNombre}.js`;
+}
+
 async function cargarJs(tabNombre) {
   try {
-    moduloTabActivo = await import(`/js/tabs/${tabNombre}.js?v=${Date.now()}`);
+    moduloTabActivo = await import(`${rutaModuloTab(tabNombre)}?v=${Date.now()}`);
     if (typeof moduloTabActivo.init === "function") {
       moduloTabActivo.init(servidor);
     }

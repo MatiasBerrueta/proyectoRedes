@@ -32,13 +32,82 @@ class ServicioJuego {
         return $config['ui']['tabs'] ?? [];
     }
 
-    public function obtenerArchivos(string $servidorId, int $idUsuario, string $path): array {
-        $clientKey = $this->repositorio->obtenerClientKey($idUsuario);
+    public function obtenerDirectorios(string $servidorId, string $path, string $clientKey): array {
         $content = $this->pterodactyl->obtenerDirectorios($servidorId, $path, $clientKey);
 
         return $content;
     }
 
+    public function obtenerArchivoContenido(string $servidorId, string $path, string $clientKey) {
+        $contenido = $this->pterodactyl->leerArchivo($servidorId, $path, $clientKey);
+
+        return $contenido;
+    }
+
+    public function obtenerArchivos(string $idServidorPterodactyl, string $path, int $idUsuario) {
+        $clientKey = $this->repositorio->obtenerClientKey($idUsuario);
+        $pathSeparado = !empty($path) ? explode('/', $path) : []; 
+
+        $basename = basename($path);
+        $extension = pathinfo($path, PATHINFO_EXTENSION);
+
+        // Un path está vacío o es la raíz '/'
+        $esRaiz = empty($path) || $path === '/';
+
+        // Consideramos archivo si tiene una extensión (ej: .txt, .js) 
+        // O si es un archivo oculto sin extensión clásica pero que sabemos que es archivo (ej: .env)
+        $esArchivo = !empty($extension) || ($basename === '.env');
+
+        if (!$esRaiz && $esArchivo) {
+            try {
+                $datos = $this->obtenerArchivoContenido($idServidorPterodactyl, $path, $clientKey);
+            } catch (\Exception $e) {
+                return "No se pudo leer el contenido de este archivo.";
+            }
+        } else {
+            $datos = $this->obtenerDirectorios($idServidorPterodactyl, $path, $clientKey);
+        }
+
+        $archivos = [];
+        $contenido = '';
+
+        if (!$esArchivo) {
+            $archivosRaw = $datos['data'];
+
+            foreach ($archivosRaw as $item) {
+                $attr = $item['attributes'] ?? [];
+
+                $itemEsArchivo = !empty($attr['is_file']);
+                $nombre = $attr['name'] ?? '';
+                $itemPath = $path !== '' ? $path . '/' . $nombre : $nombre;
+                $modificado = $attr['modified_at'] ?? null;
+                $tamano = $itemEsArchivo ? (int) ($attr['size'] ?? 0) : null;
+
+                $archivos[] = [
+                    'nombre'          => $nombre,
+                    'tipo'            => $itemEsArchivo ? 'archivo' : 'directorio',
+                    'esArchivo'       => $itemEsArchivo,
+                    'path'            => $itemPath,
+                    'tamano'          => $tamano,
+                    'tamanoTexto'     => $tamano !== null ? Formatear::formatBytes($tamano) : '-',
+                    'modificado'      => $modificado,
+                    'modificadoTexto' => $modificado ? Formatear::formatearFechaIso($modificado) : '',
+                ];
+            }
+        } else {
+            $contenido = is_string($datos) ? $datos : '';
+        }
+
+        $datos = [
+            'path'         => $path,
+            'pathSeparado' => $pathSeparado,
+            'esDirectorio' => !$esArchivo,
+            'archivos'     => $archivos,
+            'contenido'    => $contenido,
+        ];
+
+        return $datos;
+    }
     
 
     public function handleLog() {
@@ -49,7 +118,7 @@ class ServicioJuego {
         return [];
     }
 
-    function parseProperties($contenido) {
+    private function parseProperties($contenido) {
         $lineas = explode("\n", $contenido);
         $resultado = [];
 
@@ -91,13 +160,6 @@ class ServicioJuego {
         }
 
         return $settingsJson;
-    }
-
-    public function obtenerArchivoContenido(string $servidorId, string $rutaArchivo, int $idUsuario) {
-        $clientKey = $this->repositorio->obtenerClientKey($idUsuario);
-        $contenido = $this->pterodactyl->leerArchivo($servidorId, $rutaArchivo, $clientKey);
-
-        return $contenido;
     }
 
     public function obtenerConfiguracion(string $servidorId, int $idUsuario, string $juego) {

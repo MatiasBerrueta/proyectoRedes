@@ -10,54 +10,6 @@ class ControladorServidor extends Controlador {
         $this->servicioJuego = $servicioJuego;
     }
 
-    // Funcion solo para pruebas sin levantar pterodactyl, no usar en produccion
-    private function obtenerServidores() {
-        return [
-            [
-                'identifier' => '1a',
-                'nombre' => 'Servidor muestra 1',
-                'ipServidor' => '192.168.0.1',
-                'puertoServidor' => '25565',
-                'estado' => 'Offline',
-                'numeroJugadores' => 1,
-                'maximoNumeroJugadores' => 20,
-                'usoCpu' => 5,
-                'maximoUsoCpu' => 100,
-                'usoRam' => 1024 * 100000,
-                'maximoUsoRam' => 1024,
-                'juego' => 'terraria'
-            ],
-            [
-                'identifier' => '2b',
-                'nombre' => 'Servidor muestra 2',
-                'ipServidor' => '192.168.0.2',
-                'puertoServidor' => '25566',
-                'estado' => 'Online',
-                'numeroJugadores' => 8,
-                'maximoNumeroJugadores' => 50,
-                'usoCpu' => 25,
-                'maximoUsoCpu' => 100,
-                'usoRam' => 2048 * 100000,
-                'maximoUsoRam' => 4096,
-                'juego' => 'minecraft'
-            ],
-            [
-                'identifier' => '3c',
-                'nombre' => 'Servidor muestra 3',
-                'ipServidor' => '192.168.0.3',
-                'puertoServidor' => '27015',
-                'estado' => 'Online',
-                'numeroJugadores' => 12,
-                'maximoNumeroJugadores' => 32,
-                'usoCpu' => 40,
-                'maximoUsoCpu' => 100,
-                'usoRam' => 3072 * 100000,
-                'maximoUsoRam' => 8192,
-                'juego' => 'cs2'
-            ]
-        ];
-    }
-
     public function mostrarPanel() {
         $this->requiereLogin();
         $rol = $_SESSION['usuario']['rol'];
@@ -89,28 +41,11 @@ class ControladorServidor extends Controlador {
                 return $this->servicioJuego->obtenerConfiguracion($idServidorPterodactyl, $idUsuario, $juego);
 
             case 'archivos':
-                $path = $params['path'] ?? '';
-                
-                $basename = basename($path);
-    
-                $extension = pathinfo($path, PATHINFO_EXTENSION);
-                $filename = pathinfo($path, PATHINFO_FILENAME);
-
-                // es un elemento oculto tipo '.cache' si el filename esta vacio
-                $esOcultoSinExtension = str_starts_with($basename, '.') && empty($filename);
-                
-                $esArchivo = !empty($extension) && !$esOcultoSinExtension;
-
-                if ($esArchivo) {
-                    try {
-                        return $this->servicioJuego->obtenerArchivoContenido($idServidorPterodactyl, $path, $idUsuario);
-                    } catch (\Exception $e) {
-                        return "No se pudo leer el contenido de este archivo.";
-                    }
-                }
-
-                return $this->servicioJuego->obtenerArchivos($idServidorPterodactyl, $idUsuario, $path);
-
+                $archivos = $this->servicioJuego->obtenerArchivos($idServidorPterodactyl, $params['path'], $idUsuario);
+                return json_encode( 
+                    $archivos,
+                    JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE
+                );
             default:
                 return [];
         }
@@ -122,12 +57,12 @@ class ControladorServidor extends Controlador {
 
         $servidor = $this->servicioServidor->obtenerServidorPterodactyl($idServidorPterodactyl, $idUsuario);
         $juego = $servidor['nombre_juego'];
-        
+
         $tabs = $this->servicioJuego->getTabs(strtolower($juego));
         $tabsPorId = array_column($tabs, null, 'id');
 
         $tabActualId = isset($tabsPorId[$tabId]) ? $tabId : 'consola';
-        
+
         $datosTab = $this->resolverTab($idServidorPterodactyl, $tabActualId, ['path' => $_GET['path'] ?? '/']);
 
         $this->renderizar('paginas/servidor/servidor', [
@@ -160,7 +95,7 @@ class ControladorServidor extends Controlador {
     public function subirMod() {
         $logger = ServicioLogger::obtenerLogger();
         $this->requiereLogin();
-        
+
         $idServidor = $_POST['servidor_id'] ?? null;
         $modUrl = $_POST['mod_url'] ?? null;
         $idUsuario = $_SESSION['usuario']['id'];
@@ -179,12 +114,12 @@ class ControladorServidor extends Controlador {
         }
 
         $resultado = $this->servicioServidor->subirMod($idServidor, $idUsuario, $modUrl);
-        
+
         $logger->debug('Subir mod resultado', [
             'user_id' => $idUsuario,
             'result' => $resultado
         ]);
-        
+
         header('Content-Type: application/json');
     }
 
