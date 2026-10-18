@@ -53,14 +53,6 @@
                     Crear servidor
                 </button>
                 <?php require_once APP_ROOT . 'vistas/componentes/agregarServidorModal.php'; ?>
-                <script>
-                    // const botonAbrirAgregarServidorModal = document.querySelector('.boton-crear-servidor');
-                    // const agregarServidorModal = document.querySelector('#crearServidorModal');
-                    // const botonCerrarAgergarServidorModal = document.querySelector('.boton-cerrar-crear-servidor');
-
-                    // botonAbrirAgregarServidorModal.addEventListener('click', () => agregarServidorModal.showModal());
-                    // botonCerrarAgergarServidorModal.addEventListener('click', () => agregarServidorModal.close());
-                </script>
             </div>
             <div class="contenedor-servidores">
                 <?php

@@ -2,7 +2,7 @@
     <form action="">
         <div class="form-header">
             <h2 class="texto-xl">Crear servidor</h2>
-            <button type="button" class="boton-cerrar-crear-servidor" onclick="crearServidorModal.close()">
+            <button type="button" class="boton-cerrar" onclick="crearServidorModal.close()" aria-label="Cerrar">
                 <?php include PUBLIC_ROOT . 'assets/iconos/x.svg'; ?>
             </button>
         </div>
@@ -140,8 +140,8 @@
         <div class="form-footer">
             <p>Rellena los datos para crear el servidor</p>
             <div>
-                <button type="button" class="boton-cancelar-servidor" onclick="crearServidorModal.close()">Cancelar</button>
-                <button type="submit" class="boton-crear-servidor" disabled>Crear</button>
+                <button type="button" class="boton boton--secundario" onclick="crearServidorModal.close()">Cancelar</button>
+                <button type="submit" class="boton boton--primario" disabled>Crear</button>
             </div>
         </div>
     </form>

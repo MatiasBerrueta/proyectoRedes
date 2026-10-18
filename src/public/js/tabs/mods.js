@@ -57,7 +57,7 @@ async function buscar() {
                     ${formatNum(mod.follows)}
                 </span>
             </div>
-            <button class="install-btn" onclick="window.__instalarMod('${mod.slug}', '${mod.title.replace(/'/g, "\\'")}')">Instalar</button>
+            <button class="boton boton--s install-btn" onclick="window.__instalarMod('${mod.slug}', '${mod.title.replace(/'/g, "\\'")}')">Instalar</button>
             </div>
         </div>
         `,
