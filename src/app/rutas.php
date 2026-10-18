@@ -151,6 +151,7 @@ $router->get('/servidores/([a-zA-Z0-9]+)/([a-zA-Z]+)', function($idServidor, $ta
     $controladorServidor->mostrarServidor($idServidor, $tab);
 });
 
+
 // ------------------
 // Cuenta usuario
 // ------------------
@@ -259,6 +260,24 @@ $router->post('/api/servidor/subirMod', function() {
 
 $router->post('/api/servidores/([a-zA-Z0-9]+)/accion/([a-zA-Z0-9]+)', function($idServidor, $accion) use ($controladorServidor) {
     // $controladorServidor->ejecutarAccion($idServidor, $accion);
+});
+
+$router->get('api/servidores/([a-zA-Z0-9]+)/archivos', function($idServidor) use ($servicioJuego) {
+    // temporal, eliminar despues
+    $idUsuario = $_SESSION['usuario']['id'];
+    $path = $_GET['path'] ?? '/';
+    //
+
+
+    $archivos = $servicioJuego->obtenerArchivos($idServidor, $path, $idUsuario);
+    $logger = ServicioLogger::obtenerLogger();
+    $logger->info("Datos Rutas: " . $archivos);
+
+    header('Content-Type: application/json');
+    echo json_encode( 
+            $archivos,
+            JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE
+        );
 });
 
 $router->get('/api/servidores/([a-zA-Z0-9]+)/tabs/([a-zA-Z]+)', function($idServidor, $tabNombre) use ($controladorServidor) {
