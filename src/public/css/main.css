@@ -117,6 +117,7 @@
   --color-gris-50-transparente: hsla(0, 0%, 95%, 0);
   --color-blanco-medio-transparente: hsla(0, 0%, 100%, 0.5);
   --color-negro: hsl(0, 0%, 0%);
+  --color-negro-hover: hsl(0, 0%, 20%);
   --color-servidor-detener: hsl(0, 78%, 53%);
   --color-servidor-reiniciar: hsl(39, 100%, 59%);
   --ansi-red: hsl(0, 100%, 60%);

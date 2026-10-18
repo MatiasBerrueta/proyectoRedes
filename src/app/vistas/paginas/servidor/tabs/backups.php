@@ -107,7 +107,7 @@ $porcentajeAlmacenamiento = $almacenamientoLimite > 0
                     <span class="backup-card__etiqueta">Copia instantánea</span>
                     <p class="backup-card__nota">Generá un punto de restauración seguro</p>
                 </div>
-                <button type="button" class="boton boton--primario backup-boton-crear" data-abrir-modal="backup-modal-crear">
+                <button type="button" class="boton boton--s boton--primario backup-boton-crear" data-abrir-modal="backup-modal-crear">
                     <?php include PUBLIC_ROOT . 'assets/iconos/plus.svg'; ?>
                     Crear backup
                 </button>
@@ -266,7 +266,7 @@ $porcentajeAlmacenamiento = $almacenamientoLimite > 0
         <div class="backup-modal__caja">
             <div class="backup-modal__cabecera">
                 <h3 class="texto-m">Crear nueva copia de seguridad</h3>
-                <button type="button" class="backup-modal__cerrar" data-cerrar title="Cerrar">
+                <button type="button" class="boton-cerrar" data-cerrar title="Cerrar" aria-label="Cerrar">
                     <?php include PUBLIC_ROOT . 'assets/iconos/x.svg'; ?>
                 </button>
             </div>
@@ -332,7 +332,7 @@ $porcentajeAlmacenamiento = $almacenamientoLimite > 0
 
             <div class="backup-modal__pie">
                 <button type="button" class="boton boton--secundario" data-cerrar>Cancelar</button>
-                <button type="button" class="boton backup-boton--advertencia" id="backup-confirmar-restaurar">Sí, restaurar ahora</button>
+                <button type="button" class="boton boton--advertencia" id="backup-confirmar-restaurar">Sí, restaurar ahora</button>
             </div>
         </div>
     </div>

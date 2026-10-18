@@ -37,7 +37,8 @@
   margin-bottom: 1rem;
   column-gap: 0.75rem;
 
-  & > * {
+  input,
+  select {
     padding-inline: 1rem;
     border: 1px solid var(--color-borde);
     border-radius: 5px;
@@ -54,9 +55,8 @@
     cursor: pointer;
   }
 
-  button {
+  .boton {
     flex: 1;
-    cursor: pointer;
   }
 }
 
@@ -166,18 +166,16 @@
 }
 
 .install-btn {
-  padding: 6px 14px;
-  cursor: pointer;
-  border-radius: 5px;
-  background: transparent;
   color: var(--azul-logo);
-  border: 1px solid var(--azul-logo);
+  border-color: var(--azul-logo);
   white-space: nowrap;
-}
 
-.install-btn:hover {
-  background: var(--azul-logo);
-  color: white;
+  &:hover,
+  &:focus-visible {
+    background: var(--azul-logo);
+    color: var(--color-blanco);
+    border-color: var(--azul-logo);
+  }
 }
 
 .install-btn:active {

@@ -222,18 +222,6 @@ section {
         height: 36px;
       }
 
-      button {
-        border: 1px solid var(--color-borde);
-        background: none;
-        margin-inline: auto;
-        margin-top: 2rem;
-
-        &:hover {
-          color: var(--color-texto);
-          border-color: var(--color-texto-secundario);
-        }
-      }
-
       ul {
         margin: 1.5rem 0;
         list-style: none;
@@ -410,16 +398,6 @@ section {
 
   .cta-tutorial__titulo {
     font-weight: bold;
-  }
-
-  button {
-    padding: 0.75rem 1rem;
-    font-size: var(--texto-m);
-    font-weight: bold;
-    background-color: var(--azul-logo);
-    color: white;
-    border: none;
-    border-radius: 5px;
   }
 }
 

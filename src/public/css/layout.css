@@ -56,16 +56,6 @@ header {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-
-      a {
-        padding: 0.35rem 0.75rem;
-        border-radius: 5px;
-        border: 1px solid transparent;
-      }
-
-      a:hover {
-        border-color: var(--gris-600);
-      }
     }
 
     a {
@@ -78,55 +68,50 @@ header {
       column-gap: 0.75rem;
     }
 
-    .boton-servidores,
-    .boton-admin,
-    .boton-menu-usuario,
-    a[href="/auth"],
-    a[href="/registrarCliente"] {
+    .chip {
       display: flex;
       align-items: center;
       column-gap: 0.5rem;
-      background: none;
-      border-radius: 5px;
       padding: 0.35rem 0.5rem;
+      background: none;
+      border: none;
+      border-radius: 5px;
+      color: var(--color-chip, var(--color-texto));
       font-weight: bold;
       cursor: pointer;
-    }
 
-    a[href="/registrarCliente"] {
-      background: var(--azul-logo);
-      color: white;
-    }
-
-    .boton-servidores {
-      border: 1px solid var(--azul-logo);
-      color: var(--azul-logo);
-
-      &:hover {
-        color: var(--azul-logo);
-        border-color: var(--azul-logo);
-        background-color: color-mix(in srgb, var(--azul-logo) 10%, transparent);
+      &:hover,
+      &:focus-visible {
+        color: var(--color-chip, var(--color-texto));
+        background-color: color-mix(in srgb, var(--color-chip, var(--color-texto)) 12%, transparent);
       }
     }
 
-    .boton-admin {
-      border: 1px solid var(--color-violeta-500);
-      color: var(--color-violeta-500);
+    .chip--azul {
+      --color-chip: var(--azul-logo);
+    }
 
-      &:hover {
-        color: var(--color-violeta-500);
-        border-color: var(--color-violeta-500);
-        background-color: color-mix(in srgb, var(--color-violeta-500) 10%, transparent);
+    .chip--violeta {
+      --color-chip: var(--color-violeta-500);
+    }
+
+    .chip--solido {
+      background-color: var(--color-chip, var(--azul-logo));
+      color: var(--color-blanco);
+
+      &:hover,
+      &:focus-visible {
+        background-color: color-mix(in srgb, var(--color-chip, var(--azul-logo)) 85%, black);
+        border-color: var(--color-chip, var(--azul-logo));
+        color: var(--color-blanco);
       }
     }
 
-    .boton-menu-usuario {
-      border: 1px solid var(--color-texto);
-      color: var(--color-texto);
+    .chip--neutro {
+      --color-chip: var(--color-texto);
 
-      &:hover {
-        color: var(--color-texto);
-        border-color: var(--color-texto);
+      &:hover,
+      &:focus-visible {
         background-color: color-mix(in srgb, var(--gris-400) 15%, transparent);
       }
     }

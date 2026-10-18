@@ -41,45 +41,37 @@
     height: max-content;
     column-gap: 1rem;
 
-    button {
+    .boton {
       position: relative;
-      color: white;
-      padding: 0.5rem;
       width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      column-gap: 0.5rem;
+      padding: 0.5rem;
+      color: var(--color-blanco);
       border: none;
+      overflow: hidden;
 
       &.iniciar {
-        --color-fondo: var(--azul-logo);
+        background-color: var(--azul-logo);
       }
 
       &.detener {
-        --color-fondo: var(--color-servidor-detener);
+        background-color: var(--color-servidor-detener);
       }
 
       &.reiniciar {
-        --color-fondo: var(--color-servidor-reiniciar);
+        background-color: var(--color-servidor-reiniciar);
       }
 
       &::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: white;
+        background: var(--color-blanco);
         opacity: 0;
         z-index: 1;
       }
 
       &:hover::before {
         opacity: 0.25;
-      }
-
-      &:hover {
-        background-color: var(--color-fondo);
-        outline: none;
       }
     }
   }
@@ -182,12 +174,17 @@
     font-size: var(--texto-base);
   }
 
-  button {
-    background-color: white;
-    border-radius: 5px;
-    color: black;
+  .boton {
+    background-color: var(--color-blanco);
+    color: var(--color-negro);
     border: none;
     padding-inline: 1rem;
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--gris-300);
+      border: none;
+    }
   }
 }
 

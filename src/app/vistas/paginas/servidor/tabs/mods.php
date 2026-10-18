@@ -18,7 +18,7 @@
 			<option value="quilt">Quilt</option>
 			<option value="neoforge">NeoForge</option>
 		</select>
-		<button onclick="window.__buscarMod()">Buscar</button>
+		<button class="boton boton--s" onclick="window.__buscarMod()">Buscar</button>
 	</div>
 	<div class="lista-mods" id="grid"></div>
 </div>

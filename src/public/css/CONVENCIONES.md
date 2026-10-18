@@ -152,6 +152,61 @@ Seguimos la metodologia **BEM** (Block, Element, Modifier) para nombrar clases C
 - NO usar camelCase ni snake_case
 - NO abreviar palabras innecesariamente
 
+## Sistema de botones
+
+Todo boton parte de `.boton` (`componentes.css`) y se le combinan **3 ejes
+independientes**, en este orden:
+
+| Eje | Modificadores | Efecto |
+| --- | --- | --- |
+| **Tamanio** | `--s`, `--l` | Padding y `font-size` (default = mediano) |
+| **Jerarquia** | `--primario`, `--secundario`, `--fantasma`, `--peligro` | Nivel de protagonismo |
+| **Color** | `--exito`, `--advertencia`, `--info`, `--negro` | Sustituye el color de la jerarquia |
+
+**Utilidades** (se combinan con lo de arriba): `--bloque` (ancho completo), `--icono`
+(solo icono, padding cuadrado).
+
+**Estado**: `:disabled` es **neutro** para todas las variantes. No pintar un boton
+deshabilitado a mano.
+
+```html
+<button class="boton boton--primario">Guardar</button>
+<button class="boton boton--s boton--peligro">Eliminar</button>
+<button class="boton boton--icono boton--fantasma">…</button>
+```
+
+### Combinar jerarquia y color
+
+Los ejes se resuelven **por orden de aparicion** en `componentes.css`: los
+modificadores de **color** van despues de los de **jerarquia**, asi que si hay
+conflicto gana el color. En la practica:
+
+- La mayoria de los casos se resuelve con **un solo modificador**: `--primario`,
+  `--exito`, `--peligro`, `--advertencia`, etc.
+- `--fantasma` si se combina bien con un color, porque no define color de fondo:
+  `class="boton boton--fantasma boton--exito"` deja el texto verde sin relleno.
+- No combinar dos jerarquias ni dos colores a la vez: no tiene sentido visual y
+  solo gana el ultimo.
+
+### Componentes derivados
+
+Son bloques propios en `componentes.css`, resuelven **solo el aspecto**: el
+posicionamiento siempre vive en el CSS de la pagina.
+
+- `.boton-cerrar` → boton "X" para cerrar modales
+- `.segmento` + `.segmento__item` / `--activo` → grupo de opciones con una sola activa
+- `.chip` + `--azul` / `--violeta` / `--neutro` (color) + `--solido` (relleno) →
+  chips de navegacion del header (`layout.css`, porque pertenecen al header).
+  Los de color solo fijan `--color-chip`; `--solido` la pinta y va despues de ellos.
+
+### Reglas
+
+- Si un boton ya usa `.boton`, **no** redefinir `padding`, `border-radius`,
+  `background` ni `cursor` en el CSS de la pagina. Solo se permiten ajustes de
+  **layout** (`flex`, `margin`, `width`) y **color** propio de esa pagina.
+- No crear clases nuevas para repetir un estilo que ya existe en el sistema.
+  Antes de crear una, buscar si ya hay un modificador que sirva.
+
 ## Prohibido
 
 - **`!important`** → Nunca usar. Si hay conflicto de especificidad, reestructurar el selector.

@@ -14,31 +14,6 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.5rem;
-
-  .boton-crear-servidor,
-  .boton-cancelar-servidor {
-    display: flex;
-    align-items: center;
-    column-gap: 0.5rem;
-    font-size: inherit;
-    color: white;
-    font-weight: bold;
-    padding: 0.5rem 0.75rem;
-    background-color: var(--azul-logo);
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-
-    &:hover {
-      background-color: color-mix(in srgb, var(--azul-logo) 90%, white);
-    }
-
-    &:disabled {
-      pointer-events: none;
-      color: var(--color-texto-secundario);
-      background-color: color-mix(in srgb, var(--azul-logo) 50%, hsl(0, 0%, 0%, 0.5));
-    }
-  }
 }
 
 .contenedor-servidores {
@@ -191,35 +166,6 @@
     background-color: var(--color-superficie-2);
     overflow: hidden;
   }
-
-  .botones-accion {
-    display: grid;
-    grid-template-columns: repeat(2, calc(50% - 0.5rem));
-    justify-content: space-between;
-    margin-top: 2rem;
-
-    button {
-      width: 100%;
-      padding: 0.5rem 0;
-      font-weight: bold;
-      border-radius: 5px;
-      border: 1px solid var(--gris-500);
-      background: none;
-      cursor: pointer;
-      justify-content: center;
-      column-gap: 0.5rem;
-
-      &:hover {
-        filter: brightness(120%);
-      }
-    }
-
-    button:not([hidden]) {
-      display: flex;
-      align-items: center;
-      column-gap: 0.5rem;
-    }
-  }
 }
 
 dialog::backdrop {
@@ -237,30 +183,10 @@ dialog::backdrop {
 .form-header {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   background-color: var(--color-superficie-2);
   padding: 1rem;
   border-bottom: 1px solid var(--color-borde);
-
-  .boton-cerrar-crear-servidor {
-    display: flex;
-    padding: 0.5rem;
-    border-radius: 3px;
-    background: none;
-    border: 1px solid var(--color-borde);
-    color: var(--color-texto-secundario);
-    cursor: pointer;
-
-    svg {
-      width: 1rem;
-      height: 1rem;
-      pointer-events: none;
-      padding: 0;
-    }
-
-    &:hover {
-      color: var(--color-texto);
-    }
-  }
 }
 
 .form-contenido {
@@ -331,17 +257,8 @@ dialog::backdrop {
   padding: 1rem;
   border-top: 1px solid var(--color-borde);
 
-  .boton-crear-servidor,
-  .boton-cancelar-servidor {
+  .boton {
     padding: 0.4rem 1rem;
-  }
-
-  .boton-cancelar-servidor {
-    background-color: var(--color-rojo-500);
-
-    &:hover {
-      background-color: color-mix(in srgb, var(--color-rojo-500), 20% black);
-    }
   }
 
   p {

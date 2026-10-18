@@ -25,9 +25,9 @@
                 <!-- <p class="eyebrow">No te compliques</p> -->
                 <div style="display: flex; flex-direction: column; align-items: left; width: max-content;">
                     <h1 class="hero-copy">Crea tu servidor en minutos,<br>disfruta con amigos.</h1>
-                    <p class="hero-subtexto">Tú eliges el juego y el tamaño de tu comunidad, nosotros nos ocupamos de la 
+                    <p class="hero-subtexto">Tú eliges el juego y el tamaño de tu comunidad, nosotros nos ocupamos de la
                     <br>configuración, el rendimiento y el soporte para que disfrutes sin complicaciones.</p>
-                    <a href="#" class="boton texto-g flex-align-items">
+                    <a href="#" class="boton boton--l flex-align-items">
                         Empieza tu prueba gratuita
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M15 16l4 -4" /><path d="M15 8l4 4" /></svg>
                     </a>
@@ -39,7 +39,7 @@
          <section class="seccion-tutorial">
             <div class="contenedor">
                 <span class="seccion__titulo">Facil de configurar</span>
-                <div class="tarjetas-tutorial">   
+                <div class="tarjetas-tutorial">
                     <!-- <div class="tarjeta">
                         <span>Paso 1</span>
                         <div class="tarjeta-contenido">
@@ -100,14 +100,14 @@
                         <div class="marcador"></div>
                         <div class="marcador"></div>
                         <div class="marcador"></div>
-                    </div> 
+                    </div>
                 </div>
                 <div class="cta-tutorial">
                     <div>
                         <span class="texto-g cta-tutorial__titulo">Probalo gratis hoy</span>
                         <p class="texto-secundario">Disfruta de 1 dia de prueba gratis sin tarjeta - Tu servidor en minutos</p>
                     </div>
-                    <button>Comenzar prueba gratis</button>
+                    <button class="boton boton--l boton--primario">Comenzar prueba gratis</button>
                 </div>
             </div>
         </section>
@@ -263,14 +263,14 @@
                     <span>¿No estás seguro de qué plan elegir?</span>
                     <p> Usa nuestro <a href="">asistente de planes</a> o <a href="">crea uno a tu medida.</a></p>
                 </div>
-                
+
             </div>
         </section>
         <div class="pixel-separator" data-seed="150" data-direction="up" data-color="hsl(225, 75%, 65%)"></div>
-        <section class="seccion-final">  
+        <section class="seccion-final">
             <div class="contenedor seccion-final__contenido">
                 <p class="final-titulo">Listo para comenzar a jugar?</p>
-                <p class="texto-semi-transparente mb-1">Creá tu servidor en minutos y jugá con tus amigos 
+                <p class="texto-semi-transparente mb-1">Creá tu servidor en minutos y jugá con tus amigos
                 sin configuraciones, sin complicaciones. </p>
                 <a href="#" class="boton texto-g flex-align-items">
                     Empieza tu prueba gratuita

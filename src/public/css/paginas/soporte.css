@@ -212,12 +212,6 @@
     border-radius: 5px;
     overflow: hidden;
   }
-
-  .seccion-tickets__separador {
-    height: 1px;
-    margin: 0 1.5rem;
-    background-color: var(--color-borde);
-  }
 }
 
 .formulario-ticket {
@@ -229,6 +223,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    padding-right: 2rem;
     margin-bottom: 0.5rem;
 
     svg {
@@ -291,43 +286,6 @@
     .lista-tickets__contador {
       color: var(--color-texto-secundario);
       font-weight: normal;
-    }
-
-    .filtros-tickets {
-      display: flex;
-      gap: 0.25rem;
-      padding: 0.25rem;
-      background-color: var(--color-superficie-2);
-      border: 1px solid var(--color-borde);
-      border-radius: 5px;
-
-      .filtro-ticket {
-        border: none;
-        border-right: 1px solid var(--color-borde);
-        background: none;
-        padding: 0.375rem 0.875rem;
-        font-size: var(--texto-s);
-        font-weight: 600;
-        color: var(--color-texto-secundario);
-        cursor: pointer;
-
-        &:last-child {
-          border: none;
-        }
-
-        &:hover {
-          color: var(--color-texto);
-        }
-
-        &--activo {
-          background-color: var(--azul-logo);
-          color: #ffffff;
-
-          &:hover {
-            color: #ffffff;
-          }
-        }
-      }
     }
   }
 
@@ -563,17 +521,9 @@
       flex-shrink: 0;
     }
 
-    button {
-      font-size: var(--texto-s);
-      color: var(--color-texto-secundario);
-      background: none;
-      border: none;
-      cursor: pointer;
+    /* Los botones del header (.boton--fantasma) no deben encogerse */
+    .boton {
       flex-shrink: 0;
-
-      &:hover {
-        color: var(--color-texto);
-      }
     }
   }
 
@@ -688,6 +638,10 @@
     div {
       display: flex;
       column-gap: 1rem;
+
+      & > * {
+        flex: 1;
+      }
     }
 
     p {
@@ -696,34 +650,18 @@
     }
   }
 
-  .hilo-ticket__accion {
-    padding: 0.35rem 0.75rem;
-    width: 100%;
-    border-radius: 5px;
-    font-size: var(--texto-s);
-    font-weight: bold;
-    cursor: pointer;
-    border: none;
-
-    &:hover {
-      background-color: color-mix(in srgb, var(--color-violeta-500) 12%, transparent);
-    }
-  }
-
-  .hilo-ticket__accion--resolver {
-    background-color: var(--color-verde-500);
-    color: var(--color-blanco);
-  }
-
-  .hilo-ticket__accion--resolver:hover {
-    background-color: var(--color-verde-600);
-  }
-
   .hilo-ticket__accion--agente {
     background: none;
     color: var(--color-violeta-500);
     border: 1px solid var(--color-violeta-500);
     white-space: nowrap;
+
+    &:hover,
+    &:focus-visible {
+      background-color: color-mix(in srgb, var(--color-violeta-500) 12%, transparent);
+      color: var(--color-violeta-500);
+      border-color: var(--color-violeta-500);
+    }
   }
 
   .hilo-ticket__nota-agente {
@@ -749,27 +687,6 @@
       &:disabled {
         cursor: not-allowed;
         opacity: 0.6;
-      }
-    }
-
-    button {
-      padding: 0.5rem 1rem;
-      background-color: var(--azul-logo);
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: var(--texto-s);
-      font-weight: bold;
-      cursor: pointer;
-
-      &:hover {
-        background-color: var(--azul-logo-claro);
-      }
-
-      &:disabled {
-        background-color: var(--color-borde);
-        color: var(--color-texto-secundario);
-        cursor: not-allowed;
       }
     }
   }
@@ -812,6 +729,41 @@
   .hilo-ticket {
     min-height: 420px;
   }
+}
+
+.modal-ticket {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: color-mix(in srgb, var(--color-negro) 80%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+.modal-ticket.visible {
+  display: flex;
+}
+
+.modal-ticket__contenido {
+  position: relative;
+  width: 100%;
+  max-width: 34rem;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  border: 1px solid var(--color-borde);
+  border-radius: 5px;
+  background-color: var(--color-superficie);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+}
+
+.modal-ticket .boton-cerrar {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 1;
 }
 
 .modal-configuracion {
