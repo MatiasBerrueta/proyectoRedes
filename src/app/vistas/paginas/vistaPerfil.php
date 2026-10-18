@@ -26,6 +26,28 @@
         <div class="perfil-cabecera">
             <h1>Mi cuenta</h1>
         </div>
+        <section>
+          <nav class="perfil-nav">
+            <li>
+              <a class="activo" href="/cuenta/perfil">
+                <?php include PUBLIC_ROOT . "assets/iconos/user.svg" ?>
+                Perfil
+              </a>
+            </li>
+            <li>
+              <a href="/cuenta/facturacion">
+                <?php include PUBLIC_ROOT . "assets/iconos/credit-card.svg" ?>
+                Facturacion
+              </a>
+            </li>
+            <li>
+              <a href="/cuenta/tickets">
+                <?php include PUBLIC_ROOT . "assets/iconos/ticket.svg" ?>
+                Mis tickets
+              </a>
+            </li>
+          </nav>
+        </section>
 
         <?php if (!empty($mensaje)): ?>
             <div class="perfil-mensaje">
@@ -48,12 +70,15 @@
             <div class="perfil-bloques">
                 <div class="perfil-bloque perfil-bloque--columna">
                     <div class="perfil-identidad">
+                      <?php include PUBLIC_ROOT . "assets/iconos/user.svg" ?>
+                      <div>
                         <p class="perfil-identidad__nombre">
                             <?= htmlspecialchars($usuario['nombre'] ?? 'Usuario', ENT_QUOTES, 'UTF-8') ?>
                         </p>
                         <p class="perfil-identidad__miembro">
                             Miembro desde <span>enero de 2025</span>
                         </p>
+                      </div>
                     </div>
                     <form action="/perfil" method="POST" class="perfil-form">
                         <div class="perfil-campo">
@@ -84,9 +109,6 @@
                                 >
                                 <?php include PUBLIC_ROOT . "/assets/iconos/lock.svg" ?>
                             </div>
-                            <p id="email-nota" class="perfil-campo__nota">
-                                Es el correo con el que iniciás sesión y no se puede cambiar.
-                            </p>
                         </div>
                         <div class="perfil-campo">
                             <label for="input-pais" class="perfil-campo__label">País</label>
@@ -99,10 +121,10 @@
                             >
                         </div>
                         <div class="perfil-form__acciones">
-                            <button type="reset" class="perfil-boton perfil-boton--secundario">
+                            <button type="reset" class="boton boton--secundario">
                                 Descartar cambios
                             </button>
-                            <button type="submit" class="perfil-boton">
+                            <button type="submit" class="boton boton--primario">
                                 Guardar cambios
                             </button>
                         </div>
