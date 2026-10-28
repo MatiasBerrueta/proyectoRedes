@@ -187,60 +187,6 @@ section {
 }
 
 .seccion-planes {
-  .contenedor-planes {
-    display: flex;
-    justify-content: center;
-    column-gap: 2rem;
-    color: var(--color-texto);
-
-    .plan {
-      border: 1px solid var(--color-borde);
-      background-color: var(--color-superficie);
-      border-radius: 5px;
-      padding: 2rem;
-      width: 100%;
-      text-align: start;
-
-      .plan-titulo {
-        margin-bottom: -16px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-size: var(--texto-base);
-        color: var(--color-texto-secundario);
-      }
-
-      .plan-precio {
-        color: var(--color-texto-secundario);
-      }
-
-      .plan-descripcion {
-        color: var(--color-texto-secundario);
-      }
-
-      svg {
-        width: 36px;
-        height: 36px;
-      }
-
-      ul {
-        margin: 1.5rem 0;
-        list-style: none;
-
-        li {
-          display: flex;
-          align-items: center;
-          column-gap: 0.25rem;
-
-          svg {
-            width: 1.5rem;
-            height: 1.5rem;
-            color: var(--azul-logo);
-          }
-        }
-      }
-    }
-  }
-
   .planes-adicionales {
     margin-top: 2rem;
     font-size: var(--texto-g);

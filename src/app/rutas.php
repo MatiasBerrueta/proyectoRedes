@@ -110,8 +110,8 @@ $router->post('/registro', function() use ($controladorUsuario) {
     $controladorUsuario->registrarUsuario();
 });
 
-$router->get('/planes', function() use ($controladorUsuario) {
-    require_once APP_ROOT . 'vistas/paginas/planes.php';
+$router->get('/planes', function() use ($controladorPagina) {
+    $controladorPagina->mostrarPlanes();
 });
 
 $router->get('/juegos', function() use ($controladorPagina) {

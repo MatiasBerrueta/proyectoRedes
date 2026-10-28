@@ -17,6 +17,12 @@ class ControladorPagina extends Controlador {
         // $this->renderizar('paginas/principal');
     }
 
+    public function mostrarPlanes() {
+        $planes = $this->repositorioPlan->obtenerPlanes();
+
+        $this->renderizar('paginas/planes', ['planes' => $planes]);
+    }
+
     public function mostrarJuegos() {
         $juegos = $this->repositorioJuego->obtenerJuegos();
 
