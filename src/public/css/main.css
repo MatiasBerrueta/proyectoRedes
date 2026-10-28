@@ -221,6 +221,17 @@ body {
   color: var(--color-texto);
 }
 
+dialog {
+  margin: auto;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.4);
+  max-height: calc(100vh - 2rem);
+}
+
+dialog::backdrop {
+  background-color: color-mix(in srgb, var(--color-fondo) 50%, transparent);
+  backdrop-filter: blur(1px);
+}
+
 .texto-xs {
   font-size: var(--texto-xs);
 }
@@ -290,4 +301,36 @@ body {
 }
 .w-full {
   width: 100%;
+}
+
+.contenedor-logo {
+  position: relative;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  column-gap: 0.75rem;
+
+  svg {
+    width: 40px;
+    height: 40px;
+    color: var(--azul-logo);
+  }
+}
+
+.contenedor-logo:hover::after {
+  opacity: 0.3;
+}
+
+.contenedor-logo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-blanco-puro);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nombre-logo {
+  font-size: var(--texto-xl);
+  font-family: "Nunito Sans", sans-serif;
 }

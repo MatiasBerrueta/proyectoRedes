@@ -109,48 +109,17 @@
 
         <section class="seccion-tickets">
             <div class="seccion-tickets__contenedor">
-                <div class="formulario-ticket">
-                    <h3>
-                        <?php include PUBLIC_ROOT . "assets/iconos/ticket.svg" ?>
-                        Abrir Nuevo Ticket
-                    </h3>
-                    <p>Escribe directamente a nuestros ingenieros técnicos para resolver incidencias complejas.</p>
-
-                    <form class="space-y-1">
-                        <div class="form-group">
-                            <label for="asunto">Asunto / Título</label>
-                            <input type="text" id="asunto" required placeholder="Ej: Problema al cargar Modpack Forge">
-                        </div>
-
-                        <div class="formulario-ticket__grid">
-                            <div class="form-group">
-                                <label for="categoria">Categoría</label>
-                                <select id="categoria">
-                                    <option>Soporte Técnico</option>
-                                    <option>Facturación</option>
-                                    <option>Configuración Especial</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="mensaje">Mensaje Detallado / Logs</label>
-                            <textarea class="textarea-mensaje-soporte" id="mensaje" rows="4" required placeholder="Describe tu problema o pega los errores del server.log..."></textarea>
-                        </div>
-
-                        <button type="submit" class="boton boton--primario boton--bloque">Enviar Ticket de Soporte</button>
-                    </form>
-                </div>
-                <div class="seccion-tickets__separador" aria-hidden="true"></div>
                 <div class="lista-tickets">
                     <div class="lista-tickets__header">
                         <h3>
                             <?php include PUBLIC_ROOT . "assets/iconos/list.svg" ?>
                             Tus Tickets <span class="lista-tickets__contador">(3)</span>
                         </h3>
-                        <div class="filtros-tickets" role="group" aria-label="Filtrar tickets">
-                            <button type="button" class="filtro-ticket filtro-ticket--activo" data-filtro="todos">Todos</button>
-                            <button type="button" class="filtro-ticket" data-filtro="activos">Activos</button>
-                            <button type="button" class="filtro-ticket" data-filtro="cerrados">Cerrados</button>
+                        <button type="button" class="boton boton--primario boton--s" commandfor="modal-ticket" command="show-modal">Nuevo ticket</button>
+                        <div class="segmento" role="group" aria-label="Filtrar tickets">
+                            <button type="button" class="segmento__item segmento__item--activo" data-filtro="todos">Todos</button>
+                            <button type="button" class="segmento__item" data-filtro="activos">Activos</button>
+                            <button type="button" class="segmento__item" data-filtro="cerrados">Cerrados</button>
                         </div>
                     </div>
 
@@ -217,7 +186,7 @@
                                     <span class="hilo-ticket__estado-dot"></span>
                                     TICKET #1042: Optimización de Bukkit
                                 </h4>
-                                <button>Cerrar Hilo</button>
+                                <button class="boton boton--fantasma boton--s">Cerrar Hilo</button>
                             </div>
                             <div class="hilo-ticket__mensajes">
                                 <div class="hilo-ticket__mensaje hilo-ticket__mensaje--usuario">
@@ -235,7 +204,7 @@
                             </div>
                             <div class="hilo-ticket__respuesta">
                                 <input type="text" placeholder="Escribir respuesta al técnico...">
-                                <button>Responder</button>
+                                <button class="boton boton--primario boton--s">Responder</button>
                             </div>
                         </div>
 
@@ -246,7 +215,7 @@
                                     <span class="hilo-ticket__estado-dot"></span>
                                     TICKET #1041: Instalación de plugins
                                 </h4>
-                                <button>Cerrar Hilo</button>
+                                <button class="boton boton--fantasma boton--s">Cerrar Hilo</button>
                             </div>
                             <div class="hilo-ticket__mensajes">
                                 <div class="hilo-ticket__mensaje hilo-ticket__mensaje--usuario">
@@ -266,8 +235,8 @@
                                     <div class="hilo-ticket__acciones">
                                         <p>Esto resolvio tu problema?</p>
                                         <div>
-                                            <button type="button" class="hilo-ticket__accion hilo-ticket__accion--resolver">Sí, resolver y cerrar</button>
-                                            <button type="button" class="hilo-ticket__accion hilo-ticket__accion--agente">No, continuar enviando ticket a un agente</button>
+                                            <button type="button" class="boton boton--s boton--exito">Sí, resolver y cerrar</button>
+                                            <button type="button" class="boton boton--s hilo-ticket__accion hilo-ticket__accion--agente">No, continuar enviando ticket a un agente</button>
                                         </div>
                                     </div>
                                 </div>
@@ -283,7 +252,7 @@
                             </div>
                             <div class="hilo-ticket__respuesta">
                                 <input type="text" placeholder="Escribir respuesta al técnico...">
-                                <button>Responder</button>
+                                <button class="boton boton--primario boton--s">Responder</button>
                             </div>
                         </div>
 
@@ -294,7 +263,7 @@
                                     <span class="hilo-ticket__estado-dot--cerrado"></span>
                                     TICKET #1039: Cambio de plan y reembolso
                                 </h4>
-                                <button>Reabrir Hilo</button>
+                                <button class="boton boton--fantasma boton--s">Reabrir Hilo</button>
                             </div>
                             <div class="hilo-ticket__banner hilo-ticket__banner--cerrado">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" /><path d="M8 11v-4a4 4 0 0 1 8 0v4" /></svg>
@@ -313,13 +282,49 @@
                             </div>
                             <div class="hilo-ticket__respuesta">
                                 <input type="text" placeholder="Escribir respuesta al técnico..." disabled>
-                                <button disabled>Responder</button>
+                                <button class="boton boton--primario boton--s" disabled>Responder</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+            <dialog class="modal-ticket" id="modal-ticket">
+                <button type="button" class="boton-cerrar" aria-label="Cerrar" commandfor="modal-ticket" command="close" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+                </button>
+                <div class="formulario-ticket">
+                    <h3 id="modal-ticket-titulo">
+                        <?php include PUBLIC_ROOT . "assets/iconos/ticket.svg" ?>
+                        Abrir Nuevo Ticket
+                    </h3>
+                    <p>Escribe directamente a nuestros ingenieros técnicos para resolver incidencias complejas.</p>
+
+                    <form class="space-y-1">
+                        <div class="form-group">
+                            <label for="asunto">Asunto / Título</label>
+                            <input type="text" id="asunto" required placeholder="Ej: Problema al cargar Modpack Forge">
+                        </div>
+
+                        <div class="formulario-ticket__grid">
+                            <div class="form-group">
+                                <label for="categoria">Categoría</label>
+                                <select id="categoria">
+                                    <option>Soporte Técnico</option>
+                                    <option>Facturación</option>
+                                    <option>Configuración Especial</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje Detallado / Logs</label>
+                            <textarea class="textarea-mensaje-soporte" id="mensaje" rows="4" required placeholder="Describe tu problema o pega los errores del server.log..."></textarea>
+                        </div>
+
+                        <button type="submit" class="boton boton--primario boton--bloque">Enviar Ticket de Soporte</button>
+                    </form>
+                </div>
+          </dialog>
     </main>
     <?php include_once APP_ROOT . 'vistas/componentes/footer.php'; ?>
     <script>
@@ -339,14 +344,14 @@
             });
         });
 
-        const filtrosTickets = document.querySelectorAll('.filtro-ticket');
+        const filtrosTickets = document.querySelectorAll('.segmento__item');
         const ticketItems = document.querySelectorAll('.ticket-item');
         const hilosTickets = document.querySelectorAll('.hilo-ticket');
         const estadoVacioTickets = document.querySelector('.estado-vacio');
         const contadorTickets = document.querySelector('.lista-tickets__contador');
 
         function filtrarTickets(filtroSeleccionado) {
-            filtrosTickets.forEach(f => f.classList.toggle('filtro-ticket--activo', f === filtroSeleccionado));
+            filtrosTickets.forEach(f => f.classList.toggle('segmento__item--activo', f === filtroSeleccionado));
             const estado = filtroSeleccionado.dataset.filtro;
 
             let visibles = 0;

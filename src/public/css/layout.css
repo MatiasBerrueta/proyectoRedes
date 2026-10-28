@@ -9,34 +9,6 @@ header {
   transition: background-color 250ms color 250ms;
   border-bottom: 1px solid var(--color-borde);
 
-  .contenedor-logo {
-    position: relative;
-
-    svg {
-      width: 40px;
-      height: 40px;
-      color: var(--azul-logo);
-    }
-  }
-
-  .contenedor-logo:hover::after {
-    opacity: 0.3;
-  }
-
-  .contenedor-logo::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: var(--color-blanco-puro);
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .nombre-logo {
-    font-size: var(--texto-xl);
-    font-family: "Nunito Sans", sans-serif;
-  }
-
   nav {
     display: flex;
     justify-content: space-between;
@@ -95,6 +67,10 @@ header {
       --color-chip: var(--color-violeta-500);
     }
 
+    .chip--rojo {
+      --color-chip: var(--color-rojo-400);
+    }
+
     .chip--solido {
       background-color: var(--color-chip, var(--azul-logo));
       color: var(--color-blanco);
@@ -117,55 +93,61 @@ header {
     }
   }
 
-  .menu-usuario {
-    position: relative;
+.separador {
+  display: block;
+  width: 100%;
+  height: 1px;
+  border: 0;
+  background-color: var(--color-borde);
+  margin: 0.25rem 0;
+}
 
-    .separador {
-      display: block;
-      width: 100%;
-      height: 1px;
-      border: 0;
-      background-color: var(--color-borde);
-      margin: 0.25rem 0;
-    }
+#boton-menu-usuario {
+  anchor-name: --dropdown-usuario;
+}
 
-    .menu-dropdown {
-      position: absolute;
-      flex-direction: column;
-      width: max-content;
-      top: calc(100% + 0.5rem);
-      right: 0;
-      background: var(--color-superficie);
-      border: 1px solid var(--color-borde);
-      border-radius: 5px;
-      padding: 0.5rem;
+.menu-dropdown {
+  width: 250px;
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: 5px;
+  padding: 0.5rem;
+  position-anchor: --dropdown-usuario;
+  position-area: bottom span-left;
+  overflow: hidden;
 
-      &:not([hidden]) {
-        display: flex;
-      }
 
-      a,
-      #boton-cambiar-tema {
-        display: flex;
-        align-items: center;
-        column-gap: 0.5rem;
-        background: none;
-        padding: 0.5rem;
-        border: none;
-        text-align: left;
-        color: inherit;
-        font-weight: bold;
-        font-size: var(--texto-s);
-        border-radius: 5px;
-        cursor: pointer;
-
-        &:hover {
-          background-color: color-mix(in srgb, var(--color-superficie) 93%, black);
-          text-decoration: none;
-        }
-      }
-    }
+  svg {
+    width: 1.15rem;
+    height: 1.15rem;
   }
+}
+
+.menu-dropdown:popover-open {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-dropdown__usuario-info {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+
+  .usuario-email {
+    font-weight: normal;
+    font-size: var(--texto-s);
+  }
+}
+
+.menu-dropdown__botones {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.25rem;
+
+  svg {
+    color: var(--color-texto-secundario);
+  }
+}
 }
 
 footer {

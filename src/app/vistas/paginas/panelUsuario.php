@@ -48,7 +48,7 @@
         <section class="seccion-servidores">
             <div class="contenedor-acciones">
                 <h2 class="texto-xl">Mis servidores</h2>
-                <button class="boton boton--primario" onclick="crearServidorModal.showModal()">
+                <button class="boton boton--primario" commandfor="crearServidorModal" command="show-modal">
                     <?php include PUBLIC_ROOT . 'assets/iconos/plus.svg'; ?>
                     Crear servidor
                 </button>
@@ -65,8 +65,6 @@
             </div>
         </section>
         <script>
-            // crearServidorModal.showModal();
-
             function inicializarServidor(servidor) {
                 const jugadores = parseFloat(servidor.dataset.jugadores);
                 const maxJugadores = parseFloat(servidor.dataset.maxJugadores);

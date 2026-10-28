@@ -21,30 +21,47 @@
                     <?php include PUBLIC_ROOT . 'assets/iconos/panel.svg' ?>
                     Mis Servidores
                 </a>
-                <div class="menu-usuario">
-                    <button id="boton-menu-usuario" class="chip chip--neutro" aria-expanded="false">
-                        <?= htmlspecialchars($_SESSION['usuario']['nombre']) ?>
-                        <?php include PUBLIC_ROOT . 'assets/iconos/chevron-down.svg' ?>
-                    </button>
-                    <div id="menu-dropdown" class="menu-dropdown" hidden>
-                        <a href="/cuenta">
+                  <button popovertarget="menu-dropdown" id="boton-menu-usuario" class="chip chip--neutro" aria-expanded="false">
+                      <?= htmlspecialchars($_SESSION['usuario']['nombre']) ?>
+                      <?php include PUBLIC_ROOT . 'assets/iconos/chevron-down.svg' ?>
+                  </button>
+                  <div popover id="menu-dropdown" class="menu-dropdown">
+                      <div class="menu-dropdown__usuario-info">
+                        <span>
+                          <?= htmlspecialchars($_SESSION['usuario']['nombre']) ?>
+                        </span>
+                        <span class="usuario-email">
+                          <?= htmlspecialchars($_SESSION['usuario']['email']) ?>
+                        </span>
+                      </div>
+                      <div class="separador"></div>
+                      <div class="menu-dropdown__botones">
+                        <a class="chip" href="/cuenta/perfil">
                             <?php include PUBLIC_ROOT . 'assets/iconos/configuracion.svg' ?>
-                            Mi cuenta
+                            Perfil
                         </a>
-                        <button id="boton-cambiar-tema">
+                        <a class="chip" href="/cuenta/facturacion">
+                            <?php include PUBLIC_ROOT . 'assets/iconos/credit-card.svg' ?>
+                            Facturacion
+                        </a>
+                        <a class="chip" href="/cuenta/tickets">
+                            <?php include PUBLIC_ROOT . 'assets/iconos/ticket.svg' ?>
+                            Tickets
+                        </a>
+                        <button class="chip" id="boton-cambiar-tema">
                             <?php include PUBLIC_ROOT . 'assets/iconos/sun.svg' ?>
                             Tema
                         </button>
-                        <div class="separador"></div>
-                        <a href="/logout">
-                            <?php include PUBLIC_ROOT . 'assets/iconos/logout.svg' ?>
-                            Cerrar sesion
-                        </a>
-                    </div>
-                </div>
+                      </div>
+                      <div class="separador"></div>
+                      <a class="chip chip--rojo" href="/logout">
+                          <?php include PUBLIC_ROOT . 'assets/iconos/logout.svg' ?>
+                          Cerrar sesion
+                      </a>
+                  </div>
             <?php else: ?>
                 <a class="chip chip--azul chip--solido" href="/registro">Crear cuenta</a>
-                <a href="/login">Iniciar sesión</a>
+                <a class="chip" href="/login">Iniciar sesión</a>
             <?php endif; ?>
         </div>
     </nav>

@@ -2,7 +2,7 @@
     <form action="">
         <div class="form-header">
             <h2 class="texto-xl">Crear servidor</h2>
-            <button type="button" class="boton-cerrar" onclick="crearServidorModal.close()" aria-label="Cerrar">
+            <button type="button" class="boton-cerrar" commandfor="crearServidorModal" command="close" aria-label="Cerrar">
                 <?php include PUBLIC_ROOT . 'assets/iconos/x.svg'; ?>
             </button>
         </div>
@@ -10,17 +10,17 @@
             <div>
                 <h3>General</h3>
                 <div class="form-seccion">
-                    <?php 
+                    <?php
                     renderizarInput([
                         'clave' => 'nombre',
                         'etiqueta' => 'Nombre',
                         'tipo' => 'text',
                         'default' => '',
-                    ]); 
+                    ]);
                     ?>
 
                     <div class="input-misma-linea">
-                        <?php 
+                        <?php
                         renderizarInput([
                             'clave' => 'juego',
                             'etiqueta' => 'Juego',
@@ -37,7 +37,7 @@
                         ]);
                         ?>
                     </div>
-                    <?php 
+                    <?php
                     renderizarInput([
                         'clave' => 'descripcion',
                         'etiqueta' => 'Descripcion',
