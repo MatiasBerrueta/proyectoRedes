@@ -16,16 +16,16 @@
     <title>Login - Voxel Hosting</title>
 </head>
 <body class="layout-auth">
-    <div class="auth-fondo">
-        <a href="/" class="logo">
-            <?php include PUBLIC_ROOT . "assets/iconos/logo.svg"; ?>
-            <h1>Voxel Hosting</h1>
-        </a>
+    <div class="auth-header">
+      <a class="contenedor-logo" href="/">
+          <?php include PUBLIC_ROOT . 'assets/iconos/logo.svg' ?>
+          <h1 class="nombre-logo">Voxel Hosting</h1>
+      </a>
     </div>
     <div class="auth-form">
         <div class="auth-titulo">
-            <h1>Empezá ahora</h1>
-            <p>Ingresá o creá tu cuenta en segundos.</p>
+            <h1>Iniciar sesion</h1>
+            <p>Empezá para administrar tus servidores.</p>
         </div>
         <div class="contenedor-otras-opciones">
             <button class="boton boton--secundario boton--bloque">
@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="auth-input-group">
-                <a class="contrasena-olvidada" href="/recuperarContrasena"><small class="texto-s">Olvide mi contrasena</small></a>
+                <a class="contrasena-olvidada" href="/recuperarContrasena"><small class="texto-s">Olvidaste tu contrasena?</small></a>
                 <label for="input-contrasena">Contraseña</label>
                 <div>
                     <?php include PUBLIC_ROOT . "assets/iconos/lock.svg"; ?>
@@ -70,10 +70,11 @@
                     </button>
                 </div>
             </div>
-            <button class="boton boton--primario boton--bloque" type="submit">Ingresar</button>
+            <button class="boton boton--primario boton--bloque" type="submit">Iniciar sesion</button>
             <?php if (!empty($datos["error"])): ?>
                 <p class="mensaje-input"><?= $datos["error"] ?> </p>
             <?php endif; ?>
+            <span class="link-registro">No tenes cuenta? <a href="/registro">Crear cuenta</a></span>
         </form>
     </div>
     <script>
