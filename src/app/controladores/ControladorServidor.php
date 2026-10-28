@@ -17,15 +17,14 @@ class ControladorServidor extends Controlador {
         $url = '/paginas/panelUsuario';
 
         $servidores = $this->servicioServidor->obtenerServidoresPterodactyl($_SESSION['usuario']['id']);
-        // $servidores = $this->obtenerServidores();
 
         $this->renderizar($url, ['servidores' => $servidores]);
     }
 
     private function resolverTab(string $idServidorPterodactyl, string $tabId, array $params) {
+        $this->requiereLogin();
         $idUsuario = $_SESSION['usuario']['id'];
 
-        // Obtenemos el servidor de forma segura (valida ownership e identifica el juego)
         $servidor = $this->servicioServidor->obtenerServidorPterodactyl($idServidorPterodactyl, $idUsuario);
         if (!$servidor) {
             throw new Exception("Servidor no encontrado o no autorizado.", 404);
@@ -42,7 +41,7 @@ class ControladorServidor extends Controlador {
 
             case 'archivos':
                 $archivos = $this->servicioJuego->obtenerArchivos($idServidorPterodactyl, $params['path'], $idUsuario);
-                return json_encode( 
+                return json_encode(
                     $archivos,
                     JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE
                 );

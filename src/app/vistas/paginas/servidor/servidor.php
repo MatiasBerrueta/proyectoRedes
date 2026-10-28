@@ -22,7 +22,7 @@ $tabActual = $tabActual ?? null;
     <script type="module" src="/js/servidor/cambiarTabs.js"></script>
     <script type="module" src="/js/servidor/servidorWebsocket.js"></script>
     <script src="/js/controladorTemas.js" defer></script>
-    <title>Servidor - Voxel Hosting</title>
+    <title><?= $servidor['nombre'] ?> - Voxel Hosting</title>
 </head>
 <body class="layout-panel">
     <?php include_once APP_ROOT . 'vistas/componentes/header.php'; ?>

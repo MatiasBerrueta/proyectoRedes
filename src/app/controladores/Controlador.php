@@ -3,7 +3,7 @@
 class Controlador {
     protected function renderizar(string $vista, $datos = []) {
         extract($datos);
-        include APP_ROOT . 'vistas/' . $vista . '.php';
+        require_once APP_ROOT . 'vistas/' . $vista . '.php';
     }
 
     protected function redirigir(string $url) {
