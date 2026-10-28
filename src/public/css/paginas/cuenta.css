@@ -1,0 +1,634 @@
+.perfil-container {
+  width: min(1000px, 92%);
+  margin: 3rem auto 5rem;
+}
+
+.perfil-cabecera {
+  margin-bottom: 0.75rem;
+}
+
+.perfil-nav {
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 1.25rem;
+  border-bottom: 1px solid var(--color-borde);
+
+  ul {
+    display: flex;
+    list-style: none;
+  }
+
+  li a {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-bottom: 3px solid transparent;
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--color-texto-secundario);
+
+    &:hover {
+      color: var(--color-texto);
+    }
+  }
+
+  li a.activo {
+    border-color: var(--azul-logo);
+    color: var(--azul-logo);
+
+    &:hover {
+      border-color: var(--azul-logo-claro);
+      color: var(--azul-logo-claro);
+    }
+  }
+}
+
+.perfil-cabecera h1 {
+  margin: 0 0 0.5rem;
+  color: var(--color-texto);
+  font-size: var(--texto-2xl);
+}
+
+.perfil-card {
+  width: 100%;
+  text-align: center;
+}
+
+.perfil-seccion {
+  margin-bottom: 2rem;
+}
+
+.perfil-seccion__header {
+  margin-bottom: 1rem;
+}
+
+.perfil-bloques {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 1px solid var(--color-borde);
+  overflow: hidden;
+}
+
+.perfil-seccion__titulo {
+  color: var(--color-texto);
+  font-size: var(--texto-g);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.perfil-seccion__titulo--peligro {
+  color: var(--color-rojo-400);
+}
+
+.perfil-bloque {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--color-borde);
+  background-color: var(--color-superficie);
+}
+
+.perfil-bloque:first-child {
+  border-top: none;
+}
+
+.perfil-bloque--columna {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.perfil-bloque--peligro {
+  border-color: var(--color-rojo-transparente);
+}
+
+.perfil-bloque__texto {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.perfil-bloque__titulo {
+  color: var(--color-texto);
+
+  font-size: var(--texto-base);
+  font-weight: 600;
+}
+
+.perfil-bloque__control {
+  flex-shrink: 0;
+}
+
+.perfil-identidad {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.perfil-identidad > svg {
+  height: 56px;
+  width: 56px;
+  color: var(--azul-logo);
+  background-color: var(--azul-transparente);
+  padding: 0.75rem;
+  border-radius: 5px;
+}
+
+.perfil-identidad__nombre {
+  color: var(--color-texto);
+
+  font-size: var(--texto-m);
+  font-weight: 700;
+}
+
+.perfil-identidad__miembro {
+  color: var(--color-texto-secundario);
+
+  font-size: var(--texto-s);
+}
+
+.perfil-identidad__miembro span {
+  color: var(--color-texto);
+
+  font-weight: 600;
+}
+
+.perfil-select {
+  min-width: 12rem;
+  margin-top: 0;
+}
+
+.perfil-logo {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--azul-logo);
+  border-radius: 15px;
+}
+
+.perfil-logo img {
+  width: 52px;
+  height: 52px;
+
+  object-fit: contain;
+}
+
+.perfil-card h1 {
+  margin: 0 0 1.5rem;
+
+  color: var(--color-texto);
+
+  font-size: var(--texto-xl);
+}
+
+.perfil-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.perfil-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: 100%;
+}
+
+.perfil-campo__label {
+  margin: 0;
+  color: var(--color-texto-secundario);
+  font-size: var(--texto-s);
+  font-weight: 600;
+}
+
+.perfil-campo input {
+  width: 100%;
+  margin-top: 0;
+}
+
+.perfil-campo__deshabilitado {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.perfil-campo__deshabilitado svg {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  color: var(--color-texto-secundario);
+  pointer-events: none;
+  left: calc(100% - 18px - 0.75rem);
+  top: calc(50% + 1px);
+  transform: translateY(-50%);
+}
+
+.perfil-campo__deshabilitado input {
+  padding-right: 2rem;
+  background-color: var(--color-superficie);
+  color: var(--color-texto-secundario);
+  border-style: dashed;
+  cursor: not-allowed;
+}
+
+.perfil-campo__nota {
+  color: var(--color-texto-secundario);
+
+  font-size: var(--texto-xs);
+  line-height: 1rem;
+}
+
+.perfil-form__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.perfil-form__acciones {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  margin-left: auto;
+}
+
+/* Facturación */
+
+.facturacion-plan {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+}
+
+.facturacion-plan__nombre {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.facturacion-plan__titulo {
+  color: var(--color-texto);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.facturacion-plan__precio {
+  text-align: right;
+}
+
+.facturacion-plan__monto {
+  color: var(--color-texto);
+  font-size: 1.375rem;
+  font-weight: 700;
+}
+
+.facturacion-plan__periodo {
+  color: var(--color-texto-secundario);
+  font-size: var(--texto-s);
+  font-weight: 500;
+}
+
+.facturacion-plan__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.facturacion-tarjeta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.facturacion-tarjeta__icono {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 30px;
+  border: 1px solid var(--color-borde);
+  border-radius: 5px;
+  background-color: var(--color-superficie-2);
+  color: var(--color-texto-secundario);
+}
+
+.facturacion-tarjeta__icono svg {
+  width: 20px;
+  height: 20px;
+}
+
+.facturacion-tarjeta__acciones {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.facturacion-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 1.375rem;
+  padding: 0 0.5625rem;
+  border-radius: 999px;
+  color: var(--color-texto);
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.facturacion-badge--ok {
+  background-color: color-mix(in srgb, var(--color-verde-600) 15%, transparent);
+  color: var(--color-verde-600);
+}
+
+.facturacion-badge--warn {
+  background-color: color-mix(in srgb, var(--color-naranja-600) 16%, transparent);
+  color: var(--color-naranja-600);
+}
+
+.facturacion-badge--mute {
+  background-color: color-mix(in srgb, var(--color-texto) 6%, transparent);
+  color: var(--color-texto-secundario);
+}
+
+.facturacion-facturas {
+  overflow-x: auto;
+}
+
+.facturacion-fila {
+  display: grid;
+  grid-template-columns: 110px minmax(200px, 1fr) 100px 110px 44px;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 600px;
+  padding: 0.8125rem 1.25rem;
+  border-top: 1px solid var(--color-borde);
+  color: var(--color-texto);
+  font-size: var(--texto-base);
+
+  &:not(.facturacion-fila--encabezado):hover {
+    background-color: var(--color-superficie-hover);
+  }
+}
+
+.facturacion-fila--encabezado {
+  border-top: none;
+  color: var(--color-texto-secundario);
+  background-color: var(--color-superficie);
+  font-weight: bold;
+}
+
+.facturacion-fila__fecha {
+  color: var(--color-texto-secundario);
+  font-variant-numeric: tabular-nums;
+}
+
+.facturacion-fila__concepto {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.facturacion-fila__importe {
+  font-variant-numeric: tabular-nums;
+}
+
+.facturacion-descargar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-left: auto;
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+  color: var(--color-texto-secundario);
+  cursor: pointer;
+}
+
+.facturacion-descargar:hover {
+  background-color: var(--color-superficie-2);
+  color: var(--color-texto);
+}
+
+.facturacion-descargar svg {
+  width: 17px;
+  height: 17px;
+}
+
+.perfil-mensaje,
+.perfil-error {
+  font-size: var(--texto-s);
+}
+
+.perfil-mensaje {
+  color: var(--color-verde-600);
+}
+
+.perfil-error {
+  color: var(--color-rojo-600);
+}
+
+.facturacion-modal {
+  width: 100%;
+  max-width: 28rem;
+  padding: 0;
+  overflow-y: auto;
+  border-radius: 5px;
+  border: 1px solid var(--color-borde);
+  background-color: var(--color-superficie);
+  color: var(--color-texto);
+}
+
+.facturacion-modal--peligro {
+  border-color: color-mix(in srgb, var(--color-rojo-600) 40%, transparent);
+}
+
+.facturacion-modal__cabecera {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--color-borde);
+  background-color: var(--color-superficie-2);
+}
+
+.facturacion-modal__cabecera h3 {
+  margin: 0;
+  color: var(--color-texto);
+  font-size: var(--texto-m);
+  font-weight: 700;
+}
+
+.facturacion-modal__subtitulo {
+  margin: 0.375rem 0 0;
+  color: var(--color-texto-secundario);
+  font-size: var(--texto-s);
+  line-height: 1.5;
+}
+
+.facturacion-modal__cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.facturacion-modal__nota {
+  margin: 0;
+  color: var(--color-texto-secundario);
+  font-size: var(--texto-s);
+  line-height: 1.5;
+}
+
+.facturacion-modal__pie {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.625rem;
+  margin-top: 0.25rem;
+}
+
+/* Opciones de plan (radio cards) */
+
+.facturacion-opciones {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.facturacion-opcion {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1rem;
+  box-sizing: border-box;
+  border: 1px solid var(--color-borde);
+  border-radius: 5px;
+  background-color: transparent;
+  color: var(--color-texto);
+  cursor: pointer;
+}
+
+.facturacion-opcion:hover {
+  background-color: var(--color-superficie-2);
+}
+
+.facturacion-opcion:has(input:checked) {
+  border-color: var(--azul-logo);
+  background-color: var(--azul-transparente);
+}
+
+.facturacion-opcion input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.facturacion-opcion__punto {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-borde);
+  border-radius: 50%;
+}
+
+.facturacion-opcion__punto::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--azul-logo);
+  opacity: 0;
+}
+
+.facturacion-opcion:has(input:checked) .facturacion-opcion__punto,
+.facturacion-opcion:has(input:focus-visible) .facturacion-opcion__punto {
+  border-color: var(--azul-logo);
+}
+
+.facturacion-opcion:has(input:checked) .facturacion-opcion__punto::after {
+  opacity: 1;
+}
+
+.facturacion-opcion__contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1875rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.facturacion-opcion__nombre {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  color: var(--color-texto);
+  font-size: var(--texto-base);
+  font-weight: 700;
+}
+
+.facturacion-opcion__desc {
+  color: var(--color-texto-secundario);
+  font-size: var(--texto-s);
+}
+
+.facturacion-opcion__precio {
+  color: var(--color-texto);
+  font-size: var(--texto-m);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Cambiar suscripción */
+
+.facturacion-consecuencias {
+  margin: 0;
+  padding: 0 0 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--color-texto);
+  font-size: var(--texto-base);
+  line-height: 1.5;
+}
+
+/* Dos campos en fila (vencimiento y CVC) */
+
+.facturacion-dos-campos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.facturacion-dos-campos .perfil-campo {
+  flex: 1 1 140px;
+}
+
+.facturacion-dos-campos .perfil-campo input {
+  box-sizing: border-box;
+}

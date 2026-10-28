@@ -31,7 +31,7 @@ $pterodactylCliente = new pterodactylClientApi();
 
 require_once APP_ROOT . 'comandos/comandos.php';
 $comandos = new SincronizarJuegos($pterodactylApp, $database->getConexion());
-// $comandos->sincronizarJuegos(); 
+// $comandos->sincronizarJuegos();
 
 $repositorioUsuario = new RepositorioUsuario($database->getConexion());
 $repositorioServidor = new RepositorioServidor($database->getConexion());
@@ -157,53 +157,11 @@ $router->get('/servidores/([a-zA-Z0-9]+)/([a-zA-Z]+)', function($idServidor, $ta
 // ------------------
 
 $router->get('/cuenta', function() use ($controladorUsuario) {
-    $controladorUsuario->mostrarPerfil();
+    $controladorUsuario->mostrarCuenta('perfil');
 });
 
-$router->post('/perfil', function() use ($controladorUsuario) {
-    $controladorUsuario->actualizarPerfil();
-    header('Location: /cuenta');
-});
-
-// ------------------
-// Tickets soporte sin funcionalidad todavia
-// ------------------
-
-// Tickets de soporte
-$router->get('/tickets', function() {
-    // TODO: mostrar listado de tickets del usuario
-    echo '<h1>Mis Tickets</h1><p>Próximamente</p>';
-});
-
-$router->get('/tickets/crear', function() {
-    // TODO: formulario para crear un nuevo ticket
-    echo '<h1>Nuevo Ticket</h1><p>Próximamente</p>';
-});
-
-$router->post('/tickets/crear', function() {
-    // TODO: guardar nuevo ticket y redirigir
-    header('Location: /tickets');
-});
-
-$router->get('/tickets/([0-9]+)', function($idTicket) {
-    // TODO: mostrar detalle del ticket con sus mensajes
-    echo "<h1>Ticket #$idTicket</h1><p>Próximamente</p>";
-});
-
-$router->post('/tickets/([0-9]+)/responder', function($idTicket) {
-    // TODO: agregar mensaje al ticket
-    header("Location: /tickets/$idTicket");
-});
-
-// Facturación
-$router->get('/facturas', function() {
-    // TODO: listar facturas del usuario
-    echo '<h1>Mis Facturas</h1><p>Próximamente</p>';
-});
-
-$router->get('/facturas/([0-9]+)', function($idFactura) {
-    // TODO: mostrar detalle de factura
-    echo "<h1>Factura #$idFactura</h1><p>Próximamente</p>";
+$router->get('/cuenta/([a-zA-Z]+)', function($tab) use ($controladorUsuario) {
+    $controladorUsuario->mostrarCuenta($tab);
 });
 
 // Panel de administración
@@ -274,7 +232,7 @@ $router->get('api/servidores/([a-zA-Z0-9]+)/archivos', function($idServidor) use
     $logger->info("Datos Rutas: " . $archivos);
 
     header('Content-Type: application/json');
-    echo json_encode( 
+    echo json_encode(
             $archivos,
             JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE
         );
@@ -282,6 +240,10 @@ $router->get('api/servidores/([a-zA-Z0-9]+)/archivos', function($idServidor) use
 
 $router->get('/api/servidores/([a-zA-Z0-9]+)/tabs/([a-zA-Z]+)', function($idServidor, $tabNombre) use ($controladorServidor) {
     $controladorServidor->obtenerTabPanel($idServidor, $tabNombre);
+});
+
+$router->post('api/perfil', function() use ($controladorUsuario) {
+    $controladorUsuario->actualizarPerfil();
 });
 
 // ------------------

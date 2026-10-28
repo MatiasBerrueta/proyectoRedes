@@ -109,6 +109,7 @@ class ControladorUsuario extends Controlador {
     }
 
     public function cerrarSesion() {
+        $this->requiereLogin();
 
         session_unset();
         session_destroy();
@@ -116,8 +117,11 @@ class ControladorUsuario extends Controlador {
         $this->redirigir('/');
     }
 
-    public function mostrarPerfil($datos = []) {
+    public function mostrarCuenta(string $tabActual, $datos = []) {
         $this->requiereLogin();
+
+        $tabsValidos = ['perfil', 'facturacion', 'tickets'];
+        $tabActual = in_array($tabActual, $tabsValidos, true) ? $tabActual : 'perfil';
 
         $idUsuario = $_SESSION['usuario']['id'];
 
@@ -129,7 +133,10 @@ class ControladorUsuario extends Controlador {
 
         $datos['usuario'] = $usuario;
 
-        $this->renderizar('paginas/vistaPerfil', $datos);
+        $this->renderizar('paginas/cuenta/cuenta', [
+          'tabActual' => $tabActual,
+          'datos' => $datos
+        ]);
     }
 
     public function actualizarPerfil() {
@@ -143,30 +150,27 @@ class ControladorUsuario extends Controlador {
 
         if (
             empty($nombre) ||
-            empty($email) ||
-            !Validar::mail($email)
+
+            empty($pais)
         ) {
-            $this->mostrarPerfil([
-                'error' => 'Completá correctamente los campos obligatorios.'
-            ]);
+            $_SESSION['mensaje'] = "Completa los campos correctamente.";
+            $this->redirigir('/cuenta/perfil');
             return;
         }
 
         $resultado = $this->servicioUsuario->modificarUsuario($idUsuario, $nombre, $pais);
 
         if (is_null($resultado) || !$resultado) {
-            $this->mostrarPerfil([
-                'error' => 'No se pudo actualizar el perfil.'
-            ]);
+            $_SESSION['mensaje'] = "No se pudo actualizar el perfil.";
+            $this->redirigir('/cuenta/perfil');
             return;
         }
 
         $_SESSION['usuario']['nombre'] = $nombre;
         // $_SESSION['usuario']['email'] = $email;
 
-        $this->mostrarPerfil([
-            'mensaje' => 'Perfil actualizado correctamente.'
-        ]);
+        $_SESSION['mensaje'] = "Perfil actualizado correctamente.";
+        $this->redirigir('/cuenta/perfil');
     }
 
     public function recuperarContrasena() {
