@@ -73,7 +73,7 @@ tabs.forEach((tab) => {
 
 window.addEventListener("popstate", (event) => {
   if (event.state) {
-    cambiarTab(event.state.servidor.identifier, event.state.tab);
+    cambiarTab(event.state.servidorId, event.state.tab);
   }
 });
 

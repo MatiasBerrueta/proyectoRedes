@@ -62,7 +62,7 @@ class ControladorServidor extends Controlador {
 
         $tabActualId = isset($tabsPorId[$tabId]) ? $tabId : 'consola';
 
-        $datosTab = $this->resolverTab($idServidorPterodactyl, $tabActualId, ['path' => $_GET['path'] ?? '/']);
+        $datosTab = $this->resolverTab($idServidorPterodactyl, $tabActualId, ['path' => $_GET['path'] ?? '']);
 
         $this->renderizar('paginas/servidor/servidor', [
             'servidor'  => $servidor,
@@ -76,7 +76,7 @@ class ControladorServidor extends Controlador {
         $this->requiereLogin();
 
         $params = [
-            'path' => $_GET['path'] ?? '/'
+            'path' => $_GET['path'] ?? ''
         ];
 
         $logger = ServicioLogger::obtenerLogger();
