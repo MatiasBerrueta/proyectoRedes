@@ -64,14 +64,14 @@
 }
 
 .boton--peligro {
-  color: var(--color-blanco-puro);
-  background: var(--color-rojo-600);
-  border-color: var(--color-rojo-600);
+  color: var(--color-fondo);
+  background: var(--color-rojo-500);
+  border-color: var(--color-rojo-500);
 
   &:hover,
   &:focus-visible {
-    background-color: var(--color-rojo-500);
-    border-color: var(--color-rojo-500);
+    background-color: var(--color-rojo-400);
+    border-color: var(--color-rojo-400);
   }
 }
 
@@ -172,7 +172,6 @@
     background: none;
     border: none;
     border-radius: 3px;
-    font-size: var(--texto-s);
     font-weight: 600;
     color: var(--color-texto-secundario);
     cursor: pointer;
@@ -253,7 +252,7 @@ select {
   padding: 0.5rem 0.75rem;
   color: var(--color-texto);
   border-radius: 5px;
-  background-color: var(--color-superficie);
+  background-color: var(--color-superficie-3);
   border: 1px solid var(--color-borde);
 
   &:hover {
@@ -294,7 +293,7 @@ input[type="checkbox"]:checked + .slider::before {
   width: calc(1.75rem + 10px);
   border-radius: 3px;
   transition: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
-  background-color: var(--color-superficie);
+  background-color: var(--color-superficie-3);
   outline: 1px solid var(--color-borde);
 }
 

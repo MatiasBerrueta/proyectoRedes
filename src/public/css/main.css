@@ -59,6 +59,7 @@
 
   --color-superficie: hsl(225, 35%, 97%);
   --color-superficie-2: hsl(225, 35%, 95%);
+  --color-superficie-3: hsl(225, 45%, 90%);
   --color-superficie-hover: hsl(225, 35%, 92%);
 
   --color-header: hsla(225, 40%, 99%, 0.8);
@@ -94,10 +95,10 @@
   --color-amarillo-500: hsl(44, 100%, 47%);
   --color-amarillo-600: hsl(39, 100%, 41%);
   --color-amarillo-900: hsl(35, 100%, 15%);
-  --color-verde-400: hsl(144, 100%, 45%);
-  --color-verde-500: hsl(144, 100%, 39%);
-  --color-verde-600: hsl(142, 100%, 33%);
-  --color-verde-900: hsl(142, 100%, 13%);
+  --color-verde-400: hsl(150, 100%, 60%);
+  --color-verde-500: hsl(150, 100%, 55%);
+  --color-verde-600: hsl(150, 100%, 40%);
+  --color-verde-900: hsl(150, 100%, 16%);
   --color-azul-400: hsl(212, 100%, 66%);
   --color-azul-500: hsl(216, 100%, 58%);
   --color-azul-600: hsl(221, 97%, 53%);
@@ -135,7 +136,8 @@
   --texto-g: 1.25rem; /* 20px */
   --texto-xl: 1.5rem; /* 24px */
   --texto-2xl: 2rem; /* 32px */
-  --texto-3xl: 4rem; /* 64px */
+  --texto-3xl: 3rem; /* 48px */
+  --texto-4xl: 4rem; /* 64px */
 }
 
 :root.tema-oscuro {
@@ -157,6 +159,7 @@
 
   --color-superficie: hsl(221, 15%, 12%);
   --color-superficie-2: hsl(221, 15%, 11%);
+  --color-superficie-3: hsl(221, 23%, 9%);
   --color-superficie-hover: hsl(221, 15%, 15%);
 
   --svg-trazo-1: var(--gris-500);
@@ -168,9 +171,9 @@
   :root.tema-oscuro {
     --azul-logo: hsl(225, 75%, 65%);
     --azul-logo-oscuro: hsl(225, 40%, 75%);
-    --azul-logo-claro: hsl(225, 79%, 70%);
+    --azul-logo-claro: hsl(225, 85%, 78%);
     --azul-transparente: hsla(225, 38%, 44%, 0.25);
-    --color-fondo: hsl(221, 17%, 10%);
+    --color-fondo: hsl(221, 17%, 9%);
 
     --color-texto: hsl(221, 20%, 90%);
     --color-texto-secundario: hsl(221, 14%, 60%);
@@ -182,8 +185,9 @@
     /*--color-blanco: hsl(221, 15%, 14%);
     --color-blanco-puro: hsl(221, 15%, 18%);*/
 
-    --color-superficie: hsl(221, 17%, 12%);
-    --color-superficie-2: hsl(221, 18%, 11%);
+    --color-superficie: hsl(221, 17%, 11%);
+    --color-superficie-2: hsl(221, 18%, 10%);
+    --color-superficie-3: hsl(221, 23%, 9%);
     --color-superficie-hover: hsl(221, 17%, 15%);
 
     --svg-trazo-1: var(--gris-500);
