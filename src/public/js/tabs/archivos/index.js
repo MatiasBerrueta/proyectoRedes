@@ -1,10 +1,6 @@
 import { html, render } from "./preact.js";
 import { App } from "./App.js";
 
-// Punto de entrada del tab de archivos.
-// `init` lo invoca cambiarTabs.js al cargar/refrescar el tab y `destroy`
-// desmonta el arbol de Preact antes de reemplazar el contenido.
-
 let contenedorActual = null;
 
 function leerDatos() {
