@@ -226,10 +226,7 @@ $router->get('api/servidores/([a-zA-Z0-9]+)/archivos', function($idServidor) use
     $path = $_GET['path'] ?? '/';
     //
 
-
     $archivos = $servicioJuego->obtenerArchivos($idServidor, $path, $idUsuario);
-    $logger = ServicioLogger::obtenerLogger();
-    $logger->info("Datos Rutas: " . $archivos);
 
     header('Content-Type: application/json');
     echo json_encode(
@@ -237,6 +234,38 @@ $router->get('api/servidores/([a-zA-Z0-9]+)/archivos', function($idServidor) use
             JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE
         );
 });
+
+$router->post('api/servidores/([a-zA-Z0-9]+)/archivos/eliminar', function($idServidor) use ($servicioJuego) {
+    // temporal, eliminar despues
+    $idUsuario = $_SESSION['usuario']['id'];
+
+    $inputJSON = file_get_contents('php://input');
+    $data = json_decode($inputJSON, true);
+
+    $ruta = $data['ruta'] ?? '/';
+    $archivos = $data['archivos'] ?? '';
+    //
+
+    $servicioJuego->eliminarArchivos($idServidor, $idUsuario, $ruta, $archivos);
+});
+
+$router->post('api/servidores/([a-zA-Z0-9]+)/archivos/crearDirectorio', function($idServidor) use ($servicioJuego) {
+    header('Content-Type: application/json');
+    // temporal, eliminar despues
+    $idUsuario = $_SESSION['usuario']['id'];
+    $inputJSON = file_get_contents('php://input');
+
+    $inputJSON = file_get_contents('php://input');
+    $data = json_decode($inputJSON, true);
+
+    $ruta = $data['ruta'] ?? '/';
+    $nombre = $data['nombre'] ?? '';
+    //
+
+    $servicioJuego->crearDirectorio($idServidor, $idUsuario, $ruta, $nombre);
+});
+
+
 
 $router->get('/api/servidores/([a-zA-Z0-9]+)/tabs/([a-zA-Z]+)', function($idServidor, $tabNombre) use ($controladorServidor) {
     $controladorServidor->obtenerTabPanel($idServidor, $tabNombre);

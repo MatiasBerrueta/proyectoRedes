@@ -46,7 +46,7 @@ class ServicioJuego {
 
     public function obtenerArchivos(string $idServidorPterodactyl, string $path, int $idUsuario) {
         $clientKey = $this->repositorio->obtenerClientKey($idUsuario);
-        $pathSeparado = !empty($path) ? explode('/', $path) : []; 
+        $pathSeparado = $path !== '' ? explode('/', $path) : [];
 
         $basename = basename($path);
         $extension = pathinfo($path, PATHINFO_EXTENSION);
@@ -54,7 +54,7 @@ class ServicioJuego {
         // Un path está vacío o es la raíz '/'
         $esRaiz = empty($path) || $path === '/';
 
-        // Consideramos archivo si tiene una extensión (ej: .txt, .js) 
+        // Consideramos archivo si tiene una extensión (ej: .txt, .js)
         // O si es un archivo oculto sin extensión clásica pero que sabemos que es archivo (ej: .env)
         $esArchivo = !empty($extension) || ($basename === '.env');
 
@@ -108,7 +108,18 @@ class ServicioJuego {
 
         return $datos;
     }
-    
+
+    public function eliminarArchivos(string $idServidorPterodactyl, int $idUsuario, string $ruta, array $archivos) {
+        $clientKey = $this->repositorio->obtenerClientKey($idUsuario);
+
+        $this->pterodactyl->eliminarArchivos($idServidorPterodactyl, $clientKey, $ruta, $archivos);
+    }
+
+    public function crearDirectorio(string $idServidorPterodactyl, int $idUsuario, string $ruta, string $nombre) {
+        $clientKey = $this->repositorio->obtenerClientKey($idUsuario);
+
+        $this->pterodactyl->crearDirectorio($idServidorPterodactyl, $clientKey, $ruta, $nombre);
+    }
 
     public function handleLog() {
         return [];
@@ -164,14 +175,14 @@ class ServicioJuego {
 
     public function obtenerConfiguracion(string $servidorId, int $idUsuario, string $juego) {
         $gameConfig = $this->obtenerConfiguracionJuego(strtolower($juego));
-        
+
         $settings = $gameConfig['ui']['settings'] ?? [];
-        
+
         $rutaArchivo = $gameConfig['config']['file'];
         $configuraciones = $this->obtenerArchivoContenido($servidorId, $rutaArchivo, $idUsuario);
-    
+
         $parsed = $this->parseProperties($configuraciones);
-        
+
         $result = $this->mapSettings($settings, $parsed);
 
         return $result;

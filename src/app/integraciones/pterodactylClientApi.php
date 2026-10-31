@@ -3,7 +3,7 @@
 class pterodactylClientApi {
     private function request(string $endpoint, string $clientKey, string $method = 'GET', $data = null, array $headers = [], string $contentType = 'text/plain') {
         $logger = ServicioLogger::obtenerLogger();
-        
+
         $url = "http://172.17.0.1/api/client" . $endpoint;
         $logger->info('Request iniciado', [
             'method' => $method,
@@ -93,7 +93,7 @@ class pterodactylClientApi {
         $servidor = json_decode($this->request('/servers/' . $id, $clientKey), true);
         $recursos = $this->obtenerRecursosServidor($id, $clientKey);
         $ultimoLog = $this->obtenerLogs($id, $clientKey);
-        
+
         return [
             'identifier' => $servidor['attributes']['identifier'],
             'nombre' => $servidor['attributes']['name'],
@@ -122,20 +122,30 @@ class pterodactylClientApi {
     // Devuelve una lista de los archivos y directorios que hay en la ruta especificada
     public function obtenerDirectorios(string $idServidor, string $rutaDirectorio, string $clientKey) {
         $url = "/servers/{$idServidor}/files/list?" . http_build_query(['directory' => $rutaDirectorio]);
-        
+
         $respuesta = $this->request($url, $clientKey);
 
-        $logger = ServicioLogger::obtenerLogger();
-        $logger->info($respuesta);
-        
         return json_decode($respuesta, true);
     }
 
     // Devuelve el contenido del archivo en la ruta especificada
     public function leerArchivo(string $idServidor, string $rutaArchivo, string $clientKey) {
         $url = "/servers/{$idServidor}/files/contents?" . http_build_query(['file' => $rutaArchivo]);
-        
+
         return $this->request($url, $clientKey);
+    }
+
+    // @param string[] $archivos
+    public function eliminarArchivos(string $idServidor, string $clientKey, string $path, array $archivos): void {
+        $url = "/servers/{$idServidor}/files/delete";
+        $datos = [
+            "root" => $path,
+            "files" => $archivos,
+        ];
+
+        $body = json_encode($datos);
+
+        $this->request($url, $clientKey, 'POST', $body, [], 'application/json');
     }
 
     public function escribirArchivo(string $idServidor, string $rutaArchivo, string $contenido, string $clientKey) {
@@ -143,6 +153,18 @@ class pterodactylClientApi {
 
         $response = $this->request($url, $clientKey, 'POST', $contenido);
         return json_decode($response, true);
+    }
+
+    public function crearDirectorio(string $idServidor, string $clientKey, string $ruta, string $nombre) {
+        $url = "/servers/{$idServidor}/files/create-folder";
+        $datos = [
+            "root" => $ruta,
+            "name" => $nombre,
+        ];
+
+        $body = json_encode($datos);
+
+        $this->request($url, $clientKey, 'POST', $body, [], 'application/json');
     }
 
     public function subirArchivo(string $idServidor, string $rutaDirectorio, string $rutaArchivo, string $clientKey) {
@@ -164,7 +186,7 @@ class pterodactylClientApi {
         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
         curl_close($curl);
-        
+
         return [
             'success' => ($httpCode === 200 || $httpCode === 204),
             'httpCode' => $httpCode,
@@ -174,16 +196,9 @@ class pterodactylClientApi {
 
     public function subirArchivoDesdeUrl(string $idServidor, string $urlArchivo, string $rutaDirectorio, string $clientKey, ?string $nombreArchivo = null) {
         $logger = ServicioLogger::obtenerLogger();
-        
-        $logger->info('Subir archivo desde URL', [
-            'server_id' => $idServidor,
-            'url' => $urlArchivo,
-            'directory' => $rutaDirectorio,
-            'filename' => $nombreArchivo
-        ]);
-        
+
         $endpoint = "/servers/{$idServidor}/files/pull";
-        
+
         $payload = [
             'url' => $urlArchivo,
             'directory' => $rutaDirectorio,
@@ -194,7 +209,7 @@ class pterodactylClientApi {
         }
 
         $response = $this->request($endpoint, $clientKey, 'POST', json_encode($payload), [], 'application/json');
-        
+
         if (empty($response)) {
             $logger->info('Archivo subido correctamente', [
                 'server_id' => $idServidor,
@@ -202,9 +217,9 @@ class pterodactylClientApi {
             ]);
             return ['success' => true, 'message' => 'Archivo descargado correctamente'];
         }
-        
+
         $decoded = json_decode($response, true);
-        
+
         if (json_last_error() !== JSON_ERROR_NONE) {
             $logger->error('Respuesta inválida al subir archivo', [
                 'server_id' => $idServidor,
@@ -212,7 +227,7 @@ class pterodactylClientApi {
             ]);
             return ['success' => false, 'error' => 'Respuesta inválida del servidor', 'raw' => $response];
         }
-        
+
         return $decoded;
     }
 }
