@@ -11,6 +11,13 @@ class ServicioJuego {
         $this->pterodactyl = $pterodactyl;
     }
 
+    public function obtenerWebSocket(string $idServidor, int $idUsuario): array {
+        $clientKey = $this->repositorio->obtenerClientKey($_SESSION['usuario']['id']);
+        $websocket = $this->pterodactyl->obtenerWebSocket($idServidor, $clientKey);
+
+        return $websocket;
+    }
+
     public function obtenerConfiguracionJuego($game) {
         $path = APP_ROOT . "/juegos/$game.json";
 
@@ -85,7 +92,6 @@ class ServicioJuego {
 
                 $archivos[] = [
                     'nombre'          => $nombre,
-                    'tipo'            => $itemEsArchivo ? 'archivo' : 'directorio',
                     'esArchivo'       => $itemEsArchivo,
                     'path'            => $itemPath,
                     'tamano'          => $tamano,
@@ -119,6 +125,16 @@ class ServicioJuego {
         $clientKey = $this->repositorio->obtenerClientKey($idUsuario);
 
         $this->pterodactyl->crearDirectorio($idServidorPterodactyl, $clientKey, $ruta, $nombre);
+    }
+
+    public function servidorTieneArchivo(string $idServidorPterodactyl, string $clientKey, string $ruta, string $nombre) {
+        $archivos = $this->obtenerDirectorios($idServidorPterodactyl, $ruta, $clientKey);
+
+        foreach($archivos as $archivo) {
+            if($archivo['is_file'] && $archivo['name'] === $nombre) return true;
+        }
+
+        return false;
     }
 
     public function handleLog() {

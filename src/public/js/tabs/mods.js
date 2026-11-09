@@ -84,10 +84,9 @@ async function instalar(slug, nombre) {
   const serverId = pathParts[pathParts.length - 2];
 
   const formData = new URLSearchParams();
-  formData.append("servidor_id", serverId);
   formData.append("mod_url", modUrl);
 
-  const res = await fetch("/api/servidor/subirMod", {
+  const res = await fetch(`/api/servidores/${serverId}/subirMod`, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: formData,

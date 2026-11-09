@@ -27,9 +27,12 @@ class pterodactylClientApi {
 
         if ($method === 'POST') {
             curl_setopt($curl, CURLOPT_POST, true);
-            if ($data !== null) {
-                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-            }
+        } elseif ($method === 'PUT') {
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');
+        }
+
+        if ($data !== null && in_array($method, ['POST', 'PUT', 'PATCH'])) {
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         }
 
         $response = curl_exec($curl);
@@ -148,11 +151,20 @@ class pterodactylClientApi {
         $this->request($url, $clientKey, 'POST', $body, [], 'application/json');
     }
 
-    public function escribirArchivo(string $idServidor, string $rutaArchivo, string $contenido, string $clientKey) {
+    // Modifica un archivo existente o crea uno nuevo si no existe
+    public function escribirArchivo(string $idServidor, string $clientKey, string $rutaArchivo, string $contenido = "") {
         $url = "/servers/{$idServidor}/files/write?" . http_build_query(['file' => $rutaArchivo]);
 
         $response = $this->request($url, $clientKey, 'POST', $contenido);
         return json_decode($response, true);
+    }
+
+    public function descargarArchivo(string $idServidor, string $clientKey, string $rutaArchivo) {
+        $url = "/servers/{$idServidor}/files/download?" . http_build_query(['file' => $rutaArchivo]);
+
+        $response = $this->request($url, $clientKey);
+        $data = json_decode($response, true);
+        return $data['attributes']['url'] ?? null;
     }
 
     public function crearDirectorio(string $idServidor, string $clientKey, string $ruta, string $nombre) {
@@ -167,30 +179,53 @@ class pterodactylClientApi {
         $this->request($url, $clientKey, 'POST', $body, [], 'application/json');
     }
 
-    public function subirArchivo(string $idServidor, string $rutaDirectorio, string $rutaArchivo, string $clientKey) {
+    public function subirArchivo(string $idServidor, string $rutaDirectorio, string $rutaArchivo, string $clientKey, ?string $nombreArchivo = null) {
         $url = "/servers/{$idServidor}/files/upload?" . http_build_query(['directory' => $rutaDirectorio]);
-        $respuesta = json_decode($this->request($url, $clientKey));
 
-        $urlFirmada = $respuesta['attributes']['url'];
+        $respuesta = json_decode($this->request($url, $clientKey), true);
+        $urlFirmada = $respuesta['attributes']['url'] ?? null;
 
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $urlFirmada);
+        if (!$urlFirmada) {
+            return [
+                'success' => false,
+                'error' => 'No se pudo obtener la URL firmada para subir el archivo.',
+            ];
+        }
+
+        $nombre = $nombreArchivo ?? basename($rutaArchivo);
+        $tipoMime = function_exists('mime_content_type')
+            ? (mime_content_type($rutaArchivo) ?: 'application/octet-stream')
+            : 'application/octet-stream';
+
+        $curl = curl_init($urlFirmada);
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, [
-            'files' => new CURLFile($rutaArchivo),
-            'directory' => $rutaDirectorio
+            'files' => new CURLFile($rutaArchivo, $tipoMime, $nombre),
         ]);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 60);
 
         $uploadResponse = curl_exec($curl);
         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $curlError = curl_error($curl);
 
         curl_close($curl);
 
+        if ($uploadResponse === false) {
+            return [
+                'success' => false,
+                'httpCode' => $httpCode,
+                'error' => $curlError ?: 'Error de conexión al subir el archivo.',
+            ];
+        }
+
+        $exito = $httpCode >= 200 && $httpCode < 300;
+
         return [
-            'success' => ($httpCode === 200 || $httpCode === 204),
+            'success' => $exito,
             'httpCode' => $httpCode,
-            'response' => json_decode($uploadResponse, true)
+            'error' => $exito ? null : 'El servidor rechazó la subida (HTTP ' . $httpCode . ').',
+            'response' => json_decode($uploadResponse, true) ?? $uploadResponse,
         ];
     }
 
@@ -229,5 +264,29 @@ class pterodactylClientApi {
         }
 
         return $decoded;
+    }
+
+    public function renombrarArcihvo(string $idServidor, string $clientKey, string $ruta, string $nombreViejo, string $nombreNuevo) {
+      $url = "/servers/{$idServidor}/files/rename";
+
+      $datos = [
+        'root' => $ruta,
+        'files' => [
+            [
+                'from' => $nombreViejo,
+                'to' => $nombreNuevo,
+            ]
+        ]
+      ];
+
+      $body = json_encode($datos);
+
+      $respuesta = $this->request($url, $clientKey, 'PUT', $body, [], 'application/json');
+      $datosRespuesta = json_decode((string) $respuesta, true);
+
+      if (isset($datosRespuesta['errors'])) {
+        $detalle = $datosRespuesta['errors'][0]['detail'] ?? 'No se pudo renombrar o mover el archivo.';
+        throw new Exception($detalle);
+      }
     }
 }

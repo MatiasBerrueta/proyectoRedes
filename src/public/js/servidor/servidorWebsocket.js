@@ -41,12 +41,8 @@ export function reiniciarServidor() {
 }
 
 async function obtenerDatosWebSocket(id) {
-  const form = new FormData();
-  form.append("servidor_id", id);
-
-  const res = await fetch("/api/websocket", {
-    method: "POST",
-    body: form,
+  const res = await fetch(`/api/servidores/${id}/websocket`, {
+    method: "GET",
   });
 
   return await res.json();

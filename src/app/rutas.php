@@ -18,6 +18,7 @@ require_once APP_ROOT . 'servicios/ServicioJuego.php';
 require_once APP_ROOT . 'controladores/ControladorPagina.php';
 require_once APP_ROOT . 'controladores/ControladorUsuario.php';
 require_once APP_ROOT . 'controladores/ControladorServidor.php';
+require_once APP_ROOT . 'controladores/ControladorJuego.php';
 
 require_once APP_ROOT . 'modelos/ModeloUsuario.php';
 
@@ -45,6 +46,7 @@ $servicioJuego = new ServicioJuego($repositorioUsuario, $servicioServidor, $pter
 $controladorPagina = new ControladorPagina($repositorioPlan, $repositorioJuego);
 $controladorUsuario = new ControladorUsuario($servicioUsuario, $repositorioUsuario);
 $controladorServidor = new ControladorServidor($servicioServidor, $servicioJuego);
+$controladorJuego = new ControladorJuego($servicioJuego);
 
 // ------------------
 // Autenticacion
@@ -199,73 +201,49 @@ $router->get('/admin/config', function() {
 // Api
 // ------------------
 
-$router->post('/api/websocket', function() use ($repositorioUsuario, $pterodactylCliente) {
-    $idServidor = $_POST['servidor_id'];
-    $clientKey = $repositorioUsuario->obtenerClientKey($_SESSION['usuario']['id']);
-    $websocket = $pterodactylCliente->obtenerWebSocket($idServidor, $clientKey);
-
-    echo json_encode($websocket);
+$router->get('/api/servidores/([a-zA-Z0-9]+)/websocket', function($idServidor) use ($controladorJuego) {
+    $controladorJuego->obtenerWebSocket($idServidor);
 });
 
-$router->post('/api/servidores/subirMod', function() use ($controladorServidor) {
-    $controladorServidor->subirMod();
+$router->post('/api/servidores/([a-zA-Z0-9]+)/subirMod', function($idServidor) use ($controladorServidor) {
+    $controladorServidor->subirMod($idServidor);
 });
 
-// Redirección desde la ruta API anterior
-$router->post('/api/servidor/subirMod', function() {
-    header('Location: /api/servidores/subirMod');
+$router->get('api/servidores/([a-zA-Z0-9]+)/archivos', function($idServidor) use ($controladorJuego) {
+    $controladorJuego->listarArchivos($idServidor);
 });
 
-$router->post('/api/servidores/([a-zA-Z0-9]+)/accion/([a-zA-Z0-9]+)', function($idServidor, $accion) use ($controladorServidor) {
-    // $controladorServidor->ejecutarAccion($idServidor, $accion);
+$router->post('api/servidores/([a-zA-Z0-9]+)/archivos/eliminar', function($idServidor) use ($controladorJuego) {
+    $controladorJuego->eliminarArchivos($idServidor);
 });
 
-$router->get('api/servidores/([a-zA-Z0-9]+)/archivos', function($idServidor) use ($servicioJuego) {
-    // temporal, eliminar despues
-    $idUsuario = $_SESSION['usuario']['id'];
-    $path = $_GET['path'] ?? '/';
-    //
-
-    $archivos = $servicioJuego->obtenerArchivos($idServidor, $path, $idUsuario);
-
-    header('Content-Type: application/json');
-    echo json_encode(
-            $archivos,
-            JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE
-        );
+$router->post('api/servidores/([a-zA-Z0-9]+)/archivos/crearDirectorio', function($idServidor) use ($controladorJuego) {
+    $controladorJuego->crearDirectorio($idServidor);
 });
 
-$router->post('api/servidores/([a-zA-Z0-9]+)/archivos/eliminar', function($idServidor) use ($servicioJuego) {
-    // temporal, eliminar despues
-    $idUsuario = $_SESSION['usuario']['id'];
-
-    $inputJSON = file_get_contents('php://input');
-    $data = json_decode($inputJSON, true);
-
-    $ruta = $data['ruta'] ?? '/';
-    $archivos = $data['archivos'] ?? '';
-    //
-
-    $servicioJuego->eliminarArchivos($idServidor, $idUsuario, $ruta, $archivos);
+$router->post('api/servidores/([a-zA-Z0-9]+)/archivos/crearArchivo', function($idServidor) use ($controladorServidor) {
+    $controladorServidor->crearArchivo($idServidor);
 });
 
-$router->post('api/servidores/([a-zA-Z0-9]+)/archivos/crearDirectorio', function($idServidor) use ($servicioJuego) {
-    header('Content-Type: application/json');
-    // temporal, eliminar despues
-    $idUsuario = $_SESSION['usuario']['id'];
-    $inputJSON = file_get_contents('php://input');
-
-    $inputJSON = file_get_contents('php://input');
-    $data = json_decode($inputJSON, true);
-
-    $ruta = $data['ruta'] ?? '/';
-    $nombre = $data['nombre'] ?? '';
-    //
-
-    $servicioJuego->crearDirectorio($idServidor, $idUsuario, $ruta, $nombre);
+$router->post('api/servidores/([a-zA-Z0-9]+)/archivos/subirArchivo', function($idServidor) use ($controladorServidor) {
+    $controladorServidor->subirArchivo($idServidor);
 });
 
+$router->post('api/servidores/([a-zA-Z0-9]+)/archivos/moverArchivo', function($idServidor) use ($controladorServidor) {
+    $controladorServidor->moverArchivo($idServidor);
+});
 
+$router->post('api/servidores/([a-zA-Z0-9]+)/archivos/renombrarArchivo', function($idServidor) use ($controladorServidor) {
+    $controladorServidor->renombrarArchivo($idServidor);
+});
+
+$router->post('api/servidores/([a-zA-Z0-9]+)/archivos/descargarArchivo', function($idServidor) use ($controladorServidor) {
+    $controladorServidor->descargarArchivo($idServidor);
+});
+
+$router->post('api/servidores/([a-zA-Z0-9]+)/archivos/guardarArchivo', function($idServidor) use ($controladorServidor) {
+    $controladorServidor->guardarArchivo($idServidor);
+});
 
 $router->get('/api/servidores/([a-zA-Z0-9]+)/tabs/([a-zA-Z]+)', function($idServidor, $tabNombre) use ($controladorServidor) {
     $controladorServidor->obtenerTabPanel($idServidor, $tabNombre);
