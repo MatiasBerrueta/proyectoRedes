@@ -5,12 +5,16 @@ import {
   IconoDescartar,
   IconoGuardar,
 } from "../iconos.js";
+import { guardarArchivo, descargarArchivo } from "../../../api.js";
 
-export function EditorArchivo({ path, contenido, onGuardar, onDescargar }) {
+
+export function EditorArchivo({ path, contenido }) {
   const [valor, setValor] = useState(contenido ?? "");
   const [contenidoGuardado, setContenidoGuardado] = useState(contenido ?? "");
   const [estado, setEstado] = useState("sin-cambios");
   const [guardando, setGuardando] = useState(false);
+
+  console.log(path);
 
   useEffect(() => {
     const inicial = contenido ?? "";
@@ -50,8 +54,8 @@ export function EditorArchivo({ path, contenido, onGuardar, onDescargar }) {
   };
 
   const descargar = () => {
-    if (onDescargar) {
-      onDescargar({ path, contenido: valor });
+    if (descargarArchivo) {
+      descargarArchivo(path);
       return;
     }
 
@@ -71,11 +75,12 @@ export function EditorArchivo({ path, contenido, onGuardar, onDescargar }) {
 
     setGuardando(true);
     try {
-      if (onGuardar) await onGuardar({ path, contenido: valor });
+      await guardarArchivo(path, valor);
       setContenidoGuardado(valor);
       setEstado("guardado");
     } catch (error) {
       setEstado("error");
+      console.log(`Error al guardar: ${error}`);
     } finally {
       setGuardando(false);
     }

@@ -1,29 +1,18 @@
 import { html } from "../preact.js";
 import { IconoCarpeta } from "../iconos.js";
+import { crearDirectorio } from "../../../api.js";
 
-export function NuevoDirectorio({ rutaActual, idServidor, onCreado }) {
-  const crearDirectorio = async (event) => {
+export function NuevoDirectorio({ rutaActual, onCreado }) {
+  const crear = async (event) => {
     event.preventDefault();
 
     const form = event.currentTarget;
-    const formData = new FormData(form);
-    const nombre = formData.get("nombre");
+    const nombre = new FormData(form).get("nombre")?.trim();
 
-    const ruta = "/" + String(rutaActual ?? "").replace(/^\/+|\/+$/g, "");
-
-    const body = JSON.stringify({
-      "ruta": ruta,
-      "nombre": nombre,
-    })
+    if (!nombre) return;
 
     try {
-      const respuesta = await fetch(`/api/servidores/${idServidor}/archivos/crearDirectorio`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: body
-      });
-      if (!respuesta.ok) throw new Error(await respuesta.text());
-
+      await crearDirectorio(rutaActual, nombre);
       form.reset();
       form.closest("dialog").close();
       onCreado();
@@ -39,7 +28,7 @@ export function NuevoDirectorio({ rutaActual, idServidor, onCreado }) {
         <span>Nueva carpeta</span>
         <button class="boton boton--fantasma boton--cerrar-modal" commandfor="nueva-carpeta-modal" command="close">X</button>
       </div>
-      <form class="modal-contenido" onSubmit=${crearDirectorio}>
+      <form class="modal-contenido" onSubmit=${crear}>
         <div class="flex-align-items">
           <${ IconoCarpeta } />
           <div class="form-group">

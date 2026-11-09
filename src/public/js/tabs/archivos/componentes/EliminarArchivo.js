@@ -1,28 +1,19 @@
 import { html } from "../preact.js";
 import { IconoEliminar } from "../iconos.js";
+import { eliminarArchivos } from "../../../api.js";
 import { objetivosAccion } from "../App.js";
 
-export function EliminarArchivo({ rutaActual, idServidor, onEliminado }) {
-  const eliminarArchivo = async (event) => {
+export function EliminarArchivo({ rutaActual, onEliminado }) {
+  const eliminar = async (event) => {
     event.preventDefault();
 
     const form = event.currentTarget;
+    const archivos = objetivosAccion.value;
 
-    const ruta = "/" + String(rutaActual ?? "").replace(/^\/+|\/+$/g, "");
-
-    const body = JSON.stringify({
-      "ruta": ruta,
-      "archivos": objetivosAccion.value,
-    })
+    if (archivos.length === 0) return;
 
     try {
-      const respuesta = await fetch(`/api/servidores/${idServidor}/archivos/eliminar`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: body
-      });
-      if (!respuesta.ok) throw new Error(await respuesta.text());
-
+      await eliminarArchivos(rutaActual, archivos);
       form.closest("dialog").close();
       onEliminado();
     } catch (error) {
@@ -37,7 +28,7 @@ export function EliminarArchivo({ rutaActual, idServidor, onEliminado }) {
         <span>Eliminar archivo</span>
         <button class="boton boton--fantasma boton--cerrar-modal" commandfor="eliminar-archivo-modal" command="close">X</button>
       </div>
-      <form class="modal-contenido" onSubmit=${eliminarArchivo}>
+      <form class="modal-contenido" onSubmit=${eliminar}>
         <div class="flex-align-items">
           <${ IconoEliminar } />
           <div class="form-group">
