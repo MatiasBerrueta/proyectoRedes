@@ -35,7 +35,6 @@ export function App({ datosIniciales, servidor }) {
         ? html`<${ListadoDirectorio}
             path=${datos.path}
             archivos=${datos.archivos || []}
-            idServidor=${servidor.identifier}
             onNavegar=${navegar}
           />`
         : html`<${EditorArchivo}

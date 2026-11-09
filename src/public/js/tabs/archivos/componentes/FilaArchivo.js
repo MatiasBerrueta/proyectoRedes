@@ -9,6 +9,7 @@ export function FilaArchivo({
   onAbrir,
 }) {
   const abrir = () => onAbrir(item.path);
+  const tipo = item.esArchivo ? 'archivo' : 'directorio';
 
   const accionIndividual = (event) => {
     event.stopPropagation();
@@ -19,7 +20,7 @@ export function FilaArchivo({
   }
 
   return html`
-    <div class=${"item " + item.tipo} data-tipo=${item.tipo} data-path=${item.path} onClick=${abrir}>
+    <div class=${`item ${tipo}`} data-tipo=${tipo} data-path=${item.path} onClick=${abrir}>
       <input
         type="checkbox"
         name="archivos-seleccionados"

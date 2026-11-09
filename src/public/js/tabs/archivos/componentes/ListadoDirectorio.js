@@ -1,22 +1,15 @@
-import { html, useState, useMemo, useRef, useEffect } from "../preact.js";
+import { html, useState, useMemo } from "../preact.js";
 import { normalizar, comparar } from "../utilidades.js";
 import { FilaArchivo } from "./FilaArchivo.js";
-import { NuevoDirectorio } from "./NuevoDirectorio.js";
-import { NuevoArchivo } from "./NuevoArchivo.js";
-import { SubirArchivo } from "./SubirArchivo.js";
-import { EliminarArchivo } from "./EliminarArchivo.js";
-import { MoverArchivo } from "./MoverArchivo.js";
-import { RenombrarArchivo } from "./RenombrarArchivo.js";
-import { IconoBusqueda, IconoOrden, IconoPlus, IconoFilePlus, IconoSubir, IconoEliminar, IconoMover, IconoCerrar, IconoDescargar, IconoRenombrar } from "../iconos.js";
+import { BarraHerramientas } from "./BarraHerramientas.js";
+import { SeleccionFlotante } from "./SeleccionFlotante.js";
+import { EncabezadoTabla } from "./EncabezadoTabla.js";
+import { MenuAcciones } from "./MenuAcciones.js";
+import { ModalesArchivos } from "./ModalesArchivos.js";
 import { objetivosAccion, seleccionadosIds } from "../App.js";
+import { descargarArchivo } from "../../../api.js";
 
-const COLUMNAS = [
-  { campo: "nombre", etiqueta: "Nombre" },
-  { campo: "tamano", etiqueta: "Tamano" },
-  { campo: "modificado", etiqueta: "Modificado" },
-];
-
-export function ListadoDirectorio({ path, archivos, idServidor, onNavegar }) {
+export function ListadoDirectorio({ path, archivos, onNavegar }) {
   const [busqueda, setBusqueda] = useState("");
   const [orden, setOrden] = useState({ campo: "nombre", direccion: "asc" });
 
@@ -24,9 +17,7 @@ export function ListadoDirectorio({ path, archivos, idServidor, onNavegar }) {
     objetivosAccion.value = [...seleccionadosIds.value];
 
     console.log(`Acciones sobre seleccion: ${objetivosAccion.value}`);
-  }
-
-  const checkboxTodos = useRef(null);
+  };
 
   const visibles = useMemo(() => {
     const termino = normalizar(busqueda.trim());
@@ -41,21 +32,13 @@ export function ListadoDirectorio({ path, archivos, idServidor, onNavegar }) {
     [archivos, seleccionadosIds.value],
   );
 
-  const cantidadSeleccionada = itemsSeleccionados.length;
-
   const cantidadVisibleSeleccionada = useMemo(
     () => visibles.filter((item) => seleccionadosIds.value.has(item.nombre)).length,
     [visibles, seleccionadosIds.value],
   );
 
-  useEffect(() => {
-    if (!checkboxTodos.current) return;
-    checkboxTodos.current.checked =
-      visibles.length > 0 && cantidadVisibleSeleccionada === visibles.length;
-    checkboxTodos.current.indeterminate =
-      cantidadVisibleSeleccionada > 0 &&
-      cantidadVisibleSeleccionada < visibles.length;
-  }, [visibles, cantidadVisibleSeleccionada]);
+  const todos = visibles.length > 0 && cantidadVisibleSeleccionada === visibles.length;
+  const indeterminado = cantidadVisibleSeleccionada > 0 && !todos;
 
   const alternarItem = (archivo) => {
     const idsActualizados = new Set(seleccionadosIds.value);
@@ -80,12 +63,18 @@ export function ListadoDirectorio({ path, archivos, idServidor, onNavegar }) {
     seleccionadosIds.value = new Set();
   };
 
-  const onDescargar = () => {
-    console.log('Descargando...');
-  }
+  const onDescargar = async () => {
+    const link = await descargarArchivo(path, objetivosAccion.value[0]);
+    console.log(link);
 
-  const accionSeleccion = (callback) => () => {
-    if (callback) callback(itemsSeleccionados);
+    const enlace = document.createElement('a');
+    enlace.href = link;
+    enlace.setAttribute('download', '');
+    enlace.style.display = 'none';
+
+    document.body.appendChild(enlace);
+    enlace.click();
+    document.body.removeChild(enlace);
   };
 
   const ordenarPor = (campo) => {
@@ -97,119 +86,38 @@ export function ListadoDirectorio({ path, archivos, idServidor, onNavegar }) {
   };
 
   return html`
-    <div class="archivos-toolbar">
-      <div class="archivos-busqueda">
-        <${IconoBusqueda} />
-        <input
-          type="search"
-          placeholder="Buscar archivos y carpetas..."
-          value=${busqueda}
-          onInput=${(e) => setBusqueda(e.target.value)}
-        />
-      </div>
-      <div class="acciones">
-        <button type="button" class="boton boton--s" commandfor="nueva-carpeta-modal" command="show-modal">
-          <${IconoPlus} /> Nueva carpeta
-        </button>
-        <button type="button" class="boton boton--s" commandfor="nuevo-archivo-modal" command="show-modal">
-          <${IconoFilePlus} /> Nuevo archivo
-        </button>
-        <button type="button" class="boton boton--s boton--primario" commandfor="subir-archivo-modal" command="show-modal">
-          <${IconoSubir} /> Subir archivo
-        </button>
-        <!--<input type="file" id="inputArchivo" />-->
-      </div>
-    </div>
+    <${BarraHerramientas} busqueda=${busqueda} onBuscar=${setBusqueda} />
 
-    ${html`
-      <div
-        class=${"archivos-seleccion-flotante" +
-        (cantidadSeleccionada > 0 ? " activo" : "")}
-        role="toolbar"
-        aria-label="Acciones de la selección"
-        aria-hidden=${cantidadSeleccionada === 0}
-        inert=${cantidadSeleccionada === 0 ? "" : undefined}
-      >
-        <span class="archivos-seleccion-contador">
-          <strong>${cantidadSeleccionada} </strong>
-          ${cantidadSeleccionada <= 1 ? "seleccionado" : "seleccionados"}
-        </span>
-        <div class="archivos-seleccion-acciones">
-          <button
-            type="button"
-            class="boton boton--s"
-            onClick=${accionSeleccion(onDescargar)}
-          >
-            <${IconoDescargar} /> Descargar
-          </button>
-          <button
-            type="button"
-            class="boton boton--s"
-            commandfor="mover-archivo-modal"
-            command="show-modal"
-          >
-            <${IconoMover} /> Mover
-          </button>
-          <button
-            type="button"
-            class="boton boton--s boton--peligro"
-            commandfor="eliminar-archivo-modal"
-            command="show-modal"
-            onClick=${accionSeleccionados}
-          >
-            <${IconoEliminar} /> Eliminar
-          </button>
-          <button
-            type="button"
-            class="boton boton--s boton--fantasma boton--cancelar"
-            title="Cancelar selección"
-            onClick=${cancelarSeleccion}
-          >
-            <${IconoCerrar} />
-          </button>
-        </div>
-      </div>
-    `}
+    <${SeleccionFlotante}
+      cantidad=${itemsSeleccionados.length}
+      onDescargar=${onDescargar}
+      onMover=${accionSeleccionados}
+      onEliminar=${accionSeleccionados}
+      onCancelar=${cancelarSeleccion}
+    />
 
     <div class="contenedor-archivos">
-      <div class="contenedor-archivos-header">
-        <input
-          type="checkbox"
-          value="all"
-          name="archivos-seleccionados"
-          ref=${checkboxTodos}
-          onChange=${alternarTodos}
-        />
-        ${COLUMNAS.map(({ campo, etiqueta }) => {
-          const activo = orden.campo === campo;
-          const clases = [
-            "columna-boton",
-            activo ? "activo" : "",
-            activo ? orden.direccion : "",
-          ]
-            .join(" ")
-            .trim();
+      <${EncabezadoTabla}
+        orden=${orden}
+        onOrdenar=${ordenarPor}
+        todos=${todos}
+        indeterminado=${indeterminado}
+        onAlternarTodos=${alternarTodos}
+      />
 
-          return html`
-            <button
-              key=${campo}
-              type="button"
-              class=${clases}
-              onClick=${() => ordenarPor(campo)}
-            >
-              ${etiqueta}
-              <${IconoOrden} />
-            </button>
-          `;
-        })}
-      </div>
-
-      ${visibles.length === 0
+      ${busqueda != "" && visibles.length === 0
         ? html`<div class="archivos-vacio">
-            <strong>Sin resultados</strong>
+          <strong>Sin resultados</strong>
+          <span
+            >No se encontraron archivos o carpetas que coincidan con la
+            búsqueda.</span
+          >
+        </div>`
+        : visibles.length === 0
+        ? html`<div class="archivos-vacio">
+            <strong>Directorio vacio</strong>
             <span
-              >No se encontraron archivos o carpetas que coincidan con la
-              búsqueda.</span
+              >Este directorio no tiene contenido.</span
             >
           </div>`
         : visibles.map(
@@ -224,50 +132,11 @@ export function ListadoDirectorio({ path, archivos, idServidor, onNavegar }) {
             `,
           )}
     </div>
-    <div
-      id="archivo-popover"
-      class="archivos-popover"
-      popover
-      aria-labelledby="archivos-popover-titulo"
-    >
-      <div class="archivos-popover__opciones">
-        <button
-          type="button"
-          class="archivos-popover__opcion"
-          commandfor="renombrar-archivo-modal"
-          command="show-modal"
-        >
-          <${IconoRenombrar} /> Renombrar
-        </button>
-        <button
-          type="button"
-          class="archivos-popover__opcion"
-        >
-          <${IconoDescargar} /> Descargar
-        </button>
-        <button
-          type="button"
-          class="archivos-popover__opcion"
-          commandfor="mover-archivo-modal"
-          command="show-modal"
-        >
-          <${IconoMover} /> Mover
-        </button>
-        <button
-          type="button"
-          class="archivos-popover__opcion archivos-popover__opcion--peligro"
-          commandfor="eliminar-archivo-modal"
-          command="show-modal"
-        >
-          <${IconoEliminar} /> Eliminar
-        </button>
-      </div>
-    </div>
-    <${NuevoDirectorio} rutaActual=${path} idServidor=${idServidor} onCreado=${() => onNavegar(path)} />
-    <${NuevoArchivo} rutaActual=${path}/>
-    <${SubirArchivo} rutaActual=${path}/>
-    <${MoverArchivo} rutaActual=${path}/>
-    <${RenombrarArchivo} />
-    <${EliminarArchivo} rutaActual=${path} idServidor=${idServidor} onEliminado=${() => onNavegar(path)} />
+
+    <${MenuAcciones} onDescargar=${onDescargar} />
+    <${ModalesArchivos}
+      rutaActual=${path}
+      onNavegar=${onNavegar}
+    />
   `;
 }
